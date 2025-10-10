@@ -1,0 +1,38 @@
+{
+  "name": "blog-spec-kit",
+  "description": "AI-powered blog article generation with spec-driven development",
+  "version": "0.1.0",
+  "owner": {
+    "name": "Leo Brival",
+    "email": "leo@example.com"
+  },
+  "plugins": [
+    {
+      "name": "blog-spec-kit",
+      "source": ".",
+      "description": "CLI for generating AI-optimized blog articles with multi-agent workflow (Research, SEO, Marketing)",
+      "version": "0.1.0",
+      "author": "Leo Brival",
+      "homepage": "https://github.com/leobrival/blog-kit",
+      "repository": "https://github.com/leobrival/blog-kit",
+      "license": "MIT",
+      "keywords": [
+        "blog",
+        "content-generation",
+        "seo",
+        "markdown",
+        "ai-agents",
+        "spec-driven",
+        "typescript",
+        "bun"
+      ],
+      "category": "productivity",
+      "tags": [
+        "content",
+        "seo",
+        "marketing",
+        "research"
+      ]
+    }
+  ]
+}

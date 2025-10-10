@@ -16,10 +16,28 @@ Inspiré de [spec-kit](https://github.com/github/spec-kit) de GitHub, adapté po
 
 ## 📦 Installation
 
+### Option 1: Claude Code Plugin (Recommandé) ⚡
+
+Installation en une commande depuis Claude Code:
+
+```bash
+/plugin marketplace add leobrival/blog-kit
+/plugin install blog-spec-kit
+```
+
+Puis utilisez directement:
+```bash
+blog-spec init
+blog-spec analyze
+blog-spec article "Mon sujet"
+```
+
+### Option 2: Installation Manuelle
+
 ```bash
 # Clone le repo
-git clone <repo-url>
-cd blog-spec-kit
+git clone https://github.com/leobrival/blog-kit.git
+cd blog-kit
 
 # Installer avec Bun
 bun install
@@ -29,6 +47,16 @@ bun run build
 
 # Ou lancer en dev
 bun run dev
+```
+
+### Option 3: Installation Globale
+
+```bash
+# Depuis le dossier du projet
+bun link
+
+# Puis utiliser partout
+blog-spec init
 ```
 
 ## 🎯 Usage

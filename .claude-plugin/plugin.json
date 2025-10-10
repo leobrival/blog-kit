@@ -1,0 +1,89 @@
+{
+  "name": "blog-spec-kit",
+  "version": "0.1.0",
+  "description": "CLI for generating AI-optimized blog articles with multi-agent workflow",
+  "main": "src/index.tsx",
+  "author": "Leo Brival",
+  "license": "MIT",
+  "homepage": "https://github.com/leobrival/blog-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leobrival/blog-kit.git"
+  },
+  "keywords": [
+    "blog",
+    "content-generation",
+    "seo",
+    "markdown",
+    "ai-agents",
+    "spec-driven"
+  ],
+  "commands": [
+    {
+      "name": "blog-spec",
+      "description": "Blog Spec Kit CLI",
+      "usage": "blog-spec <command>",
+      "commands": [
+        {
+          "name": "init",
+          "description": "Initialize a new blog with interactive questionnaire",
+          "usage": "blog-spec init"
+        },
+        {
+          "name": "analyze",
+          "description": "Analyze directory content to generate constitution automatically",
+          "usage": "blog-spec analyze [directory]"
+        },
+        {
+          "name": "generate",
+          "description": "Generate Markdown structure from .spec/blog.spec.json",
+          "usage": "blog-spec generate"
+        },
+        {
+          "name": "validate",
+          "description": "Validate blog specification against schema",
+          "usage": "blog-spec validate"
+        },
+        {
+          "name": "article",
+          "description": "Complete workflow: research → seo → marketing",
+          "usage": "blog-spec article <topic> [--agents research,seo,marketing]"
+        },
+        {
+          "name": "check",
+          "description": "Check available tools (AI agents, Git, etc.)",
+          "usage": "blog-spec check"
+        }
+      ]
+    }
+  ],
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "dependencies": {
+    "commander": "^14.0.1",
+    "ink": "^6.3.1",
+    "react": "^19.0.0",
+    "zod": "^4.1.12",
+    "chalk": "^5.6.2",
+    "gradient-string": "^3.0.0"
+  },
+  "installation": {
+    "steps": [
+      "Clone or download the repository",
+      "Run 'bun install' to install dependencies",
+      "Use 'bun run dev <command>' or 'bun link' for global access"
+    ]
+  },
+  "features": [
+    "Multi-agent AI workflow (Research Intelligence, SEO Specialist, Marketing Specialist)",
+    "Automatic constitution generation from existing content",
+    "Spec-driven development approach",
+    "5 slash command templates",
+    "Zod schema validation",
+    "Markdown generation with frontmatter",
+    "SEO optimization (keyword density, meta tags, Schema.org)",
+    "Research intelligence (sources, FAQ, citations)",
+    "Marketing assets (CTAs, social posts, email templates)"
+  ]
+}
