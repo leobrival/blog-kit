@@ -1,5 +1,5 @@
 {
-  "name": "blog-spec-kit",
+  "name": "blog-kit",
   "version": "0.1.0",
   "description": "CLI for generating AI-optimized blog articles with multi-agent workflow",
   "main": "src/index.tsx",

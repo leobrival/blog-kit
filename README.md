@@ -22,7 +22,7 @@ Installation en une commande depuis Claude Code:
 
 ```bash
 /plugin marketplace add leobrival/blog-kit
-/plugin install blog-spec-kit
+/plugin install blog-kit
 ```
 
 Puis utilisez directement:
@@ -144,7 +144,7 @@ blog-spec article "Votre sujet" --agents seo
 ## 📁 Structure du projet
 
 ```
-blog-spec-kit/
+blog-kit/
 ├── src/
 │   ├── index.tsx              # Entry point CLI
 │   ├── cli/

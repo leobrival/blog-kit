@@ -114,7 +114,7 @@ $ bun run dev article "Guide: Extension Raycast + Adonis v6"
 ## 📁 Structure finale
 
 ```
-blog-spec-kit/
+blog-kit/
 ├── src/
 │   ├── index.tsx                    # CLI principal
 │   ├── cli/
@@ -356,7 +356,7 @@ blog-spec article "Topic" --branch
 
 ## 🏆 Comparaison avec spec-kit original
 
-| Aspect | spec-kit (GitHub) | blog-spec-kit (Ce projet) |
+| Aspect | spec-kit (GitHub) | blog-kit (Ce projet) |
 |--------|-------------------|---------------------------|
 | **Language** | Python | TypeScript + Bun |
 | **UI** | Typer + Rich | Commander + Ink |

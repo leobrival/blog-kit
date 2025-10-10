@@ -1,5 +1,5 @@
 {
-  "name": "blog-spec-kit",
+  "name": "blog-kit",
   "version": "0.1.0",
   "description": "CLI pour génération d'articles de blog optimisés par IA avec spec-driven development",
   "module": "index.ts",
