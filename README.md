@@ -1,8 +1,22 @@
-# Blog Spec Kit
+# Blog Kit
 
 CLI pour génération d'articles de blog optimisés par IA avec spec-driven development.
 
 Inspiré de [spec-kit](https://github.com/github/spec-kit) de GitHub, adapté pour la création de contenu éditorial avec agents IA multi-étapes.
+
+## ⚡ Installation Rapide (Claude Code Plugin)
+
+```bash
+/plugin marketplace add leobrival/blog-kit
+/plugin install blog-kit
+```
+
+Puis utilisez immédiatement:
+```bash
+blog-spec analyze        # Analyser un dossier existant
+blog-spec init          # Ou créer une nouvelle configuration
+blog-spec article "Sujet"  # Générer un article avec agents IA
+```
 
 ## 🚀 Features
 
@@ -14,25 +28,9 @@ Inspiré de [spec-kit](https://github.com/github/spec-kit) de GitHub, adapté po
 - **Markdown generation**: Structure complète avec frontmatter optimisé
 - **Agent orchestration**: Workflow automatisé research → SEO → marketing
 
-## 📦 Installation
+## 📦 Autres méthodes d'installation
 
-### Option 1: Claude Code Plugin (Recommandé) ⚡
-
-Installation en une commande depuis Claude Code:
-
-```bash
-/plugin marketplace add leobrival/blog-kit
-/plugin install blog-kit
-```
-
-Puis utilisez directement:
-```bash
-blog-spec init
-blog-spec analyze
-blog-spec article "Mon sujet"
-```
-
-### Option 2: Installation Manuelle
+### Installation Manuelle
 
 ```bash
 # Clone le repo
@@ -49,7 +47,7 @@ bun run build
 bun run dev
 ```
 
-### Option 3: Installation Globale
+### Installation Globale (après clonage)
 
 ```bash
 # Depuis le dossier du projet
@@ -58,6 +56,8 @@ bun link
 # Puis utiliser partout
 blog-spec init
 ```
+
+---
 
 ## 🎯 Usage
 
