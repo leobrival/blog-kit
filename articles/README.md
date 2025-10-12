@@ -26,6 +26,7 @@ articles/
 ## Language Codes
 
 Supported languages (from `.spec/blog.spec.json`):
+
 - `en` - English
 - `fr` - French
 - `es` - Spanish (add as needed)
@@ -34,6 +35,7 @@ Supported languages (from `.spec/blog.spec.json`):
 ## Slug Naming Convention
 
 Article slugs are sanitized versions of titles:
+
 - Lowercase only
 - Hyphens instead of spaces
 - No special characters
@@ -42,13 +44,17 @@ Article slugs are sanitized versions of titles:
 ## Image Management
 
 ### Original Images
+
 Place original images in `images/.backup/`:
+
 ```bash
 articles/en/my-article/images/.backup/screenshot.png
 ```
 
 ### Optimized Images
+
 Run `/blog-optimize-images` to create optimized versions:
+
 ```bash
 /blog-optimize-images "en/my-article"
 
@@ -64,6 +70,7 @@ Run `/blog-optimize-images` to create optimized versions:
 **Tool**: ffmpeg (cross-platform: Windows, macOS, Linux)
 
 **Supported formats** (source → target):
+
 - `.png` → `.webp`
 - `.jpg` / `.jpeg` → `.webp`
 - `.gif` → `.webp` (first frame for static)
@@ -71,6 +78,7 @@ Run `/blog-optimize-images` to create optimized versions:
 - `.tiff` → `.webp`
 
 **Install ffmpeg**:
+
 ```bash
 # macOS
 brew install ffmpeg
@@ -85,16 +93,19 @@ sudo apt-get install ffmpeg
 ### Manual Image Workflow
 
 1. **Place original image**:
+
    ```bash
    cp ~/Downloads/diagram.png articles/en/my-article/images/.backup/
    ```
 
 2. **Reference in article** (use original name first):
+
    ```markdown
    ![Architecture diagram](images/.backup/diagram.png)
    ```
 
 3. **Run optimization**:
+
    ```bash
    /blog-optimize-images "en/my-article"
    ```
@@ -107,6 +118,7 @@ sudo apt-get install ffmpeg
 ## Article Structure
 
 ### Frontmatter
+
 ```yaml
 ---
 title: "Article Title"
@@ -120,6 +132,7 @@ slug: "article-slug"
 ```
 
 ### Content
+
 - Main heading (H1) from frontmatter title
 - Sections with H2/H3 structure
 - Images with optimized paths
@@ -128,11 +141,13 @@ slug: "article-slug"
 ### Image References
 
 **Absolute path** (from article root):
+
 ```markdown
 ![Alt text](/images/diagram.webp)
 ```
 
 **Relative path** (recommended):
+
 ```markdown
 ![Alt text](images/diagram.webp)
 ```
@@ -158,11 +173,13 @@ When using commands, specify language:
 ### File Placement
 
 Agents will create articles in:
+
 ```
 articles/{language}/{sanitized-slug}/article.md
 ```
 
 Example:
+
 ```bash
 /blog-marketing "en/nodejs-best-practices"
 
@@ -186,11 +203,13 @@ Example:
 ### Cross-Language Linking
 
 In English article:
+
 ```markdown
 🇫🇷 [Lire en français](/fr/microservices-logging)
 ```
 
 In French article:
+
 ```markdown
 🇬🇧 [Read in English](/en/microservices-logging)
 ```
@@ -198,11 +217,13 @@ In French article:
 ## Image Optimization Tips
 
 ### Before Optimization
+
 - Use descriptive names: `architecture-diagram.png` (not `image1.png`)
 - Keep originals high quality (will be backed up)
 - Use consistent naming across articles
 
 ### After Optimization
+
 - Check `.backup/` contains originals ✅
 - Verify `.webp` files exist ✅
 - Test image loading in article preview ✅
@@ -211,6 +232,7 @@ In French article:
 ### Troubleshooting
 
 **Images not found after optimization**:
+
 ```bash
 # Check paths in article.md
 grep "!\[" articles/en/my-article/article.md
@@ -220,6 +242,7 @@ ls articles/en/my-article/images/
 ```
 
 **Re-optimize if needed**:
+
 ```bash
 # Restore from backup
 cp articles/en/my-article/images/.backup/* articles/en/my-article/images/
@@ -231,17 +254,21 @@ cp articles/en/my-article/images/.backup/* articles/en/my-article/images/
 ## Storage Guidelines
 
 ### What to Commit
+
 - ✅ `article.md` files
 - ✅ `.backup/` original images (optional, see below)
 - ✅ Optimized `.webp` images
 - ✅ `README.md` (this file)
 
 ### What NOT to Commit
+
 - ❌ Temporary files (`.tmp`, `.bak`)
 - ❌ OS files (`.DS_Store`, `Thumbs.db`)
 
 ### Large Images
+
 For very large originals (>5MB), consider:
+
 1. Storing backups externally (cloud, CDN)
 2. Only committing optimized versions
 3. Documenting source in `article.md` frontmatter
@@ -249,6 +276,7 @@ For very large originals (>5MB), consider:
 ## Integration with Constitution
 
 Language settings in `.spec/blog.spec.json`:
+
 ```json
 {
   "blog": {

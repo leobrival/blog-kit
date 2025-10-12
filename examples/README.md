@@ -23,6 +23,12 @@ Example configurations and usage patterns for Blog Kit.
      - `pédagogique` - Educational, patient
      - `convivial` - Friendly, casual
      - `corporate` - Professional, formal
+   - Set `blog.content_directory` (default: `"articles"`):
+     - `"articles"` - Standard directory name
+     - `"content"` - Alternative for Hugo/Gatsby projects
+     - `"posts"` - Common for Jekyll/WordPress
+     - Or any custom directory name
+   - Configure `blog.languages` - Supported languages (e.g., `["en", "fr"]`)
    - Customize `brand_rules.voice_do` - What your content should be
    - Customize `brand_rules.voice_dont` - What to avoid
 
@@ -42,6 +48,7 @@ Example configurations and usage patterns for Blog Kit.
     "objective": "What's the goal?",
     "tone": "expert|pédagogique|convivial|corporate",
     "languages": ["en", "fr"],
+    "content_directory": "articles",
     "brand_rules": {
       "voice_do": [
         "Guideline 1",
@@ -78,6 +85,55 @@ Instead of manually creating the constitution, use the interactive wizard:
 
 This will guide you through the configuration process and create `.spec/blog.spec.json` automatically.
 
+## Content Directory Configuration
+
+The `content_directory` field allows you to customize where articles are stored:
+
+```json
+{
+  "blog": {
+    "content_directory": "articles"  // Default
+  }
+}
+```
+
+**Common configurations**:
+
+- **`"articles"`** (default) - Standard Blog Kit structure
+  ```
+  articles/
+  ├── en/
+  ├── fr/
+  └── es/
+  ```
+
+- **`"content"`** - For Hugo, Gatsby, or Astro projects
+  ```
+  content/
+  ├── en/
+  ├── fr/
+  └── es/
+  ```
+
+- **`"posts"`** - For Jekyll, WordPress, or traditional blogs
+  ```
+  posts/
+  ├── en/
+  ├── fr/
+  └── es/
+  ```
+
+- **Custom** - Any directory name you prefer
+  ```json
+  {
+    "blog": {
+      "content_directory": "blog-posts"
+    }
+  }
+  ```
+
+**Important**: All agents will respect this configuration. When you run commands like `/blog-translate`, the validation scripts automatically read this field and scan the correct directory.
+
 ## Validation
 
 Validate your constitution before using it:
@@ -90,6 +146,7 @@ This checks:
 - ✅ File exists at `.spec/blog.spec.json`
 - ✅ Valid JSON syntax
 - ✅ Required fields present (`blog.name`, `blog.context`, `blog.tone`)
+- ✅ Content directory is valid (if specified)
 
 ## Examples of Good Brand Rules
 

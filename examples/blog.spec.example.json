@@ -6,6 +6,7 @@
     "objective": "Generate qualified leads and establish thought leadership in cloud-native technologies",
     "tone": "pédagogique",
     "languages": ["en", "fr"],
+    "content_directory": "articles",
     "brand_rules": {
       "voice_do": [
         "Clear and actionable",

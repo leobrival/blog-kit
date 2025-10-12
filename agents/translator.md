@@ -4,6 +4,30 @@
 
 **Purpose**: Validate i18n consistency, detect missing translations, and translate articles while preserving technical accuracy and SEO optimization.
 
+## Configuration
+
+### Content Directory
+
+The content directory is configurable via `.spec/blog.spec.json`:
+
+```json
+{
+  "blog": {
+    "content_directory": "articles"  // Default: "articles", can be "content", "posts", etc.
+  }
+}
+```
+
+**In all bash scripts, read this configuration**:
+```bash
+CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
+```
+
+**Usage in paths**:
+- `$CONTENT_DIR/$LANG/$SLUG/article.md` instead of hardcoding `articles/...`
+- `$CONTENT_DIR/$LANG/$SLUG/images/` for images
+- All validation scripts must respect this configuration
+
 ## Core Responsibilities
 
 1. **Structure Validation**: Verify i18n consistency across languages
@@ -17,7 +41,7 @@
 ### Objectives
 
 - Load constitution from `.spec/blog.spec.json`
-- Scan `articles/` directory structure
+- Scan content directory structure (configurable)
 - Generate validation script in `/tmp/`
 - Identify language coverage gaps
 
@@ -27,15 +51,18 @@
    ```bash
    # Read language configuration
    cat .spec/blog.spec.json | grep -A 10 '"languages"'
+
+   # Read content directory (default: "articles")
+   CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
    ```
 
 2. **Scan Article Structure**:
    ```bash
    # List all language directories
-   ls -d articles/*/
+   ls -d "$CONTENT_DIR"/*/
 
    # Count articles per language
-   for lang in articles/*/; do
+   for lang in "$CONTENT_DIR"/*/; do
      count=$(find "$lang" -maxdepth 1 -type d | wc -l)
      echo "$lang: $count articles"
    done
@@ -47,7 +74,9 @@
    # Multi-language structure validation
 
    SPEC_FILE=".spec/blog.spec.json"
-   ARTICLES_DIR="articles"
+
+   # Extract content directory from spec (default: "articles")
+   CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' "$SPEC_FILE")
 
    # Extract supported languages from spec
    LANGUAGES=$(jq -r '.blog.languages[]' "$SPEC_FILE")
@@ -59,9 +88,9 @@
 
    # Check each language exists
    for lang in $LANGUAGES; do
-     if [ ! -d "$ARTICLES_DIR/$lang" ]; then
+     if [ ! -d "$CONTENT_DIR/$lang" ]; then
        echo "❌ Missing language directory: $lang" >> /tmp/translation-report.md
-       mkdir -p "$ARTICLES_DIR/$lang"
+       mkdir -p "$CONTENT_DIR/$lang"
      else
        echo "✅ Language directory exists: $lang" >> /tmp/translation-report.md
      fi
@@ -70,8 +99,8 @@
    # Build article slug list (union of all languages)
    ALL_SLUGS=()
    for lang in $LANGUAGES; do
-     if [ -d "$ARTICLES_DIR/$lang" ]; then
-       for article_dir in "$ARTICLES_DIR/$lang"/*; do
+     if [ -d "$CONTENT_DIR/$lang" ]; then
+       for article_dir in "$CONTENT_DIR/$lang"/*; do
          if [ -d "$article_dir" ]; then
            slug=$(basename "$article_dir")
            if [[ ! " ${ALL_SLUGS[@]} " =~ " ${slug} " ]]; then
@@ -90,7 +119,7 @@
    for slug in "${ALL_SLUGS[@]}"; do
      echo "### $slug" >> /tmp/translation-report.md
      for lang in $LANGUAGES; do
-       article_path="$ARTICLES_DIR/$lang/$slug/article.md"
+       article_path="$CONTENT_DIR/$lang/$slug/article.md"
        if [ -f "$article_path" ]; then
          word_count=$(wc -w < "$article_path")
          echo "- ✅ **$lang**: $word_count words" >> /tmp/translation-report.md
@@ -110,8 +139,8 @@
 
    ACTUAL_TOTAL=0
    for lang in $LANGUAGES; do
-     if [ -d "$ARTICLES_DIR/$lang" ]; then
-       count=$(find "$ARTICLES_DIR/$lang" -name "article.md" | wc -l)
+     if [ -d "$CONTENT_DIR/$lang" ]; then
+       count=$(find "$CONTENT_DIR/$lang" -name "article.md" | wc -l)
        ACTUAL_TOTAL=$((ACTUAL_TOTAL + count))
      fi
    done
@@ -131,12 +160,12 @@
 
    for slug in "${ALL_SLUGS[@]}"; do
      for lang in $LANGUAGES; do
-       article_path="$ARTICLES_DIR/$lang/$slug/article.md"
+       article_path="$CONTENT_DIR/$lang/$slug/article.md"
        if [ ! -f "$article_path" ]; then
          # Find source language (first available)
          SOURCE_LANG=""
          for src_lang in $LANGUAGES; do
-           if [ -f "$ARTICLES_DIR/$src_lang/$slug/article.md" ]; then
+           if [ -f "$CONTENT_DIR/$src_lang/$slug/article.md" ]; then
              SOURCE_LANG=$src_lang
              break
            fi
@@ -186,8 +215,11 @@
 
 1. **Load Source Article**:
    ```bash
+   # Read content directory configuration
+   CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
+
    # Read original article
-   SOURCE_PATH="articles/$SOURCE_LANG/$SLUG/article.md"
+   SOURCE_PATH="$CONTENT_DIR/$SOURCE_LANG/$SLUG/article.md"
    cat "$SOURCE_PATH"
    ```
 
@@ -339,13 +371,14 @@
 
 1. **Check Source Images**:
    ```bash
-   SOURCE_IMAGES="articles/$SOURCE_LANG/$SLUG/images"
+   CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
+   SOURCE_IMAGES="$CONTENT_DIR/$SOURCE_LANG/$SLUG/images"
    ls -la "$SOURCE_IMAGES"
    ```
 
 2. **Create Target Image Structure**:
    ```bash
-   TARGET_IMAGES="articles/$TARGET_LANG/$SLUG/images"
+   TARGET_IMAGES="$CONTENT_DIR/$TARGET_LANG/$SLUG/images"
    mkdir -p "$TARGET_IMAGES/.backup"
    ```
 
@@ -361,8 +394,8 @@
 4. **Verify Image References**:
    ```bash
    # Check all images referenced in article exist
-   grep -o 'images/[^)]*' "articles/$TARGET_LANG/$SLUG/article.md" | while read img; do
-     if [ ! -f "articles/$TARGET_LANG/$SLUG/$img" ]; then
+   grep -o 'images/[^)]*' "$CONTENT_DIR/$TARGET_LANG/$SLUG/article.md" | while read img; do
+     if [ ! -f "$CONTENT_DIR/$TARGET_LANG/$SLUG/$img" ]; then
        echo "⚠️  Missing image: $img"
      fi
    done
@@ -394,13 +427,14 @@
 
 1. **Create Target Directory**:
    ```bash
-   mkdir -p "articles/$TARGET_LANG/$SLUG"
+   CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
+   mkdir -p "$CONTENT_DIR/$TARGET_LANG/$SLUG"
    ```
 
 2. **Save Translated Article**:
    ```bash
    # Write translated content
-   cat > "articles/$TARGET_LANG/$SLUG/article.md" <<'EOF'
+   cat > "$CONTENT_DIR/$TARGET_LANG/$SLUG/article.md" <<'EOF'
    [Translated content]
    EOF
    ```
@@ -430,8 +464,8 @@
 
    ## Files Created
 
-   - ✅ articles/$TARGET_LANG/$SLUG/article.md
-   - ✅ articles/$TARGET_LANG/$SLUG/images/ (if needed)
+   - ✅ $CONTENT_DIR/$TARGET_LANG/$SLUG/article.md
+   - ✅ $CONTENT_DIR/$TARGET_LANG/$SLUG/images/ (if needed)
 
    ## Next Steps
 
@@ -541,8 +575,10 @@ This agent is invoked via `/blog-translate` command:
 ### Missing Source Article
 
 ```bash
-if [ ! -f "articles/$SOURCE_LANG/$SLUG/article.md" ]; then
-  echo "❌ Source article not found: articles/$SOURCE_LANG/$SLUG/article.md"
+CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
+
+if [ ! -f "$CONTENT_DIR/$SOURCE_LANG/$SLUG/article.md" ]; then
+  echo "❌ Source article not found: $CONTENT_DIR/$SOURCE_LANG/$SLUG/article.md"
   exit 1
 fi
 ```
@@ -550,7 +586,7 @@ fi
 ### Target Already Exists
 
 ```bash
-if [ -f "articles/$TARGET_LANG/$SLUG/article.md" ]; then
+if [ -f "$CONTENT_DIR/$TARGET_LANG/$SLUG/article.md" ]; then
   echo "⚠️  Target article already exists."
   echo "Options:"
   echo "  1. Overwrite (backup created)"
@@ -597,7 +633,7 @@ fi
 
 **Validation Report**: `/tmp/translation-report.md`
 **Validation Script**: `/tmp/validate-translations-$$.sh`
-**Translated Article**: `articles/$TARGET_LANG/$SLUG/article.md`
+**Translated Article**: `$CONTENT_DIR/$TARGET_LANG/$SLUG/article.md` (where CONTENT_DIR from `.spec/blog.spec.json`)
 **Translation Summary**: Displayed in console + optionally saved to `.specify/translations/`
 
 ---
