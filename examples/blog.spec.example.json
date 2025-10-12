@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "blog": {
+    "name": "Tech Insights",
+    "context": "Technical blog for software developers and DevOps engineers",
+    "objective": "Generate qualified leads and establish thought leadership in cloud-native technologies",
+    "tone": "pédagogique",
+    "languages": ["en", "fr"],
+    "brand_rules": {
+      "voice_do": [
+        "Clear and actionable",
+        "Technical but accessible",
+        "Data-driven with sources",
+        "Practical examples",
+        "Step-by-step explanations"
+      ],
+      "voice_dont": [
+        "Jargon without explanation",
+        "Vague claims without evidence",
+        "Salesy or promotional language",
+        "Passive voice",
+        "Complex sentences over 25 words"
+      ]
+    }
+  },
+  "workflow": {
+    "review_rules": {
+      "must_have": [
+        "Executive summary with key takeaways",
+        "Minimum 5 credible source citations",
+        "Actionable insights (3-5 specific recommendations)",
+        "Code examples for technical topics",
+        "FAQ section with schema optimization"
+      ],
+      "must_avoid": [
+        "Unsourced or unverified claims",
+        "Keyword stuffing (density >2%)",
+        "Vague or generic recommendations",
+        "Missing internal links",
+        "Images without descriptive alt text"
+      ]
+    }
+  },
+  "generated_at": "2025-01-12T10:30:00Z"
+}
