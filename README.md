@@ -1,307 +1,369 @@
 # Blog Kit
 
-CLI pour génération d'articles de blog optimisés par IA avec spec-driven development.
+AI-powered blog article generation with specialized Claude Code agents and optimized context management.
 
-Inspiré de [spec-kit](https://github.com/github/spec-kit) de GitHub, adapté pour la création de contenu éditorial avec agents IA multi-étapes.
+Inspired by [spec-kit](https://github.com/github/spec-kit), adapted for content creation with multi-agent workflows: Research → SEO → Marketing.
 
-## ⚡ Installation Rapide (Claude Code Plugin)
+## ⚡ Quick Start (Claude Code Plugin)
 
 ```bash
 /plugin marketplace add leobrival/blog-kit
 /plugin install blog-kit
 ```
 
-Puis utilisez immédiatement:
+Then generate your first article:
 ```bash
-blog-spec analyze        # Analyser un dossier existant
-blog-spec init          # Ou créer une nouvelle configuration
-blog-spec article "Sujet"  # Générer un article avec agents IA
+/blog-generate "Best practices for implementing observability in microservices"
 ```
 
-## 🚀 Features
+**That's it!** The plugin orchestrates three specialized agents to create a comprehensive, SEO-optimized article in 30-45 minutes.
 
-- **CLI interactif** avec [Ink](https://github.com/vadimdemedes/ink) (React pour terminal)
-- **🤖 Multi-agents IA professionnels**: Research Intelligence, SEO Specialist, Marketing Specialist
-- **Spec-driven**: Constitution éditoriale comme source de vérité
-- **Templates slash commands**: `/blog.constitution`, `/blog.specify`, `/blog.research`, `/blog.optimize`, `/blog.publish`
-- **Validation Zod**: Schéma TypeScript strict pour spécifications
-- **Markdown generation**: Structure complète avec frontmatter optimisé
-- **Agent orchestration**: Workflow automatisé research → SEO → marketing
+## 🚀 Key Features
 
-## 📦 Autres méthodes d'installation
+- **🤖 Specialized AI Agents**: Research Intelligence, SEO Specialist, Marketing Specialist
+- **🎯 Context Optimization**: "Burn tokens in workers, preserve main thread" architecture
+- **📊 Token Efficient**: ~200k tokens processed, <1k in main thread (99.5% efficiency)
+- **🔄 File-Based Handoffs**: Agents communicate via files, not context accumulation
+- **✅ User Checkpoints**: Review and approve at each phase
+- **🛠️ Flexible Workflow**: Use full pipeline or individual commands
 
-### Installation Manuelle
+## 📋 Available Commands
 
-```bash
-# Clone le repo
-git clone https://github.com/leobrival/blog-kit.git
-cd blog-kit
+### Main Workflow
 
-# Installer avec Bun
-bun install
+**`/blog-generate "topic"`** - Complete article generation (30-45 min)
+- Research (15-20 min) → SEO (5-10 min) → Marketing (10-15 min)
+- User checkpoints between phases
+- Outputs: Research report, SEO brief, final article
 
-# Build
-bun run build
+### Individual Commands
 
-# Ou lancer en dev
-bun run dev
-```
+**`/blog-research "topic"`** - Deep research only (15-20 min)
+- 5-7 credible sources
+- Cross-referenced findings
+- Output: `.specify/research/[topic]-research.md`
 
-### Installation Globale (après clonage)
+**`/blog-seo "topic"`** - SEO optimization only (5-10 min)
+- Keyword analysis
+- Content structure (H2/H3 outline)
+- Output: `.specify/seo/[topic]-seo-brief.md`
 
-```bash
-# Depuis le dossier du projet
-bun link
+**`/blog-marketing "topic"`** - Content creation only (10-15 min)
+- Engaging article with CTAs
+- Social proof integration
+- Output: `articles/[topic].md`
 
-# Puis utiliser partout
-blog-spec init
-```
+## 🎯 Usage Examples
 
----
-
-## 🎯 Usage
-
-### 1. Initialiser un blog
+### Generate Complete Article
 
 ```bash
-bun run dev
-# Puis choisir: init
-
-# Ou directement
-blog-spec init
+/blog-generate "Implementing distributed tracing in Node.js with OpenTelemetry"
 ```
 
-Le CLI vous pose 11 questions pour configurer:
-- Nom du blog, contexte, objectifs
-- Tonalité (expert/pédagogique/convivial/corporate)
-- Voice guidelines (DO/DON'T)
-- Sujet d'article par défaut
-
-**Output**: `.spec/blog.spec.json`
-
-### 2. Générer la structure Markdown
-
-```bash
-blog-spec generate
-```
+**Workflow**:
+1. **Research Agent** gathers 5-7 sources, creates comprehensive report
+2. **User Checkpoint**: Review research quality
+3. **SEO Agent** analyzes keywords, creates content structure
+4. **User Checkpoint**: Approve headlines and outline
+5. **Marketing Agent** writes final article with CTAs
+6. **User Checkpoint**: Review and finalize
 
 **Output**:
-- `content/{blog-name}/Claude.md` - Brief pour agents IA
-- `content/{blog-name}/{article-slug}/index.md` - Template article
+```
+.specify/
+├── research/
+│   └── implementing-distributed-tracing-nodejs-opentelemetry-research.md
+└── seo/
+    └── implementing-distributed-tracing-nodejs-opentelemetry-seo-brief.md
 
-### 3. Valider la spécification
-
-```bash
-blog-spec validate
+articles/
+└── implementing-distributed-tracing-nodejs-opentelemetry.md
 ```
 
-Vérifie le schéma Zod de `.spec/blog.spec.json`.
-
-### 4. Vérifier les outils disponibles
+### Regenerate Specific Phase
 
 ```bash
-blog-spec check
+# Update research with newer sources
+/blog-research "nodejs-opentelemetry-tracing"
+
+# Try different SEO angle
+/blog-seo "nodejs-opentelemetry-tracing"
+
+# Rewrite article with different tone
+/blog-marketing "nodejs-opentelemetry-tracing"
 ```
 
-Vérifie: Claude CLI, GitHub Copilot, Git, Node.js, Bun.
-
-### 5. Workflow complet article ✅
-
-```bash
-blog-spec article "Guide: Extension Raycast + AdonisJS v6"
-```
-
-Orchestration multi-agents automatisée:
-
-1. **🔍 Research Intelligence**
-   - Génération 5-10 sources documentaires (docs officielles, études, exemples)
-   - FAQ basée sur PAA (People Also Ask)
-   - Fact-checking et citations
-   - Bibliographie structurée
-
-2. **📈 SEO Specialist**
-   - Analyse keyword density (optimal 1-2%)
-   - Optimisation meta tags + Schema.org
-   - Structure headings (H1-H6)
-   - Internal/external linking
-   - SEO checklist complet
-
-3. **📢 Marketing Specialist**
-   - CTAs stratégiques (soft/medium/strong)
-   - Posts social media (Twitter, LinkedIn, Mastodon)
-   - Email newsletter template
-   - Analytics tracking (Plausible/GA4)
-   - Distribution schedule
-
-**Output**: Article enrichi avec sources, optimisations SEO, CTAs et assets marketing
-
-```bash
-# Agents spécifiques
-blog-spec article "Votre sujet" --agents research,seo
-blog-spec article "Votre sujet" --agents seo
-```
-
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```
 blog-kit/
-├── src/
-│   ├── index.tsx              # Entry point CLI
-│   ├── cli/
-│   │   ├── init.tsx           # Commande init
-│   │   ├── generate.tsx       # Commande generate
-│   │   ├── validate.tsx       # Commande validate
-│   │   └── check.tsx          # Commande check
-│   ├── components/
-│   │   ├── InitForm.tsx       # Formulaire interactif Ink
-│   │   └── TextInput.tsx      # Input component
-│   ├── schemas/
-│   │   └── blog.schema.ts     # Zod schemas
-│   ├── templates/
-│   │   ├── commands/          # Slash commands templates
-│   │   │   ├── blog.constitution.md
-│   │   │   ├── blog.specify.md
-│   │   │   ├── blog.research.md
-│   │   │   ├── blog.optimize.md
-│   │   │   └── blog.publish.md
-│   │   └── article/           # Article templates
-│   ├── utils/
-│   │   ├── slugify.ts
-│   │   ├── default-blocks.ts
-│   │   └── default-agents.ts
-│   └── scripts/
-│       ├── bash/
-│       └── powershell/
-├── .spec/                     # Généré par CLI
-│   └── blog.spec.json
-├── content/                   # Généré par CLI
-│   └── {blog-name}/
-│       ├── Claude.md
-│       └── {article-slug}/
-│           └── index.md
-├── package.json
-├── tsconfig.json
-└── README.md
+├── .claude-plugin/              # Plugin metadata
+│   ├── plugin.json             # Plugin configuration
+│   └── marketplace.json        # Marketplace entry
+├── commands/                    # Slash commands
+│   ├── blog-generate.md        # Main orchestrator
+│   ├── blog-research.md        # Research command
+│   ├── blog-seo.md            # SEO command
+│   └── blog-marketing.md       # Marketing command
+├── agents/                      # Subagent definitions
+│   ├── research-intelligence.md  # Research specialist (WebSearch, WebFetch, Read, Write)
+│   ├── seo-specialist.md        # SEO specialist (Read, Write, WebSearch, Grep)
+│   └── marketing-specialist.md  # Marketing specialist (Read, Write, Grep)
+├── .specify/                    # Generated artifacts (gitignored)
+│   ├── research/               # Research reports (~5k tokens each)
+│   └── seo/                    # SEO briefs (~2k tokens each)
+├── articles/                    # Generated articles (gitignored)
+├── examples/                    # Example workflows
+├── CLAUDE.md                   # Context management instructions
+├── README.md                   # This file
+└── package.json
 ```
 
-## 🤖 Agents IA Professionnels
-
-Basés sur les agents spécialisés de Claude Code et les best practices SEO, Research Intelligence et Marketing.
+## 🤖 Specialized Agents
 
 ### Research Intelligence Specialist
-- **Basé sur**: `/Users/leobrival/.claude/agents/product/research-intelligence-specialist.md`
-- **Goals**: Sources fiables, fact-checking, citations, PAA, intelligence compétitive
-- **Guardrails**: Jamais de sources non vérifiées, citer systématiquement, sources < 2 ans
-- **Output**: 5-10 sources documentaires, FAQ PAA, bibliographie, méthodologie de recherche
+
+**Role**: Comprehensive multi-source research
+
+**Process**:
+1. **Strategic Planning**: Decompose topic into 3-5 sub-questions
+2. **Autonomous Retrieval**: Execute 5-7 searches, evaluate sources
+3. **Synthesis**: Generate structured report with citations
+
+**Tools**: WebSearch, WebFetch, Read, Write
+
+**Output**: `.specify/research/[topic]-research.md` (~5k tokens)
+- Executive summary with key takeaways
+- Findings organized by sub-questions
+- 5-7 credible source citations
+- Contradictions/debates (if any)
+- Actionable insights
 
 ### SEO Specialist
-- **Basé sur**: `/Users/leobrival/.claude/agents/product/seo-specialist.md`
-- **Goals**: Keyword research, on-page SEO, technical SEO, interlinking, Core Web Vitals
-- **Guardrails**: Pas de keyword stuffing (densité 1-2%), user experience > robots
-- **Output**: Meta tags optimisés, Schema.org markup, SEO checklist, recommendations
+
+**Role**: Keyword analysis and content structure design
+
+**Process**:
+1. **Keyword Analysis**: Extract and validate target keywords
+2. **Search Intent**: Determine what users want (Informational/Navigational/Transactional)
+3. **Content Structure**: Create H2/H3 outline with headline options
+4. **SEO Recommendations**: Optimize for search engines
+
+**Tools**: Read, Write, WebSearch, Grep
+
+**Output**: `.specify/seo/[topic]-seo-brief.md` (~2k tokens)
+- Target keywords (primary, secondary, LSI)
+- Search intent classification
+- 5-7 headline options
+- Complete H2/H3 outline
+- Meta description
+- SEO recommendations
 
 ### Marketing Specialist
-- **Basé sur**: `/Users/leobrival/.claude/agents/product/marketing-specialist.md`
-- **Goals**: Conversion optimization, social media, email marketing, analytics, distribution
-- **Guardrails**: Transparence, pas de promesses non vérifiées, authenticité > clickbait
-- **Output**: CTAs stratégiques, social posts, email template, analytics tracking, distribution schedule
 
-📚 **Documentation complète**: Voir [AGENTS.md](./AGENTS.md) pour l'architecture, usage et best practices
+**Role**: Conversion-focused content creation
 
-## 📚 Slash Commands
+**Process**:
+1. **Context Loading**: Extract essential info from research + SEO brief (token-efficient)
+2. **Content Creation**: Write engaging article following SEO structure
+3. **Polish**: Refine for readability, engagement, SEO compliance
 
-Inspiré de spec-kit, 5 commandes pour workflow éditorial:
+**Tools**: Read, Write, Grep
 
-### `/blog.constitution`
-Établir principes éditoriaux (voice, tone, review rules).
+**Output**: `articles/[topic].md` (final article)
+- Engaging introduction with hook
+- Body content with social proof
+- 2-3 strategic CTAs
+- FAQ section
+- Conclusion with takeaways
+- Proper frontmatter
 
-### `/blog.specify [Sujet]`
-Créer spécification d'article (structure, keywords, SERP analysis).
+## 🧠 Context Management Philosophy
 
-### `/blog.research`
-Enrichir sources externes, PAA, fact-checking.
+### "Burn Tokens in Workers, Preserve Main Thread"
 
-### `/blog.optimize`
-Optimisation SEO on-page (meta, headings, interlinking).
+**Problem**: Traditional approach accumulates context → context rot → slower performance
 
-### `/blog.publish`
-Publication + diffusion (CTA, social, analytics).
+**Solution**: Agent isolation with file-based handoffs
 
-## 🔧 Configuration
-
-### `.spec/blog.spec.json`
-
-```json
-{
-  "blog": {
-    "name": "Mon Blog",
-    "context": "Blog tech pour fondateurs",
-    "objective": "Générer des leads qualifiés",
-    "tone": "pédagogique",
-    "languages": ["fr"],
-    "brand_rules": {
-      "voice_do": ["Clair", "Actionnable"],
-      "voice_dont": ["Jargon inutile"]
-    }
-  },
-  "workflow": {
-    "agents": [...],
-    "review_rules": {
-      "must_have": ["Sommaire", "Sources citées", "FAQ"],
-      "must_avoid": ["Claims non sourcés", "Keyword stuffing"]
-    }
-  },
-  "content_model": {
-    "blocks": [...]
-  },
-  "article_template": {
-    "topic": "Guide: Extension Raycast",
-    "search_intent_response": "Tutoriel étape par étape"
-  }
-}
 ```
+Main Thread (Orchestration)      Agent Contexts (Isolated)
+────────────────────────         ──────────────────────────
+<1k tokens                       Research: 50k-150k tokens
+  │                                   │
+  ├─ Spawn research agent            ├─ Web searches
+  ├─ Show checkpoint                 ├─ Source evaluation
+  ├─ Spawn SEO agent                 └─ Report generation
+  ├─ Show checkpoint                     ↓
+  ├─ Spawn marketing agent          (saves to file)
+  └─ Show checkpoint                     ↓
+                                    SEO: 20k-50k tokens
+Total: <1k tokens                      │
+                                       ├─ Keyword analysis
+                                       ├─ Competitor research
+                                       └─ Structure creation
+                                           ↓
+                                      (saves to file)
+                                           ↓
+                                    Marketing: 30k-50k tokens
+                                       │
+                                       ├─ Content writing
+                                       ├─ CTA placement
+                                       └─ Polish
+                                           ↓
+                                      (saves to file)
+                                           ↓
+                                    articles/[topic].md
+```
+
+**Benefits**:
+- ✅ Unlimited agent processing (each has fresh context window)
+- ✅ Zero context rot (main thread stays clean)
+- ✅ Parallel potential (multiple articles independently)
+- ✅ Easy iteration (regenerate any phase without affecting others)
+
+## ⚙️ Technical Details
+
+### Token Budget
+
+| Phase | Time | Tokens | Output |
+|-------|------|--------|--------|
+| **Research** | 15-20 min | 50k-150k | 5k tokens (research report) |
+| **SEO** | 5-10 min | 20k-50k | 2k tokens (SEO brief) |
+| **Marketing** | 10-15 min | 30k-50k | 3k tokens (article) |
+| **Total** | **30-45 min** | **~200k** | **Full article** |
+| **Main Thread** | - | **<1k** | **Orchestration only** |
+
+**Efficiency**: 99.5% token savings in main thread
+
+### File-Based Handoffs
+
+Agents communicate through files, not context:
+
+```bash
+# Research Agent
+.specify/research/[topic]-research.md  # 5k tokens
+
+# ↓ SEO Agent reads file ↓
+
+# SEO Agent
+.specify/seo/[topic]-seo-brief.md      # 2k tokens
+
+# ↓ Marketing Agent reads both files ↓
+
+# Marketing Agent
+articles/[topic].md                     # Final article
+```
+
+**Why File-Based?**
+- Each agent starts with fresh context (no pollution)
+- Main thread never loads generated files
+- Explicit input/output contracts
+- Agents can process unlimited data in isolation
+
+### Topic Sanitization
+
+All filenames use sanitized topic names:
+- Convert to lowercase
+- Replace spaces with hyphens
+- Remove special characters
+- Example: "Node.js Tracing" → "nodejs-tracing"
+
+## 📚 Documentation
+
+- **[CLAUDE.md](./CLAUDE.md)** - Context management instructions for Claude Code
+- **[examples/example-workflow.md](./examples/example-workflow.md)** - Complete workflow example
+- **[agents/](./agents/)** - Detailed agent specifications
+- **[commands/](./commands/)** - Command usage guides
 
 ## 🛠️ Tech Stack
 
-- **Runtime**: [Bun](https://bun.sh)
-- **CLI Framework**: [Commander.js](https://github.com/tj/commander.js)
-- **UI**: [Ink](https://github.com/vadimdemedes/ink) (React pour terminal)
-- **Validation**: [Zod](https://zod.dev)
-- **Styling**: [Chalk](https://github.com/chalk/chalk) + [gradient-string](https://github.com/bokub/gradient-string)
+- **Claude Code**: CLI tool for AI-assisted development
+- **Claude Sonnet 4.5+**: AI model powering agents
+- **Tools**: WebSearch, WebFetch, Read, Write, Grep
+- **Format**: Markdown with YAML frontmatter
 
 ## 📈 Roadmap
 
 ### Phase 1 ✅ (Completed)
-- [x] CLI init interactif
-- [x] Generate structure Markdown
-- [x] Validation Zod schema
-- [x] Check tools command
-- [x] Templates slash commands
-- [x] **Agent orchestration (`article` command)**
-- [x] **Research Intelligence agent**
-- [x] **SEO Specialist agent**
-- [x] **Marketing Specialist agent**
-- [x] **Agent base architecture**
+- [x] Agent architecture (research, SEO, marketing)
+- [x] Slash commands (`/blog-generate`, `/blog-research`, `/blog-seo`, `/blog-marketing`)
+- [x] Context optimization (file-based handoffs)
+- [x] User checkpoints between phases
+- [x] Claude Code plugin marketplace integration
 
 ### Phase 2 (Next)
-- [ ] Copywriter agent (génération contenu AI)
-- [ ] WebSearch integration (Google/Bing API)
-- [ ] WebFetch integration (scraping sources)
-- [ ] AI integration (OpenAI/Anthropic)
-- [ ] Git integration (branches auto)
-- [ ] CI/CD validation
+- [ ] Additional agents (Copywriter, Editor, Translator)
+- [ ] Custom agent templates
+- [ ] Multi-language support
+- [ ] Analytics integration (track article performance)
+- [ ] CMS integrations (Notion, Contentful, WordPress)
 
 ### Phase 3 (Future)
-- [ ] Agent plugin system
-- [ ] Custom agent templates
-- [ ] Agent marketplace
-- [ ] Multi-language agents
+- [ ] Agent plugin system (community agents)
 - [ ] Real-time collaboration
-- [ ] CMS integrations (Notion, Contentful)
+- [ ] Visual workflow builder
+- [ ] Agent marketplace
+- [ ] API access
+
+## 🎓 Best Practices
+
+### 1. Be Specific with Topics
+
+✅ **Good**: "Implementing distributed tracing in Node.js with OpenTelemetry"
+❌ **Bad**: "Distributed tracing"
+
+**Why**: Specific topics yield better research and more focused articles.
+
+### 2. Review Checkpoints
+
+Don't skip checkpoint reviews:
+- After research: Verify quality and coverage
+- After SEO: Approve keywords and structure
+- After marketing: Review final article
+
+**Why**: Early feedback saves time and improves quality.
+
+### 3. Use Individual Commands for Iterations
+
+```bash
+# Regenerate research with different focus
+/blog-research "topic"
+# (Provide specific guidance)
+
+# Try different SEO angle
+/blog-seo "topic"
+# (Specify new primary keyword)
+
+# Rewrite with different tone
+/blog-marketing "topic"
+# (Request changes to specific sections)
+```
+
+**Why**: Faster than re-running entire workflow.
+
+### 4. Clear Between Articles
+
+```bash
+# After completing article
+/clear
+
+# Start next article
+/blog-generate "New topic"
+```
+
+**Why**: Each article is independent. No context carryover needed.
 
 ## 🤝 Contributing
 
-Contributions welcome! Ce projet est inspiré de spec-kit et adapté pour content creation.
+Contributions welcome! Ideas for contributions:
+
+- New specialized agents (Editor, Translator, Fact-Checker)
+- Additional slash commands
+- Integration examples (CMS, analytics)
+- Documentation improvements
+- Bug reports and feature requests
 
 ## 📄 License
 
@@ -309,5 +371,8 @@ MIT
 
 ---
 
-**Inspiré par**: [spec-kit](https://github.com/github/spec-kit) - GitHub
-**Built with**: Bun + Ink + Zod + TypeScript
+**Inspired by**: [spec-kit](https://github.com/github/spec-kit) by GitHub
+
+**Philosophy**: "Burn tokens in specialized workers, preserve focus in main thread"
+
+**Built for**: Claude Code users who want AI-powered blog generation with optimized context management
