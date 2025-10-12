@@ -23,7 +23,8 @@ AI-powered blog article generation with specialized Claude Code agents.
 - **File-based handoffs**: Zero context pollution
 - **User checkpoints**: Review at each phase
 - **Pure plugin**: No dependencies, scripts are local utilities only
-- **Internationalization**: Multi-language article structure
+- **Internationalization**: Multi-language article structure with automated translation
+- **Translation validation**: Automated i18n coverage reports and missing translation detection
 - **Image optimization**: Automated WebP conversion (80% quality)
 
 ## Commands
@@ -38,6 +39,7 @@ AI-powered blog article generation with specialized Claude Code agents.
 | `/blog-copywrite` | Spec-driven copy | 20-40 min |
 | `/blog-optimize` | Quality validation | 10-15 min |
 | `/blog-optimize-images` | Image compression (WebP) | 10-20 min |
+| `/blog-translate` | i18n validation & translation | 2-20 min |
 
 ## What's Included in the Plugin
 

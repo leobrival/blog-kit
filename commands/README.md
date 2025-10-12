@@ -21,6 +21,10 @@ Slash commands for blog article generation.
 - **`/blog-optimize`** - Quality validation (frontmatter, markdown, SEO)
 - **`/blog-optimize-images`** - Image optimization (compression, WebP conversion)
 
+### Translation & i18n
+
+- **`/blog-translate`** - i18n structure validation and article translation
+
 ## Quick Reference
 
 | Command | Input | Output | Time | Use When |
@@ -33,6 +37,7 @@ Slash commands for blog article generation.
 | `/blog-copywrite` | Topic | Article (spec-driven) | 20-40 min | Brand-perfect copy |
 | `/blog-optimize` | Topic | Validation report | 10-15 min | Quality check |
 | `/blog-optimize-images` | lang/slug | Optimized images (WebP) | 10-20 min | Image compression |
+| `/blog-translate` | - or lang/slug + target | Coverage report or translation | 2-20 min | i18n validation or translation |
 
 ## Workflows
 
@@ -63,6 +68,16 @@ Slash commands for blog article generation.
 # Add images to articles/en/my-topic/images/.backup/
 /blog-optimize-images "en/my-topic"      # Optimize images (WebP)
 /blog-optimize "en/my-topic"             # Validate quality
+```
+
+### Multi-Language Article
+```bash
+/blog-copywrite "en/nodejs-logging"      # Create English version
+/blog-optimize "en/nodejs-logging"       # Validate
+/blog-translate                          # Check coverage (shows missing)
+/blog-translate "en/nodejs-logging" "fr" # Translate to French
+/blog-translate "en/nodejs-logging" "es" # Translate to Spanish
+/blog-translate                          # Verify 100% coverage
 ```
 
 Each command file contains detailed instructions for Claude Code agents.

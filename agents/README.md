@@ -13,7 +13,11 @@ Specialized AI agents for blog article generation.
 
 ### Quality & Optimization
 
-- **`quality-optimizer.md`** - Automated validation (frontmatter, markdown, SEO)
+- **`quality-optimizer.md`** - Automated validation (frontmatter, markdown, SEO, images)
+
+### Translation & i18n
+
+- **`translator.md`** - Multi-language translation with structure validation
 
 ## Agent Workflows
 
@@ -33,6 +37,15 @@ Constitution → Copywriter → Quality Check
 ```
 Article → Quality Optimizer → Validation Report
            (scripts in /tmp/)   (actionable fixes)
+```
+
+### Translation & i18n
+```
+Structure Check → Translator → Coverage Report
+                  (validation script in /tmp/)
+
+Source Article → Translator → Translated Article
+  (en)            (preserves technical accuracy)  (fr/es/de)
 ```
 
 Each agent runs in isolated context with fresh token budget.
