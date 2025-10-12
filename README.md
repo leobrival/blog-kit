@@ -32,6 +32,7 @@ AI-powered blog article generation with specialized Claude Code agents.
 | Command | Description | Time |
 |---------|-------------|------|
 | `/blog-setup` | Setup wizard | 2 min |
+| `/blog-analyse` | Analyze existing content → generate constitution | 10-15 min |
 | `/blog-generate` | Full workflow | 30-45 min |
 | `/blog-research` | Research only | 15-20 min |
 | `/blog-seo` | SEO only | 5-10 min |

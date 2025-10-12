@@ -4,6 +4,10 @@ Specialized AI agents for blog article generation.
 
 ## Available Agents
 
+### Setup & Analysis
+
+- **`analyzer.md`** - Content analyzer and constitution generator (reverse-engineering)
+
 ### Content Generation
 
 - **`research-intelligence.md`** - Deep research with source validation
@@ -20,6 +24,19 @@ Specialized AI agents for blog article generation.
 - **`translator.md`** - Multi-language translation with structure validation
 
 ## Agent Workflows
+
+### Constitution Generation (Reverse Engineering)
+```
+Existing Content → Analyzer → blog.spec.json
+  (sample 10)       (15k)       (constitution)
+
+Phases:
+1. Content Discovery (scan directories)
+2. Language Detection (i18n or single)
+3. Tone Analysis (expert/pédagogique/convivial/corporate)
+4. Pattern Extraction (voice_do/voice_dont)
+5. Constitution Generation (.spec/blog.spec.json)
+```
 
 ### Full Article Generation
 ```

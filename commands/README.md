@@ -6,7 +6,8 @@ Slash commands for blog article generation.
 
 ### Setup & Generation
 
-- **`/blog-setup`** - Interactive setup wizard for blog constitution
+- **`/blog-setup`** - Interactive setup wizard for blog constitution (new blog)
+- **`/blog-analyse`** - Analyze existing content to generate constitution (existing blog)
 - **`/blog-generate`** - Complete article workflow (research → SEO → marketing)
 
 ### Individual Phases
@@ -29,7 +30,8 @@ Slash commands for blog article generation.
 
 | Command | Input | Output | Time | Use When |
 |---------|-------|--------|------|----------|
-| `/blog-setup` | - | `.spec/blog.spec.json` | 2 min | First time setup |
+| `/blog-setup` | - | `.spec/blog.spec.json` | 2 min | First time setup (new blog) |
+| `/blog-analyse` | - or content dir | `.spec/blog.spec.json` | 10-15 min | Existing blog, reverse-engineer constitution |
 | `/blog-generate` | Topic | Full article | 30-45 min | New article, complete workflow |
 | `/blog-research` | Topic | Research report | 15-20 min | Need research only |
 | `/blog-seo` | Topic | SEO brief | 5-10 min | Need SEO structure |
@@ -41,9 +43,22 @@ Slash commands for blog article generation.
 
 ## Workflows
 
+### New Blog Setup
+```bash
+/blog-setup                    # Create constitution from scratch
+/blog-generate "Your Topic"    # Generate first article
+```
+
+### Existing Blog Adoption
+```bash
+/blog-analyse                  # Analyze existing content → generate constitution
+# Review .spec/blog.spec.json
+/blog-generate "New Topic"     # Generate new article with detected style
+```
+
 ### Full Article Generation (Marketing Focus)
 ```bash
-/blog-setup                    # One-time
+/blog-setup                    # One-time (or /blog-analyse for existing)
 /blog-generate "Your Topic"    # Complete workflow
 ```
 
