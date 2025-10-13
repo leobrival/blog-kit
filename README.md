@@ -78,7 +78,7 @@ Process specific articles efficiently:
 
 ## Features
 
-- **Multi-agent workflow**: Research → SEO → Marketing
+- **Multi-agent workflow**: Research → SEO/GEO → Marketing
 - **Context optimization**: 99.5% token efficiency
 - **File-based handoffs**: Zero context pollution
 - **User checkpoints**: Review at each phase
@@ -86,6 +86,7 @@ Process specific articles efficiently:
 - **Internationalization**: Multi-language article structure with automated translation
 - **Translation validation**: Automated i18n coverage reports and missing translation detection
 - **Image optimization**: Automated WebP conversion (80% quality)
+- **GEO optimization**: AI search optimization (ChatGPT, Perplexity, Google AI Overviews)
 
 ## Commands
 
@@ -95,7 +96,8 @@ Process specific articles efficiently:
 | `/blog-analyse` | Analyze existing content → generate constitution | 10-15 min |
 | `/blog-generate` | Full workflow | 30-45 min |
 | `/blog-research` | Research only | 15-20 min |
-| `/blog-seo` | SEO only | 5-10 min |
+| `/blog-seo` | SEO optimization (traditional search) | 5-10 min |
+| `/blog-geo` | GEO optimization (AI search: ChatGPT, Perplexity, etc.) | 10-15 min |
 | `/blog-marketing` | Marketing content | 10-15 min |
 | `/blog-copywrite` | Spec-driven copy | 20-40 min |
 | `/blog-optimize` | Quality validation | 10-15 min |
@@ -118,6 +120,7 @@ When you install this plugin, you get:
 .specify/
 ├── research/  → Research reports (generated)
 ├── seo/       → SEO briefs (generated)
+├── geo/       → GEO briefs (AI search optimization, generated)
 └── quality/   → Validation reports (generated)
 
 articles/      → Final articles (i18n structure)

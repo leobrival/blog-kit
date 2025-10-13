@@ -13,7 +13,8 @@ Slash commands for blog article generation.
 ### Individual Phases
 
 - **`/blog-research`** - Research phase only
-- **`/blog-seo`** - SEO optimization phase only
+- **`/blog-seo`** - SEO optimization phase only (traditional search)
+- **`/blog-geo`** - GEO optimization phase only (AI search: ChatGPT, Perplexity, etc.)
 - **`/blog-marketing`** - Content creation phase only
 - **`/blog-copywrite`** - Spec-driven copywriting (brand voice focus)
 
@@ -34,7 +35,8 @@ Slash commands for blog article generation.
 | `/blog-analyse` | - or content dir | `.spec/blog.spec.json` | 10-15 min | Existing blog, reverse-engineer constitution |
 | `/blog-generate` | Topic | Full article | 30-45 min | New article, complete workflow |
 | `/blog-research` | Topic | Research report | 15-20 min | Need research only |
-| `/blog-seo` | Topic | SEO brief | 5-10 min | Need SEO structure |
+| `/blog-seo` | Topic | SEO brief | 5-10 min | Traditional search optimization |
+| `/blog-geo` | Topic | GEO brief | 10-15 min | AI search optimization (ChatGPT, Perplexity) |
 | `/blog-marketing` | Topic | Article (conversion-focused) | 10-15 min | Marketing content |
 | `/blog-copywrite` | Topic | Article (spec-driven) | 20-40 min | Brand-perfect copy |
 | `/blog-optimize` | Topic | Validation report | 10-15 min | Quality check |
@@ -70,6 +72,18 @@ Slash commands for blog article generation.
 /blog-copywrite "Your Topic"   # Use copywriter instead of marketing
 /blog-optimize "Your Topic"    # Validate
 ```
+
+### AI Search Optimized Article (SEO + GEO)
+```bash
+/blog-setup                    # One-time
+/blog-research "Your Topic"
+/blog-seo "Your Topic"         # Traditional search optimization
+/blog-geo "Your Topic"         # AI search optimization (ChatGPT, Perplexity)
+/blog-marketing "Your Topic"   # Marketing agent uses BOTH briefs
+/blog-optimize "Your Topic"    # Validate
+```
+
+**Result**: Content optimized for BOTH traditional search engines (Google/Bing) AND AI assistants (ChatGPT, Perplexity, Google AI Overviews).
 
 ### Rewrite Existing Content
 ```bash

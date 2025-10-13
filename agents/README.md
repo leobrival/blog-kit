@@ -11,7 +11,8 @@ Specialized AI agents for blog article generation.
 ### Content Generation
 
 - **`research-intelligence.md`** - Deep research with source validation
-- **`seo-specialist.md`** - Keyword analysis and content structure
+- **`seo-specialist.md`** - SEO optimization (traditional search engines)
+- **`geo-specialist.md`** - GEO optimization (AI search: ChatGPT, Perplexity, Google AI Overviews)
 - **`marketing-specialist.md`** - Conversion-focused content creation
 - **`copywriter.md`** - Spec-driven copywriting with brand voice compliance
 
@@ -43,6 +44,23 @@ Phases:
 Research → SEO → Marketing
   (5k)     (2k)    (3k tokens)
 ```
+
+### AI Search Optimized Generation
+```
+Research → SEO → GEO → Marketing
+  (5k)     (2k)   (3k)    (3k tokens)
+
+SEO Brief: Traditional search (Google/Bing)
+GEO Brief: AI search (ChatGPT, Perplexity, Google AI Overviews)
+Marketing: Merges BOTH briefs for comprehensive optimization
+```
+
+**GEO (Generative Engine Optimization)**:
+- Based on Princeton Study (30-40% visibility improvement)
+- Top 3 Methods: Cite sources, add quotations, include statistics
+- E-E-A-T signals (Experience, Expertise, Authoritativeness, Trustworthiness)
+- Schema markup (near-essential for AI parsing)
+- Content freshness (3.2x more citations for 30-day updates)
 
 ### Spec-Driven Copywriting
 ```
