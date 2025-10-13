@@ -9,10 +9,13 @@
   "plugins": [
     {
       "name": "blog-kit",
-      "source": ".",
+      "source": "./",
       "description": "Generate SEO/GEO-optimized blog articles using JSON templates (Tutorial, Guide, Comparison) and AI agents (Research, SEO, GEO, Marketing)",
       "version": "0.2.0",
-      "author": "Léo Brival",
+      "author": {
+        "name": "Léo Brival",
+        "email": "leo.brival@gmail.com"
+      },
       "homepage": "https://github.com/leobrival/blog-kit",
       "repository": "https://github.com/leobrival/blog-kit",
       "license": "MIT",
