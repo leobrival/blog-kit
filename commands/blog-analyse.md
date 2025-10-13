@@ -52,8 +52,14 @@ Analyzes existing blog content to automatically generate `.spec/blog.spec.json`.
    - Validate JSON structure
    - Generate analysis report
 
+6. **CLAUDE.md Generation** (Phase 6)
+   - Create CLAUDE.md in content directory
+   - Document blog.spec.json as source of truth
+   - Include voice guidelines from constitution
+   - Explain tone and validation workflow
+
 **Time**: 10-15 minutes
-**Output**: `.spec/blog.spec.json` + analysis report
+**Output**: `.spec/blog.spec.json` + `[content_dir]/CLAUDE.md` + analysis report
 
 ## Prerequisites
 
@@ -80,7 +86,7 @@ You are analyzing existing blog content to reverse-engineer a blog constitution.
 
 **Content Directory**: [Auto-detect OR use user-specified: $CONTENT_DIR]
 
-Execute ALL phases (1-5) from your instructions:
+Execute ALL phases (1-6) from your instructions:
 
 **Phase 1: Content Discovery**
 - Scan common directories: articles/, content/, posts/, blog/, src/content/, _posts/
@@ -171,6 +177,25 @@ Execute ALL phases (1-5) from your instructions:
   - Blog metadata
   - Next steps suggestions
 
+**Phase 6: CLAUDE.md Generation for Content Directory**
+- Read configuration from blog.spec.json:
+  - content_directory
+  - blog name
+  - tone
+  - languages
+  - voice guidelines
+- Create CLAUDE.md in content directory with:
+  - Explicit statement: blog.spec.json is "single source of truth"
+  - Voice guidelines (DO/DON'T) extracted from constitution
+  - Tone explanation with specific behaviors
+  - Article structure requirements from constitution
+  - Validation workflow documentation
+  - Commands that use constitution
+  - Instructions for updating constitution
+  - Important notes about never deviating from guidelines
+- Expand variables ($BLOG_NAME, $TONE, etc.) in template
+- Inform user that CLAUDE.md was created
+
 **Important**:
 - ALL analysis scripts must be in /tmp/ (non-destructive)
 - If user interaction needed (directory selection, tone confirmation), WAIT for response
@@ -233,9 +258,10 @@ Generated: 2025-10-12 15:30:00
 - **Context**: Technical blog for software developers and DevOps engineers
 - **Objective**: Educate and upskill developers on cloud-native technologies
 
-## Constitution Generated
+## Files Generated
 
-✅ Saved to: `.spec/blog.spec.json`
+✅ Constitution: `.spec/blog.spec.json`
+✅ Content Guidelines: `articles/CLAUDE.md` (uses constitution as source of truth)
 
 ## Next Steps
 

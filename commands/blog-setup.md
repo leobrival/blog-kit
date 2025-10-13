@@ -16,7 +16,8 @@ This command creates a bash script in `/tmp/` and executes it interactively to g
 2. Prompts for blog configuration (name, context, tone, voice rules)
 3. Creates `.spec/blog.spec.json` with your configuration
 4. Validates JSON structure
-5. Cleans up temporary script
+5. Creates `CLAUDE.md` in content directory (documents constitution as source of truth)
+6. Cleans up temporary script
 
 ## Instructions
 
@@ -94,6 +95,11 @@ echo ""
 read -p "Languages (comma-separated, e.g., 'fr,en'): " languages
 languages=${languages:-"fr"}  # Default to fr if empty
 
+# Prompt: Content Directory
+echo ""
+read -p "Content directory (default: articles): " content_dir
+content_dir=${content_dir:-"articles"}  # Default to articles if empty
+
 # Prompt: Voice DO
 echo ""
 echo "✅ Voice guidelines - DO"
@@ -141,6 +147,7 @@ cat > .spec/blog.spec.json <<JSON_EOF
     "objective": "$objective",
     "tone": "$tone",
     "languages": [$languages_json],
+    "content_directory": "$content_dir",
     "brand_rules": {
       "voice_do": [$voice_do_json],
       "voice_dont": [$voice_dont_json]
@@ -179,24 +186,182 @@ else
   echo "   (Validation will happen when agents run)"
 fi
 
+# Generate CLAUDE.md in content directory
+echo ""
+echo "📄 Generating CLAUDE.md in content directory..."
+
+# Create content directory if it doesn't exist
+mkdir -p "$content_dir"
+
+# Determine tone behavior based on selected tone
+case $tone in
+  "expert")
+    tone_behavior="Technical depth, assumes reader knowledge, industry terminology"
+    ;;
+  "pédagogique")
+    tone_behavior="Educational approach, step-by-step explanations, learning-focused"
+    ;;
+  "convivial")
+    tone_behavior="Friendly and approachable, conversational style, personal touch"
+    ;;
+  "corporate")
+    tone_behavior="Professional and formal, business-oriented, ROI-focused"
+    ;;
+esac
+
+# Generate CLAUDE.md with constitution as source of truth
+cat > "$content_dir/CLAUDE.md" <<CLAUDE_EOF
+# Blog Content Directory
+
+**Blog Name**: $blog_name
+**Tone**: $tone
+
+## Source of Truth: blog.spec.json
+
+**IMPORTANT**: All content in this directory MUST follow \`.spec/blog.spec.json\` guidelines.
+
+This file is your blog constitution - it defines:
+- Voice and tone
+- Brand rules (DO/DON'T)
+- Content structure requirements
+- Review and validation criteria
+
+### Always Check Constitution First
+
+Before creating or editing any article:
+
+1. **Load Constitution**: \`cat .spec/blog.spec.json\`
+2. **Verify tone matches**: $tone ($tone_behavior)
+3. **Follow voice guidelines** (see below)
+4. **Run validation**: \`/blog-optimize "lang/article-slug"\`
+
+## Voice Guidelines (from Constitution)
+
+### ✅ DO
+$(echo "$voice_do" | sed 's/,\s*/\n- ✅ /g' | sed 's/^/- ✅ /')
+
+### ❌ DON'T
+$(echo "$voice_dont" | sed 's/,\s*/\n- ❌ /g' | sed 's/^/- ❌ /')
+
+## Tone: $tone
+
+**What this means**:
+$tone_behavior
+
+**How to apply**:
+- Every article must reflect this tone consistently
+- Use vocabulary and phrasing appropriate to this tone
+- Maintain tone across all languages ($(echo "$languages" | sed 's/,/, /g'))
+
+## Article Structure
+
+Every article must include:
+
+1. **Frontmatter** (YAML):
+   - title
+   - description
+   - date
+   - language
+   - tags/categories
+
+2. **Executive Summary**:
+   - Key takeaways upfront
+   - Clear value proposition
+
+3. **Main Content**:
+   - H2/H3 structured headings
+   - Code examples (for technical topics)
+   - Source citations (3-5 credible sources)
+
+4. **Actionable Insights**:
+   - 3-5 specific recommendations
+   - Next steps for readers
+
+5. **Images**:
+   - Descriptive alt text (SEO + accessibility)
+   - Optimized format (WebP recommended)
+
+## Validation Workflow
+
+**Before Publishing**:
+\`\`\`bash
+# Validate single article
+/blog-optimize "lang/article-slug"
+
+# Check translation coverage (if i18n)
+/blog-translate "lang/article-slug" "target-lang"
+
+# Optimize images
+/blog-optimize-images "lang/article-slug"
+\`\`\`
+
+**Commands that Use Constitution**:
+- \`/blog-generate\` - Generates content following constitution
+- \`/blog-copywrite\` - Writes article using spec-kit + constitution
+- \`/blog-optimize\` - Validates against constitution rules
+- \`/blog-marketing\` - Creates marketing content with brand voice
+
+## Updating Constitution
+
+To update blog guidelines:
+
+1. Edit \`.spec/blog.spec.json\` manually
+2. Or run \`/blog-setup\` again (overwrites file)
+3. Or run \`/blog-analyse\` to regenerate from existing content
+
+**After updating constitution**:
+- This CLAUDE.md file should be regenerated
+- Validate existing articles: \`/blog-optimize\`
+- Update voice guidelines as needed
+
+## Important Notes
+
+⚠️  **Never Deviate from Constitution**
+
+All agents (research-intelligence, seo-specialist, marketing-specialist, etc.) are instructed to:
+- Load \`.spec/blog.spec.json\` before generating content
+- Apply voice_do/voice_dont guidelines strictly
+- Match the specified tone: $tone
+- Follow review_rules for validation
+
+If constitution conflicts with a specific request, **constitution always wins**.
+If you need different guidelines for a specific article, update the constitution first.
+
+---
+
+**Context**: $context
+**Objective**: $objective
+**Languages**: $(echo "$languages" | sed 's/,/, /g')
+**Content Directory**: $content_dir
+
+Generated by: \`/blog-setup\` command
+Constitution: \`.spec/blog.spec.json\`
+CLAUDE_EOF
+
+echo "✅ CLAUDE.md created in $content_dir/"
+
 # Success message
 echo ""
 echo "╔════════════════════════════════════════╗"
 echo "║  ✅ Setup Complete!                    ║"
 echo "╚════════════════════════════════════════╝"
 echo ""
-echo "Configuration saved to: .spec/blog.spec.json"
+echo "Files created:"
+echo "  ✅ .spec/blog.spec.json (constitution)"
+echo "  ✅ $content_dir/CLAUDE.md (content guidelines)"
 echo ""
 echo "Your blog: $blog_name"
 echo "Tone: $tone"
+echo "Content directory: $content_dir"
 echo "Voice DO: $voice_do"
 echo "Voice DON'T: $voice_dont"
 echo ""
 echo "Next steps:"
 echo "  1. Review .spec/blog.spec.json"
-echo "  2. Generate your first article: /blog-generate \"Your topic\""
+echo "  2. Check $content_dir/CLAUDE.md for content guidelines"
+echo "  3. Generate your first article: /blog-generate \"Your topic\""
 echo ""
-echo "Agents will automatically apply your brand rules! 🎨"
+echo "All agents will use blog.spec.json as source of truth! 🎨"
 echo ""
 
 SCRIPT_EOF
@@ -215,10 +380,11 @@ rm "$SCRIPT"
 
 # Report result
 if [ $EXIT_CODE -eq 0 ]; then
-  echo "✅ Blog constitution created successfully!"
+  echo "✅ Blog constitution and content guidelines created successfully!"
   echo ""
   echo "View your configuration:"
-  echo "  cat .spec/blog.spec.json"
+  echo "  cat .spec/blog.spec.json           # Constitution"
+  echo "  cat [content-dir]/CLAUDE.md        # Content guidelines"
 else
   echo "❌ Setup failed with exit code $EXIT_CODE"
   exit $EXIT_CODE
@@ -229,7 +395,7 @@ fi
 
 After running `/blog-setup`, you'll have:
 
-**File**: `.spec/blog.spec.json`
+**File 1**: `.spec/blog.spec.json` (Constitution)
 
 **Example content**:
 ```json
@@ -241,6 +407,7 @@ After running `/blog-setup`, you'll have:
     "objective": "Generate qualified leads and establish thought leadership",
     "tone": "pédagogique",
     "languages": ["fr", "en"],
+    "content_directory": "articles",
     "brand_rules": {
       "voice_do": [
         "Clear",
@@ -271,6 +438,81 @@ After running `/blog-setup`, you'll have:
   },
   "generated_at": "2025-10-12T10:30:00Z"
 }
+```
+
+**File 2**: `articles/CLAUDE.md` (Content Guidelines)
+
+**Example content**:
+```markdown
+# Blog Content Directory
+
+**Blog Name**: Tech Insights
+**Tone**: pédagogique
+
+## Source of Truth: blog.spec.json
+
+**IMPORTANT**: All content in this directory MUST follow `.spec/blog.spec.json` guidelines.
+
+### Always Check Constitution First
+
+Before creating or editing any article:
+
+1. **Load Constitution**: `cat .spec/blog.spec.json`
+2. **Verify tone matches**: pédagogique (Educational approach, step-by-step explanations, learning-focused)
+3. **Follow voice guidelines** (see below)
+4. **Run validation**: `/blog-optimize "lang/article-slug"`
+
+## Voice Guidelines (from Constitution)
+
+### ✅ DO
+- ✅ Clear
+- ✅ Actionable
+- ✅ Technical
+- ✅ Data-driven
+
+### ❌ DON'T
+- ❌ Jargon without explanation
+- ❌ Vague claims
+- ❌ Salesy language
+
+## Tone: pédagogique
+
+**What this means**: Educational approach, step-by-step explanations, learning-focused
+
+**How to apply**:
+- Every article must reflect this tone consistently
+- Use vocabulary and phrasing appropriate to this tone
+- Maintain tone across all languages (fr, en)
+
+## Article Structure
+
+Every article must include:
+
+1. **Frontmatter** (YAML): title, description, date, language, tags
+2. **Executive Summary**: Key takeaways upfront
+3. **Main Content**: H2/H3 structured headings, code examples, source citations
+4. **Actionable Insights**: 3-5 specific recommendations
+5. **Images**: Descriptive alt text (SEO + accessibility)
+
+## Validation Workflow
+
+**Before Publishing**:
+```bash
+/blog-optimize "lang/article-slug"
+/blog-translate "lang/article-slug" "target-lang"
+/blog-optimize-images "lang/article-slug"
+```
+
+**Commands that Use Constitution**:
+- `/blog-generate` - Generates content following constitution
+- `/blog-copywrite` - Writes article using spec-kit + constitution
+- `/blog-optimize` - Validates against constitution rules
+- `/blog-marketing` - Creates marketing content with brand voice
+
+⚠️  **Never Deviate from Constitution**
+
+All agents are instructed to load `.spec/blog.spec.json` and follow it strictly.
+If constitution conflicts with a request, **constitution always wins**.
 ```
 
 ## What Happens Next
