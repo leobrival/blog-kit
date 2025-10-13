@@ -7,10 +7,12 @@ Guide complet pour installer Blog Kit dans Claude Code.
 ### 1. Ajouter le Plugin au Marketplace
 
 ```bash
-/plugin marketplace add leobrival/blog-kit
+/plugin marketplace add https://github.com/leobrival/blog-kit.git
 ```
 
 Cette commande ajoute le dépôt GitHub au marketplace local de Claude Code.
+
+**Note**: Utilise l'URL HTTPS complète pour éviter les problèmes de clés SSH.
 
 ### 2. Installer le Plugin
 
@@ -125,6 +127,10 @@ Après installation, tapez `/blog-` puis Tab pour voir toutes les commandes:
 ### Quick Start (5 minutes)
 
 ```bash
+# 0. Installer le plugin (si pas déjà fait)
+/plugin marketplace add https://github.com/leobrival/blog-kit.git
+/plugin install blog-kit
+
 # 1. Configurer votre blog
 /blog-setup
 
@@ -269,6 +275,26 @@ Si vous voulez désinstaller le plugin:
 
 ## Résolution de Problèmes
 
+### "SSH authentication failed" ou "Permission denied (publickey)"
+
+**Erreur complète**:
+```
+Failed to clone marketplace repository: SSH authentication failed.
+git@github.com: Permission denied (publickey).
+```
+
+**Cause**: Claude Code essaie d'utiliser SSH mais vos clés SSH ne sont pas configurées.
+
+**Solution**: Utiliser l'URL HTTPS au lieu de SSH:
+
+```bash
+# ❌ Ne pas utiliser le raccourci
+/plugin marketplace add leobrival/blog-kit
+
+# ✅ Utiliser l'URL HTTPS complète
+/plugin marketplace add https://github.com/leobrival/blog-kit.git
+```
+
 ### "Command not found: /blog-setup"
 
 **Solution**: Le plugin n'est pas installé correctement.
@@ -276,7 +302,7 @@ Si vous voulez désinstaller le plugin:
 ```bash
 # Réinstaller
 /plugin uninstall blog-kit
-/plugin marketplace add leobrival/blog-kit
+/plugin marketplace add https://github.com/leobrival/blog-kit.git
 /plugin install blog-kit
 ```
 
