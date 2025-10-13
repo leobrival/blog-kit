@@ -4,10 +4,22 @@ AI-powered blog article generation with specialized Claude Code agents.
 
 ## Installation
 
+### Quick Install
+
 ```bash
 /plugin marketplace add leobrival/blog-kit
 /plugin install blog-kit
 ```
+
+### Detailed Installation Guide
+
+For complete installation instructions, troubleshooting, and verification steps, see [INSTALL.md](./INSTALL.md).
+
+**What's included**:
+- ✅ 11 slash commands (`/blog-*`)
+- ✅ 8 specialized agents
+- ✅ JSON template system (3 templates, 8 components)
+- ✅ Complete documentation
 
 ## Quick Start
 

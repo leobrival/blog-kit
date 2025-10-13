@@ -1,7 +1,7 @@
 {
   "name": "blog-kit",
-  "description": "AI-powered blog article generation with spec-driven development",
-  "version": "0.0.0",
+  "description": "AI-powered blog article generation with JSON templates and multi-agent workflow",
+  "version": "0.2.0",
   "owner": {
     "name": "Léo Brival",
     "email": "leo.brival@gmail.com"
@@ -10,8 +10,8 @@
     {
       "name": "blog-kit",
       "source": ".",
-      "description": "CLI for generating AI-optimized blog articles with multi-agent workflow (Research, SEO, Marketing)",
-      "version": "0.0.0",
+      "description": "Generate SEO/GEO-optimized blog articles using JSON templates (Tutorial, Guide, Comparison) and AI agents (Research, SEO, GEO, Marketing)",
+      "version": "0.2.0",
       "author": "Léo Brival",
       "homepage": "https://github.com/leobrival/blog-kit",
       "repository": "https://github.com/leobrival/blog-kit",
@@ -20,14 +20,15 @@
         "blog",
         "content-generation",
         "seo",
+        "geo",
+        "templates",
+        "json-schema",
         "markdown",
         "ai-agents",
-        "spec-driven",
-        "typescript",
-        "bun"
+        "claude-code"
       ],
       "category": "productivity",
-      "tags": ["content", "seo", "marketing", "research"]
+      "tags": ["content", "seo", "geo", "marketing", "research", "templates"]
     }
   ]
 }

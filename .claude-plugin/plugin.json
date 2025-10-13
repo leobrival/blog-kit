@@ -1,7 +1,7 @@
 {
   "name": "blog-kit",
-  "version": "0.1.0",
-  "description": "AI-powered blog article generation with multi-agent workflow (Research, SEO, Marketing)",
+  "version": "0.2.0",
+  "description": "AI-powered blog article generation with JSON templates and multi-agent workflow",
   "author": "Leo Brival",
   "license": "MIT",
   "homepage": "https://github.com/leobrival/blog-kit",
@@ -13,10 +13,14 @@
     "blog",
     "content-generation",
     "seo",
+    "geo",
+    "templates",
+    "json-schema",
     "markdown",
     "ai-agents",
     "claude-code"
   ],
   "commands": ["commands/"],
-  "agents": ["agents/"]
+  "agents": ["agents/"],
+  "include": [".templates/"]
 }
