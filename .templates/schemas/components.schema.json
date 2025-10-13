@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blog-kit.dev/schemas/components.json",
+  "title": "Component Definition",
+  "description": "Schema for reusable content components",
+  "type": "object",
+  "required": ["componentId", "name", "properties"],
+  "properties": {
+    "componentId": {
+      "type": "string",
+      "description": "Unique component identifier",
+      "pattern": "^[a-z-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Component description"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["content", "media", "data", "interactive", "geo"],
+      "description": "Component category"
+    },
+    "markdownTemplate": {
+      "type": "string",
+      "description": "Markdown generation template (uses {property} placeholders)"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Component properties schema",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "array", "object"]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "minLength": {
+            "type": "integer"
+          },
+          "maxLength": {
+            "type": "integer"
+          },
+          "default": {},
+          "enum": {
+            "type": "array"
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation rules"
+    },
+    "geoOptimized": {
+      "type": "boolean",
+      "description": "Whether component supports GEO optimization"
+    },
+    "geoMethod": {
+      "type": "string",
+      "enum": ["cite-sources", "quotations", "statistics"],
+      "description": "Princeton GEO method"
+    },
+    "princetonStudy": {
+      "type": "object",
+      "description": "Princeton study effectiveness data",
+      "properties": {
+        "effectiveness": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "bestFor": {
+          "type": "array",
+          "description": "Content domains where most effective",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "Usage examples",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

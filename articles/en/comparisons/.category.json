@@ -1,0 +1,61 @@
+{
+  "$schema": "../../../.templates/schemas/category.schema.json",
+  "category": {
+    "id": "comparisons",
+    "name": "Comparisons",
+    "description": "Feature-by-feature comparisons of tools, frameworks, and approaches",
+    "language": "en",
+    "icon": "⚖️"
+  },
+  "template": {
+    "default": "comparison",
+    "allowed": ["comparison"],
+    "enforceStructure": true
+  },
+  "constitution": {
+    "tone": "convivial",
+    "voiceDo": [
+      "Maintain objectivity and balance",
+      "Present facts and data, not opinions",
+      "Acknowledge strengths and weaknesses of both options",
+      "Help readers make informed decisions",
+      "Use clear comparison criteria",
+      "Cite credible sources for claims"
+    ],
+    "voiceDont": [
+      "Show bias towards one option",
+      "Make absolute statements without evidence",
+      "Ignore context or use cases",
+      "Use inflammatory or dismissive language",
+      "Oversimplify complex trade-offs"
+    ]
+  },
+  "seo": {
+    "strategy": "commercial",
+    "targetLength": {
+      "min": 1500,
+      "max": 2500
+    }
+  },
+  "geo": {
+    "strategy": "moderate",
+    "requiredMethods": ["cite-sources", "quotations", "statistics"],
+    "quotations": {
+      "min": 2,
+      "max": 4
+    },
+    "statistics": {
+      "min": 2,
+      "max": 5
+    },
+    "sources": {
+      "min": 5,
+      "max": 8
+    }
+  },
+  "validation": {
+    "strict": true,
+    "requiredComponents": ["comparison-table", "pros-cons", "quotation"]
+  },
+  "urlPattern": "/{lang}/{category}/{slug}"
+}

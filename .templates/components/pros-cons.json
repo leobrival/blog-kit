@@ -1,0 +1,62 @@
+{
+  "$schema": "../schemas/components.schema.json",
+  "componentId": "pros-cons",
+  "name": "Pros & Cons",
+  "description": "Advantages and disadvantages list",
+  "category": "data",
+  "markdownTemplate": "**Pros:**\n\n{pros}\n\n**Cons:**\n\n{cons}",
+  "properties": {
+    "pros": {
+      "type": "array",
+      "required": true,
+      "description": "List of advantages",
+      "minItems": 2,
+      "maxItems": 7
+    },
+    "cons": {
+      "type": "array",
+      "required": true,
+      "description": "List of disadvantages",
+      "minItems": 2,
+      "maxItems": 7
+    },
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Title for the pros/cons section"
+    }
+  },
+  "validation": {
+    "minPros": 2,
+    "maxPros": 7,
+    "minCons": 2,
+    "maxCons": 7,
+    "requireBalance": false
+  },
+  "geoOptimized": false,
+  "guidelines": [
+    "Be objective and balanced",
+    "List 3-5 items per side (not necessarily equal)",
+    "Keep items concise (1-2 sentences)",
+    "Focus on practical implications",
+    "Use parallel structure for consistency"
+  ],
+  "examples": [
+    {
+      "title": "React",
+      "pros": [
+        "✅ Large ecosystem with extensive third-party libraries",
+        "✅ Strong TypeScript support",
+        "✅ Excellent performance with virtual DOM",
+        "✅ React Native for mobile development",
+        "✅ Backed by Meta with strong corporate support"
+      ],
+      "cons": [
+        "❌ Steeper learning curve for beginners",
+        "❌ Requires additional libraries for routing and state management",
+        "❌ Frequent breaking changes in the ecosystem",
+        "❌ JSX syntax may be unfamiliar initially"
+      ]
+    }
+  ]
+}

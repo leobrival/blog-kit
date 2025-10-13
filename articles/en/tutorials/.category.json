@@ -1,0 +1,60 @@
+{
+  "$schema": "../../../.templates/schemas/category.schema.json",
+  "category": {
+    "id": "tutorials",
+    "name": "Tutorials",
+    "description": "Step-by-step technical tutorials with hands-on examples",
+    "language": "en",
+    "icon": "📚"
+  },
+  "template": {
+    "default": "tutorial",
+    "allowed": ["tutorial"],
+    "enforceStructure": true
+  },
+  "constitution": {
+    "tone": "pédagogique",
+    "voiceDo": [
+      "Provide clear step-by-step instructions",
+      "Include working code examples for each step",
+      "Use beginner-friendly language",
+      "Anticipate and address common mistakes",
+      "Show expected output at each step"
+    ],
+    "voiceDont": [
+      "Assume prior knowledge without stating prerequisites",
+      "Skip error handling in code examples",
+      "Use jargon without explanation",
+      "Leave readers uncertain about next steps"
+    ]
+  },
+  "seo": {
+    "strategy": "educational",
+    "targetLength": {
+      "min": 2000,
+      "max": 3500
+    }
+  },
+  "geo": {
+    "strategy": "moderate",
+    "requiredMethods": ["cite-sources", "quotations"],
+    "quotations": {
+      "min": 2,
+      "max": 4
+    },
+    "statistics": {
+      "min": 1,
+      "max": 3
+    },
+    "sources": {
+      "min": 5,
+      "max": 8
+    }
+  },
+  "validation": {
+    "strict": true,
+    "requiredComponents": ["code-block", "quotation"],
+    "minCodeExamples": 3
+  },
+  "urlPattern": "/{lang}/{category}/{slug}"
+}

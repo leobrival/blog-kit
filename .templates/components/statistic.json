@@ -1,0 +1,82 @@
+{
+  "$schema": "../schemas/components.schema.json",
+  "componentId": "statistic",
+  "name": "Statistic",
+  "description": "Data point with source citation for GEO optimization (Princeton method: statistics)",
+  "category": "geo",
+  "markdownTemplate": "**{value}** {description}\n\n*Source: [{source}]({url})*",
+  "properties": {
+    "value": {
+      "type": "string",
+      "required": true,
+      "description": "The statistic value (e.g., '40%', '3.2x', '10,000+')"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "description": "What the statistic measures",
+      "minLength": 20,
+      "maxLength": 200
+    },
+    "source": {
+      "type": "string",
+      "required": true,
+      "description": "Source of the statistic (e.g., 'Datadog 2024 Report', 'Stack Overflow Survey')"
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "description": "URL to the source"
+    },
+    "year": {
+      "type": "string",
+      "required": false,
+      "description": "Year of the statistic (e.g., '2024')"
+    },
+    "context": {
+      "type": "string",
+      "required": false,
+      "description": "Additional context about the statistic"
+    }
+  },
+  "validation": {
+    "requireSource": true,
+    "requireUrl": true,
+    "valuePattern": "^[0-9.,]+[%xk+]*$"
+  },
+  "geoOptimized": true,
+  "geoMethod": "statistics",
+  "princetonStudy": {
+    "effectiveness": "high",
+    "bestFor": [
+      "Law & Government",
+      "Business & Finance",
+      "Technical content",
+      "Data-driven articles"
+    ],
+    "placement": "Intro, supporting claims, or conclusion"
+  },
+  "guidelines": [
+    "Use recent statistics (prefer last 1-2 years for 3.2x citation boost)",
+    "Always cite the source with a URL",
+    "Ensure statistics are from credible sources",
+    "Provide context to make statistics meaningful",
+    "Bold the numeric value for easy scanning"
+  ],
+  "examples": [
+    {
+      "value": "40%",
+      "description": "faster incident resolution for teams using distributed tracing compared to logs alone",
+      "source": "Datadog State of Observability 2024",
+      "url": "https://example.com/report",
+      "year": "2024"
+    },
+    {
+      "value": "3.2x",
+      "description": "more AI citations for content updated within 30 days",
+      "source": "Princeton GEO Study 2023",
+      "url": "https://example.com/geo-study",
+      "year": "2023"
+    }
+  ]
+}

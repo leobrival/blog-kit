@@ -1,0 +1,65 @@
+{
+  "$schema": "../schemas/components.schema.json",
+  "componentId": "callout",
+  "name": "Callout",
+  "description": "Highlighted note, tip, warning, or info box",
+  "category": "content",
+  "markdownTemplate": "> **{icon} {type}**: {title}\n>\n> {content}",
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "Callout type",
+      "enum": ["note", "tip", "warning", "danger", "info", "success"]
+    },
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "Callout title (optional)"
+    },
+    "content": {
+      "type": "string",
+      "required": true,
+      "description": "Callout content",
+      "minLength": 20,
+      "maxLength": 500
+    },
+    "icon": {
+      "type": "string",
+      "required": false,
+      "description": "Custom icon (emoji or symbol)"
+    }
+  },
+  "validation": {
+    "minLength": 20,
+    "maxLength": 500,
+    "requireType": true
+  },
+  "geoOptimized": false,
+  "typeIcons": {
+    "note": "📝",
+    "tip": "💡",
+    "warning": "⚠️",
+    "danger": "🚨",
+    "info": "ℹ️",
+    "success": "✅"
+  },
+  "guidelines": [
+    "Use callouts sparingly (2-5 per article)",
+    "Choose the appropriate type for the message",
+    "Keep content concise and actionable",
+    "Place near relevant content, not randomly",
+    "Use for important information that deserves emphasis"
+  ],
+  "examples": [
+    {
+      "type": "tip",
+      "title": "Performance Optimization",
+      "content": "Enable sampling in production environments to reduce overhead while maintaining visibility. Start with 10% sampling and adjust based on your needs."
+    },
+    {
+      "type": "warning",
+      "content": "Never log sensitive information like passwords, API keys, or personal data in production logs. Use structured logging with field redaction instead."
+    }
+  ]
+}

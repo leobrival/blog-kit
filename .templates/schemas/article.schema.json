@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blog-kit.dev/schemas/article.json",
+  "title": "Blog Article",
+  "description": "Schema for blog article structure with SEO and GEO optimization",
+  "type": "object",
+  "required": ["templateId", "version", "meta", "frontmatter", "structure"],
+  "properties": {
+    "templateId": {
+      "type": "string",
+      "description": "Template identifier (tutorial, guide, comparison, etc.)",
+      "pattern": "^[a-z-]+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "meta": {
+      "$ref": "./meta.schema.json"
+    },
+    "frontmatter": {
+      "$ref": "./frontmatter.schema.json"
+    },
+    "structure": {
+      "$ref": "./structure.schema.json"
+    }
+  },
+  "additionalProperties": false
+}

@@ -79,6 +79,9 @@ Process specific articles efficiently:
 ## Features
 
 - **Multi-agent workflow**: Research → SEO/GEO → Marketing
+- **JSON-based templates**: ShadCN-inspired template system with strict validation
+- **Template library**: Tutorial, Guide, Comparison templates with GEO components
+- **Hierarchical configuration**: 5-level cascade (global → template → language → category → article)
 - **Context optimization**: 99.5% token efficiency
 - **File-based handoffs**: Zero context pollution
 - **User checkpoints**: Review at each phase
@@ -117,29 +120,76 @@ When you install this plugin, you get:
 ## Architecture
 
 ```
+.templates/                → JSON-based template system (NEW)
+├── registry.json         → Master template & component registry
+├── schemas/              → JSON Schema validation (6 files)
+├── types/                → Article templates (tutorial, guide, comparison)
+└── components/           → Content components (quotation, statistic, code-block, etc.)
+
 .specify/
-├── research/  → Research reports (generated)
-├── seo/       → SEO briefs (generated)
-├── geo/       → GEO briefs (AI search optimization, generated)
-└── quality/   → Validation reports (generated)
+├── research/             → Research reports (generated)
+├── seo/                  → SEO briefs (generated)
+├── geo/                  → GEO briefs (AI search optimization, generated)
+└── quality/              → Validation reports (generated)
 
-articles/      → Final articles (i18n structure)
-├── en/        → English articles
-│   └── slug/
-│       ├── article.md
-│       └── images/
-│           ├── .backup/   → Original images
-│           └── *.webp     → Optimized images
-└── fr/        → French articles
-    └── slug/
-        ├── article.md
-        └── images/
+articles/                 → Final articles (i18n structure)
+├── en/                   → English articles
+│   ├── tutorials/        → Category-specific articles
+│   │   ├── .category.json  → Category configuration
+│   │   └── slug/
+│   │       ├── article.md
+│   │       └── images/
+│   └── comparisons/
+│       └── .category.json
+└── fr/                   → French articles
+    └── tutorials/
+        └── .category.json
 
-.spec/         → Blog constitution (optional, /blog-setup)
+.spec/                    → Blog constitution (optional, /blog-setup)
 ```
+
+## Template System
+
+Blog Kit includes a JSON-based template system inspired by ShadCN's component architecture:
+
+### Available Templates
+
+- **Tutorial** (2000-3500 words): Step-by-step technical tutorials with code examples
+- **Guide** (3000-5000 words): Comprehensive topic coverage with expert insights
+- **Comparison** (1500-2500 words): Feature-by-feature tool/framework comparisons
+
+### GEO-Optimized Components
+
+Based on Princeton University research (30-40% visibility improvement):
+
+- **Quotation**: Expert quotes with source attribution (115% boost)
+- **Statistic**: Data points with credible sources
+- **Citation**: External source references (115% boost)
+- **Code Block**: Syntax-highlighted examples
+- **Comparison Table**: Feature comparison grids
+- **Callout**: Note/tip/warning boxes
+- **FAQ Item**: Question and answer pairs
+- **Pros & Cons**: Advantages and disadvantages lists
+
+### Configuration Cascade
+
+Templates support 5-level configuration inheritance:
+
+1. **Global** (`.spec/blog.spec.json`) - Blog-wide constitution
+2. **Template** (`.templates/types/*.json`) - Template defaults
+3. **Language** (`articles/{lang}/.language.json`) - Language-specific settings
+4. **Category** (`articles/{lang}/{category}/.category.json`) - Category rules
+5. **Article** (`articles/{lang}/{category}/{slug}/article.json`) - Article-specific overrides
+
+**Inheritance**: Lower levels override higher levels. Arrays merge (no duplicates), objects deep-merge.
+
+### Creating Custom Templates
+
+Users can create their own templates and categories. See [`.templates/README.md`](./.templates/README.md) for complete documentation.
 
 ## Documentation
 
+- [`.templates/`](./.templates/) - JSON template system (schemas, templates, components)
 - [`commands/`](./commands/) - Slash command definitions
 - [`agents/`](./agents/) - AI agent specifications
 - [`scripts/`](./scripts/) - Local bash utilities (not in plugin)

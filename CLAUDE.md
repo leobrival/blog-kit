@@ -34,6 +34,28 @@ Instructions for Claude Code when working with the Blog-Kit project.
 - **`/blog-seo "topic"`** - SEO optimization phase only
 - **`/blog-marketing "topic"`** - Content creation phase only
 
+### Template System (NEW)
+
+**JSON-based template system** inspired by ShadCN's component architecture:
+
+- **Registry**: `.templates/registry.json` - Master template & component catalog
+- **Schemas**: `.templates/schemas/` - JSON Schema validation (6 files)
+- **Templates**: `.templates/types/` - Article templates (tutorial, guide, comparison)
+- **Components**: `.templates/components/` - Content components (8 GEO-optimized components)
+
+**5-Level Configuration Cascade**:
+1. Global (`.spec/blog.spec.json`) → Blog constitution
+2. Template (`.templates/types/*.json`) → Template defaults
+3. Language (`articles/{lang}/.language.json`) → Language settings
+4. Category (`articles/{lang}/{category}/.category.json`) → Category rules
+5. Article (`articles/{lang}/{category}/{slug}/article.json`) → Article overrides
+
+**Key Features**:
+- JSON as source of truth (strict validation)
+- GEO components with Princeton methods (quotation, statistic, citation)
+- User-extensible (create custom templates/categories/components)
+- Hierarchical inheritance with intelligent merging
+
 ## Context Management Rules
 
 ### DO NOT Automatically Load
@@ -64,6 +86,10 @@ Instructions for Claude Code when working with the Blog-Kit project.
 
 ✅ `agents/*.md` (only when creating subagent)
 - Agent instructions loaded when spawning subagent
+
+✅ `.templates/` (when working on templates)
+- Template schemas, definitions, and component specs
+- Load only when user is creating/modifying templates
 
 ✅ `.claude-plugin/` metadata
 - Plugin configuration files
@@ -121,6 +147,12 @@ blog-kit/
 ├── .claude-plugin/          # Plugin metadata
 │   ├── plugin.json
 │   └── marketplace.json
+├── .templates/              # JSON template system (NEW)
+│   ├── registry.json       # Master template & component registry
+│   ├── schemas/            # JSON Schema validation (6 files)
+│   ├── types/              # Article templates (tutorial, guide, comparison)
+│   ├── components/         # Content components (8 GEO-optimized)
+│   └── README.md           # Template system documentation
 ├── commands/                # Slash commands
 │   ├── blog-generate.md    # Orchestrator
 │   ├── blog-research.md
@@ -129,11 +161,20 @@ blog-kit/
 ├── agents/                  # Subagent definitions
 │   ├── research-intelligence.md
 │   ├── seo-specialist.md
+│   ├── geo-specialist.md   # GEO optimization agent
 │   └── marketing-specialist.md
 ├── .specify/                # Generated artifacts (gitignored)
 │   ├── research/
-│   └── seo/
-├── articles/                # Generated articles (gitignored)
+│   ├── seo/
+│   └── geo/                # GEO briefs
+├── articles/                # Generated articles (i18n structure)
+│   ├── en/
+│   │   ├── tutorials/
+│   │   │   ├── .category.json
+│   │   │   └── slug/
+│   │   └── comparisons/
+│   │       └── .category.json
+│   └── fr/
 ├── CLAUDE.md               # This file
 └── README.md               # User documentation
 ```
@@ -341,6 +382,7 @@ Quality indicators for generated articles:
 ## Support & Documentation
 
 - **Installation**: See README.md
+- **Template System**: See .templates/README.md for complete documentation
 - **Examples**: See examples/example-workflow.md
 - **Agents**: See agents/*.md for detailed specs
 - **Commands**: See commands/*.md for usage
