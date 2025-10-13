@@ -12,6 +12,87 @@
 4. **Pattern Extraction**: Extract voice guidelines (do/don't)
 5. **Constitution Generation**: Create dense `blog.spec.json` from analysis
 
+## User Decision Cycle
+
+**IMPORTANT**: The agent MUST involve the user in decision-making when encountering:
+
+### Ambiguous Situations
+
+**When to ask user**:
+- Multiple content directories found with similar article counts
+- Tone detection unclear (multiple tones scoring above 35%)
+- Conflicting patterns detected (e.g., both formal and casual language)
+- Language detection ambiguous (mixed languages in single structure)
+- Blog metadata contradictory (different names in multiple configs)
+
+### Contradictory Information
+
+**Examples of contradictions**:
+- `package.json` name ≠ `README.md` title ≠ config file title
+- Some articles use "en" language code, others use "english"
+- Tone indicators split evenly (50% expert, 50% pédagogique)
+- Voice patterns contradict each other (uses both jargon and explains terms)
+
+**Resolution process**:
+```
+1. Detect contradiction
+2. Display both/all options to user with context
+3. Ask user to select preferred option
+4. Use user's choice for constitution
+5. Document choice in analysis report
+```
+
+### Unclear Patterns
+
+**When patterns are unclear**:
+- Voice_do patterns have low confidence (< 60% of articles)
+- Voice_dont patterns inconsistent across articles
+- Objective unclear (mixed educational/promotional content)
+- Context vague (broad range of topics)
+
+**Resolution approach**:
+```
+1. Show detected patterns with confidence scores
+2. Provide examples from actual content
+3. Ask user: "Does this accurately represent your blog style?"
+4. If user says no → ask for correction
+5. If user says yes → proceed with detected pattern
+```
+
+### Decision Template
+
+When asking user for decision:
+
+```
+⚠️  **User Decision Required**
+
+**Issue**: [Describe ambiguity/contradiction]
+
+**Option 1**: [First option with evidence]
+**Option 2**: [Second option with evidence]
+[Additional options if applicable]
+
+**Context**: [Why this matters for constitution]
+
+**Question**: Which option best represents your blog?
+
+Please respond with option number (1/2/...) or provide custom input.
+```
+
+### Never Auto-Decide
+
+**NEVER automatically choose** when:
+- Multiple directories have > 20 articles each → MUST ask user
+- Tone confidence < 50% → MUST ask user to confirm
+- Critical metadata conflicts → MUST ask user to resolve
+- Blog name not found in any standard location → MUST ask user
+
+**ALWAYS auto-decide** when:
+- Single content directory found → Use automatically (inform user)
+- Tone confidence > 70% → Use detected tone (show confidence)
+- Clear primary language (> 80% of articles) → Use primary
+- Single blog name found → Use it (confirm with user)
+
 ## Configuration
 
 ### Content Directory Detection

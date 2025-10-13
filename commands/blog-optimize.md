@@ -4,16 +4,34 @@ Validate article quality with automated checks for frontmatter, markdown formatt
 
 ## Usage
 
+### Single Article (Recommended)
+
 ```bash
-/blog-optimize "topic-name"
+/blog-optimize "lang/article-slug"
 ```
 
-**Example**:
+**Examples**:
 ```bash
-/blog-optimize "nodejs-tracing"
+/blog-optimize "en/nodejs-tracing"
+/blog-optimize "fr/microservices-logging"
 ```
 
-**Note**: Provide the sanitized topic name (same as article filename).
+**Token usage**: ~10k-15k tokens per article
+
+### Global Validation (⚠️  High Token Usage)
+
+```bash
+/blog-optimize
+```
+
+**⚠️  WARNING**: This will validate ALL articles in your content directory.
+
+**Token usage**: 50k-500k+ tokens (depending on article count)
+**Cost**: Can be expensive (e.g., 50 articles = ~500k tokens)
+**Duration**: 20-60 minutes for large blogs
+**Use case**: Initial audit, bulk validation, CI/CD pipelines
+
+**Recommendation**: Validate articles individually unless you need a full audit.
 
 ## Prerequisites
 

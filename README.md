@@ -9,12 +9,72 @@ AI-powered blog article generation with specialized Claude Code agents.
 /plugin install blog-kit
 ```
 
-## Usage
+## Quick Start
 
 ```bash
-# Generate article
+# 1. Setup or analyze existing content
+/blog-setup                    # New blog (manual setup)
+/blog-analyse                  # Existing blog (auto-detect)
+
+# 2. Generate your first article
 /blog-generate "Your article topic"
 ```
+
+## Usage Examples
+
+### Per-Article Commands (Recommended)
+
+Work on a specific article by providing the slug:
+
+```bash
+# Single article optimization
+/blog-optimize "en/nodejs-logging"
+
+# Single article translation
+/blog-translate "en/nodejs-logging" "fr"
+
+# Single article image optimization
+/blog-optimize-images "en/nodejs-logging"
+```
+
+**Token usage**: ~5k-15k tokens per article
+
+### Global Commands (⚠️  High Token Usage)
+
+Apply command to ALL articles in your blog:
+
+```bash
+# ⚠️  WARNING: This will analyze ALL articles (can use 50k-500k tokens)
+/blog-optimize
+
+# ⚠️  WARNING: This will validate translation coverage for ALL articles
+/blog-translate
+
+# ⚠️  WARNING: This will optimize images in ALL articles
+/blog-optimize-images
+```
+
+**Token usage**: 50k-500k tokens depending on article count
+**Cost**: Can be expensive if you have many articles
+**Use case**: Initial setup, bulk operations, CI/CD pipelines
+
+### Batch Commands (Controlled)
+
+Process specific articles efficiently:
+
+```bash
+# Optimize multiple specific articles
+/blog-optimize "en/article-1"
+/blog-optimize "en/article-2"
+/blog-optimize "fr/article-3"
+
+# Translate specific articles to multiple languages
+/blog-translate "en/microservices" "fr"
+/blog-translate "en/microservices" "es"
+/blog-translate "en/microservices" "de"
+```
+
+**Recommendation**: Process articles individually or in small batches to control token usage and costs.
 
 ## Features
 
@@ -81,6 +141,7 @@ articles/      → Final articles (i18n structure)
 - [`agents/`](./agents/) - AI agent specifications
 - [`scripts/`](./scripts/) - Local bash utilities (not in plugin)
 - [`CLAUDE.md`](./CLAUDE.md) - Context management guide
+- [`docs/MULTIPLE-CLAUDE-FILES.md`](./docs/MULTIPLE-CLAUDE-FILES.md) - Using hierarchical CLAUDE.md files
 
 ## Philosophy
 
