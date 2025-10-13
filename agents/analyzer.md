@@ -626,6 +626,264 @@ The agent will attempt to locate content in common directories. If multiple or n
 ✅ Analysis report created
 ✅ User informed of results
 
+## Phase 6: CLAUDE.md Generation for Content Directory
+
+### Objectives
+
+- Create CLAUDE.md in content directory
+- Document blog.spec.json as source of truth
+- Provide guidelines for article creation/editing
+- Explain constitution-based workflow
+
+### Process
+
+1. **Read Configuration**:
+   ```bash
+   CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
+   BLOG_NAME=$(jq -r '.blog.name' .spec/blog.spec.json)
+   TONE=$(jq -r '.blog.tone' .spec/blog.spec.json)
+   LANGUAGES=$(jq -r '.blog.languages | join(", ")' .spec/blog.spec.json)
+   ```
+
+2. **Generate CLAUDE.md**:
+   ```bash
+   cat > "$CONTENT_DIR/CLAUDE.md" <<'CLAUDE_EOF'
+   # Blog Content Directory
+
+   **Blog Name**: $BLOG_NAME
+   **Tone**: $TONE
+   **Languages**: $LANGUAGES
+
+   ## Source of Truth: blog.spec.json
+
+   **IMPORTANT**: All content in this directory MUST follow the guidelines defined in `.spec/blog.spec.json`.
+
+   This constitution file is the **single source of truth** for:
+   - Blog name, context, and objective
+   - Tone and writing style
+   - Supported languages
+   - Brand voice guidelines (voice_do, voice_dont)
+   - Review rules (must_have, must_avoid)
+
+   ### Always Check Constitution First
+
+   Before creating or editing articles:
+
+   1. **Load Constitution**:
+      ```bash
+      cat .spec/blog.spec.json
+      ```
+
+   2. **Verify Your Changes Match**:
+      - Tone: `$TONE`
+      - Voice DO: Follow positive patterns
+      - Voice DON'T: Avoid anti-patterns
+
+   3. **Run Validation After Edits**:
+      ```bash
+      /blog-optimize "lang/article-slug"
+      ```
+
+   ## Article Structure (from Constitution)
+
+   All articles must follow this structure from `.spec/blog.spec.json`:
+
+   ### Frontmatter (Required)
+
+   ```yaml
+   ---
+   title: "Article Title"
+   description: "Meta description (150-160 chars)"
+   keywords: ["keyword1", "keyword2"]
+   author: "$BLOG_NAME"
+   date: "YYYY-MM-DD"
+   language: "en"  # Or fr, es, de (from constitution)
+   slug: "article-slug"
+   ---
+   ```
+
+   ### Content Guidelines (from Constitution)
+
+   **MUST HAVE** (from `workflow.review_rules.must_have`):
+   - Executive summary with key takeaways
+   - Minimum 3-5 credible source citations
+   - Actionable insights (3-5 specific recommendations)
+   - Code examples for technical topics
+   - Clear structure with H2/H3 headings
+
+   **MUST AVOID** (from `workflow.review_rules.must_avoid`):
+   - Unsourced or unverified claims
+   - Keyword stuffing (density >2%)
+   - Vague or generic recommendations
+   - Missing internal links
+   - Images without descriptive alt text
+
+   ## Voice Guidelines (from Constitution)
+
+   ### DO (from `blog.brand_rules.voice_do`)
+
+   These patterns are extracted from your existing content:
+
+   $(jq -r '.blog.brand_rules.voice_do[] | "- ✅ " + .' .spec/blog.spec.json)
+
+   ### DON'T (from `blog.brand_rules.voice_dont`)
+
+   Avoid these anti-patterns:
+
+   $(jq -r '.blog.brand_rules.voice_dont[] | "- ❌ " + .' .spec/blog.spec.json)
+
+   ## Tone: $TONE
+
+   Your content should reflect the **$TONE** tone consistently.
+
+   **What this means**:
+   $(case "$TONE" in
+     expert)
+       echo "- Technical terminology is acceptable"
+       echo "- Assume reader has background knowledge"
+       echo "- Link to official documentation/specs"
+       echo "- Use metrics and benchmarks"
+       ;;
+     pédagogique)
+       echo "- Explain technical terms clearly"
+       echo "- Use step-by-step instructions"
+       echo "- Provide analogies and examples"
+       echo "- Include 'What is X?' introductions"
+       ;;
+     convivial)
+       echo "- Use conversational language"
+       echo "- Include personal pronouns (we, you)"
+       echo "- Keep it friendly and approachable"
+       echo "- Ask questions to engage reader"
+       ;;
+     corporate)
+       echo "- Use professional, formal language"
+       echo "- Focus on business value and ROI"
+       echo "- Include case studies and testimonials"
+       echo "- Follow industry best practices"
+       ;;
+   esac)
+
+   ## Directory Structure
+
+   Content is organized per language:
+
+   ```
+   $CONTENT_DIR/
+   ├── en/              # English articles
+   │   └── slug/
+   │       ├── article.md
+   │       └── images/
+   ├── fr/              # French articles
+   └── [other langs]/
+   ```
+
+   ## Validation Workflow
+
+   Always validate articles against constitution:
+
+   ### Before Publishing
+
+   ```bash
+   # 1. Validate quality (checks against .spec/blog.spec.json)
+   /blog-optimize "lang/article-slug"
+
+   # 2. Fix any issues reported
+   # 3. Re-validate until all checks pass
+   ```
+
+   ### After Editing Existing Articles
+
+   ```bash
+   # Validate to ensure constitution compliance
+   /blog-optimize "lang/article-slug"
+   ```
+
+   ## Commands That Use Constitution
+
+   These commands automatically load and enforce `.spec/blog.spec.json`:
+
+   - `/blog-generate` - Generates articles following constitution
+   - `/blog-copywrite` - Creates spec-perfect copywriting
+   - `/blog-optimize` - Validates against constitution rules
+   - `/blog-translate` - Preserves tone across languages
+
+   ## Updating the Constitution
+
+   If you need to change blog guidelines:
+
+   1. **Edit Constitution**:
+      ```bash
+      vim .spec/blog.spec.json
+      ```
+
+   2. **Validate JSON**:
+      ```bash
+      jq empty .spec/blog.spec.json
+      ```
+
+   3. **Regenerate This File** (if needed):
+      ```bash
+      /blog-analyse  # Re-analyzes and updates constitution
+      ```
+
+   ## Important Notes
+
+   ⚠️  **Never Deviate from Constitution**
+
+   - All articles MUST follow `.spec/blog.spec.json` guidelines
+   - If you need different guidelines, update constitution first
+   - Run `/blog-optimize` to verify compliance
+
+   ✅ **Constitution is Dynamic**
+
+   - You can update it anytime
+   - Changes apply to all future articles
+   - Re-validate existing articles after constitution changes
+
+   📚 **Learn Your Style**
+
+   - Constitution was generated from your existing content
+   - It reflects YOUR blog's unique style
+   - Follow it to maintain consistency
+
+   ---
+
+   **Pro Tip**: Keep this file and `.spec/blog.spec.json` in sync. If constitution changes, update this CLAUDE.md or regenerate it.
+   CLAUDE_EOF
+   ```
+
+3. **Expand Variables**:
+   ```bash
+   # Replace $BLOG_NAME, $TONE, $LANGUAGES with actual values
+   sed -i '' "s/\$BLOG_NAME/$BLOG_NAME/g" "$CONTENT_DIR/CLAUDE.md"
+   sed -i '' "s/\$TONE/$TONE/g" "$CONTENT_DIR/CLAUDE.md"
+   sed -i '' "s/\$LANGUAGES/$LANGUAGES/g" "$CONTENT_DIR/CLAUDE.md"
+   sed -i '' "s/\$CONTENT_DIR/$CONTENT_DIR/g" "$CONTENT_DIR/CLAUDE.md"
+   ```
+
+4. **Inform User**:
+   ```
+   ✅ Created CLAUDE.md in $CONTENT_DIR/
+
+   This file provides context-specific guidelines for article editing.
+   It references .spec/blog.spec.json as the source of truth.
+
+   When you work in $CONTENT_DIR/, Claude Code will automatically:
+   - Load .spec/blog.spec.json rules
+   - Follow voice guidelines
+   - Validate against constitution
+   ```
+
+### Success Criteria
+
+✅ CLAUDE.md created in content directory
+✅ File references blog.spec.json as source of truth
+✅ Voice guidelines included
+✅ Tone explained
+✅ Validation workflow documented
+✅ User informed
+
 ## Token Optimization
 
 **Load for Analysis**:
