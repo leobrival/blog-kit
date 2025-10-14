@@ -7,6 +7,12 @@ AI-powered blog article generation with specialized Claude Code agents.
 ### Quick Install
 
 ```bash
+# Direct installation from GitHub
+/plugin install https://github.com/leobrival/blog-kit.git
+```
+
+**Alternative** (using marketplace):
+```bash
 /plugin marketplace add https://github.com/leobrival/blog-kit.git
 /plugin install blog-kit
 ```

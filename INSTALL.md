@@ -2,7 +2,35 @@
 
 Guide complet pour installer Blog Kit dans Claude Code.
 
-## Méthode 1: Installation depuis GitHub (Recommandée)
+## Méthode 1: Installation Directe depuis GitHub (Recommandée)
+
+### Installation en Une Commande
+
+```bash
+/plugin install https://github.com/leobrival/blog-kit.git
+```
+
+Cette commande unique:
+- ✅ Clone le dépôt depuis GitHub
+- ✅ Installe les **Commands** (`commands/*.md`) - Toutes les commandes slash
+- ✅ Installe les **Agents** (`agents/*.md`) - Tous les agents spécialisés
+- ✅ Installe les **Templates** (`.templates/`) - Système de templates JSON
+
+### Vérifier l'Installation
+
+```bash
+# Vérifier que le plugin est installé
+/plugin list
+
+# Tester une commande
+/blog-setup
+```
+
+Si la commande `/blog-setup` s'exécute, l'installation est réussie!
+
+## Méthode 2: Via Marketplace (Alternative)
+
+Si vous préférez gérer vos plugins via un marketplace:
 
 ### 1. Ajouter le Plugin au Marketplace
 
@@ -10,38 +38,20 @@ Guide complet pour installer Blog Kit dans Claude Code.
 /plugin marketplace add https://github.com/leobrival/blog-kit.git
 ```
 
-Cette commande ajoute le dépôt GitHub au marketplace local de Claude Code.
-
-**Note**: Utilise l'URL HTTPS complète pour éviter les problèmes de clés SSH.
-
-### 2. Installer le Plugin
+### 2. Installer depuis le Marketplace
 
 ```bash
 /plugin install blog-kit
 ```
 
-Cette commande installe:
-- ✅ **Commands** (`commands/*.md`) - Toutes les commandes slash
-- ✅ **Agents** (`agents/*.md`) - Tous les agents spécialisés
-- ✅ **Templates** (`.templates/`) - Système de templates JSON
-
-### 3. Vérifier l'Installation
+### 3. Vérifier
 
 ```bash
 /plugin list
-```
-
-Vous devriez voir `blog-kit` dans la liste des plugins installés.
-
-### 4. Tester une Commande
-
-```bash
 /blog-setup
 ```
 
-Si la commande s'exécute, l'installation est réussie!
-
-## Méthode 2: Installation Locale (Développement)
+## Méthode 3: Installation Locale (Développement)
 
 Si vous développez le plugin ou voulez tester des modifications locales:
 
@@ -127,9 +137,8 @@ Après installation, tapez `/blog-` puis Tab pour voir toutes les commandes:
 ### Quick Start (5 minutes)
 
 ```bash
-# 0. Installer le plugin (si pas déjà fait)
-/plugin marketplace add https://github.com/leobrival/blog-kit.git
-/plugin install blog-kit
+# 0. Installer le plugin
+/plugin install https://github.com/leobrival/blog-kit.git
 
 # 1. Configurer votre blog
 /blog-setup
