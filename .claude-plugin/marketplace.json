@@ -29,7 +29,16 @@
         "claude-code"
       ],
       "category": "productivity",
-      "tags": ["content", "seo", "geo", "marketing", "research", "templates"]
+      "tags": ["content", "seo", "geo", "marketing", "research", "templates"],
+      "commands": [
+        "./commands/"
+      ],
+      "agents": [
+        "./agents/"
+      ],
+      "include": [
+        "./.templates/"
+      ]
     }
   ]
 }
