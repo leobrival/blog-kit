@@ -23,10 +23,27 @@
     "claude-code"
   ],
   "commands": [
-    "./commands/"
+    "./commands/blog-setup.md",
+    "./commands/blog-analyse.md",
+    "./commands/blog-generate.md",
+    "./commands/blog-research.md",
+    "./commands/blog-seo.md",
+    "./commands/blog-geo.md",
+    "./commands/blog-marketing.md",
+    "./commands/blog-copywrite.md",
+    "./commands/blog-optimize.md",
+    "./commands/blog-optimize-images.md",
+    "./commands/blog-translate.md"
   ],
   "agents": [
-    "./agents/"
+    "./agents/research-intelligence.md",
+    "./agents/seo-specialist.md",
+    "./agents/geo-specialist.md",
+    "./agents/marketing-specialist.md",
+    "./agents/copywriter.md",
+    "./agents/quality-optimizer.md",
+    "./agents/translator.md",
+    "./agents/analyzer.md"
   ],
   "include": ["./.templates/"]
 }
