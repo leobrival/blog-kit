@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "blog-kit",
-      "source": "./plugins/blog-kit",
+      "source": "./",
       "description": "Generate SEO/GEO-optimized blog articles using JSON templates and AI agents",
       "version": "0.2.0",
       "author": {
@@ -29,7 +29,34 @@
         "claude-code"
       ],
       "category": "productivity",
-      "tags": ["content", "seo", "geo", "marketing", "research", "templates"]
+      "tags": ["content", "seo", "geo", "marketing", "research", "templates"],
+      "strict": false,
+      "commands": [
+        "./commands/blog-setup.md",
+        "./commands/blog-analyse.md",
+        "./commands/blog-generate.md",
+        "./commands/blog-research.md",
+        "./commands/blog-seo.md",
+        "./commands/blog-geo.md",
+        "./commands/blog-marketing.md",
+        "./commands/blog-copywrite.md",
+        "./commands/blog-optimize.md",
+        "./commands/blog-optimize-images.md",
+        "./commands/blog-translate.md"
+      ],
+      "agents": [
+        "./agents/research-intelligence.md",
+        "./agents/seo-specialist.md",
+        "./agents/geo-specialist.md",
+        "./agents/marketing-specialist.md",
+        "./agents/copywriter.md",
+        "./agents/quality-optimizer.md",
+        "./agents/translator.md",
+        "./agents/analyzer.md"
+      ],
+      "include": [
+        "./.templates/"
+      ]
     }
   ]
 }
