@@ -1,0 +1,52 @@
+{
+  "$schema": "../schemas/components.schema.json",
+  "componentId": "faq-item",
+  "name": "FAQ Item",
+  "description": "Question and answer pair for FAQ sections",
+  "category": "content",
+  "markdownTemplate": "### {question}\n\n{answer}",
+  "properties": {
+    "question": {
+      "type": "string",
+      "required": true,
+      "description": "The question",
+      "minLength": 20,
+      "maxLength": 200
+    },
+    "answer": {
+      "type": "string",
+      "required": true,
+      "description": "The answer",
+      "minLength": 50,
+      "maxLength": 500
+    }
+  },
+  "validation": {
+    "questionMinLength": 20,
+    "questionMaxLength": 200,
+    "answerMinLength": 50,
+    "answerMaxLength": 500
+  },
+  "geoOptimized": true,
+  "guidelines": [
+    "Write questions as users would ask them",
+    "Start questions with who, what, when, where, why, or how",
+    "Keep answers concise but complete",
+    "Link to detailed sections for complex topics",
+    "Include 3-10 FAQs per article"
+  ],
+  "schemaMarkup": {
+    "type": "FAQPage",
+    "description": "FAQ items support schema.org FAQPage markup for rich snippets"
+  },
+  "examples": [
+    {
+      "question": "What is the difference between logging and tracing?",
+      "answer": "Logging captures discrete events within a single service, while tracing tracks requests across multiple services in a distributed system. Logs are useful for debugging individual components, whereas traces provide end-to-end visibility into request flows and help identify performance bottlenecks across service boundaries."
+    },
+    {
+      "question": "How much overhead does distributed tracing add?",
+      "answer": "With sampling enabled, distributed tracing typically adds 1-5% overhead to request latency. The impact depends on sampling rate, instrumentation libraries, and backend processing. Most teams start with 10% sampling in production to balance observability with performance."
+    }
+  ]
+}

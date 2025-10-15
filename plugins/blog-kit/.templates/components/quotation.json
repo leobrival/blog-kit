@@ -1,0 +1,78 @@
+{
+  "$schema": "../schemas/components.schema.json",
+  "componentId": "quotation",
+  "name": "Quotation",
+  "description": "Expert quote or citation for GEO optimization (Princeton method: quotations)",
+  "category": "geo",
+  "markdownTemplate": "> \"{text}\"\n>\n> — **{author}**, {source}",
+  "properties": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "description": "The quoted text",
+      "minLength": 50,
+      "maxLength": 300
+    },
+    "author": {
+      "type": "string",
+      "required": true,
+      "description": "Name of the person being quoted"
+    },
+    "source": {
+      "type": "string",
+      "required": true,
+      "description": "Publication, company, or URL where quote originates"
+    },
+    "role": {
+      "type": "string",
+      "required": false,
+      "description": "Author's role or title (e.g., 'CTO at Company X', 'Research Lead')"
+    },
+    "url": {
+      "type": "string",
+      "required": false,
+      "description": "URL to the original source"
+    }
+  },
+  "validation": {
+    "requireSource": true,
+    "requireAuthor": true,
+    "minLength": 50,
+    "maxLength": 300
+  },
+  "geoOptimized": true,
+  "geoMethod": "quotations",
+  "princetonStudy": {
+    "effectiveness": "high",
+    "visibilityIncrease": "115% for lower-ranked sites",
+    "bestFor": [
+      "People & Society",
+      "Explanation-focused content",
+      "History",
+      "Educational content"
+    ],
+    "placement": "Intro, conclusion, or supporting key claims"
+  },
+  "guidelines": [
+    "Use quotes from recognized experts or authoritative sources",
+    "Ensure quotes directly support your content claims",
+    "Include author credentials to boost E-E-A-T signals",
+    "Place quotes near key statements for AI citation",
+    "Keep quotes self-contained and contextual"
+  ],
+  "examples": [
+    {
+      "text": "Distributed tracing provides visibility into request flows across microservices, enabling faster root cause analysis and improved system reliability.",
+      "author": "Jane Smith",
+      "source": "OpenTelemetry Documentation",
+      "role": "Principal Engineer",
+      "url": "https://opentelemetry.io/docs"
+    },
+    {
+      "text": "According to our research, teams using structured logging see a 40% reduction in mean time to resolution for production incidents.",
+      "author": "John Doe",
+      "source": "Datadog State of Observability 2024",
+      "url": "https://example.com/report"
+    }
+  ]
+}

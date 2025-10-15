@@ -1,0 +1,74 @@
+{
+  "$schema": "../schemas/components.schema.json",
+  "componentId": "code-block",
+  "name": "Code Block",
+  "description": "Syntax-highlighted code example with optional filename and explanation",
+  "category": "content",
+  "markdownTemplate": "```{language}\n{code}\n```\n\n{explanation}",
+  "properties": {
+    "code": {
+      "type": "string",
+      "required": true,
+      "description": "The code content",
+      "minLength": 10
+    },
+    "language": {
+      "type": "string",
+      "required": true,
+      "description": "Programming language for syntax highlighting",
+      "enum": [
+        "javascript",
+        "typescript",
+        "python",
+        "java",
+        "go",
+        "rust",
+        "bash",
+        "shell",
+        "json",
+        "yaml",
+        "html",
+        "css",
+        "sql",
+        "dockerfile",
+        "markdown"
+      ]
+    },
+    "filename": {
+      "type": "string",
+      "required": false,
+      "description": "Filename or path (displayed as comment or header)"
+    },
+    "explanation": {
+      "type": "string",
+      "required": false,
+      "description": "Explanation of what the code does",
+      "maxLength": 500
+    },
+    "highlight": {
+      "type": "array",
+      "required": false,
+      "description": "Line numbers to highlight (e.g., [3, 5, 7])"
+    }
+  },
+  "validation": {
+    "minLength": 10,
+    "requireLanguage": true
+  },
+  "geoOptimized": false,
+  "guidelines": [
+    "Keep code examples concise and focused",
+    "Always specify the language for syntax highlighting",
+    "Add explanations for complex code blocks",
+    "Use realistic, working examples",
+    "Include error handling in production examples"
+  ],
+  "examples": [
+    {
+      "code": "const tracer = opentelemetry.trace.getTracer('my-service');\n\nconst span = tracer.startSpan('operation-name');\ntry {\n  // Your operation\n  span.setStatus({ code: opentelemetry.SpanStatusCode.OK });\n} catch (error) {\n  span.setStatus({ code: opentelemetry.SpanStatusCode.ERROR });\n  span.recordException(error);\n} finally {\n  span.end();\n}",
+      "language": "javascript",
+      "filename": "tracer.js",
+      "explanation": "This example shows how to create and manage a span using OpenTelemetry. Always close spans in a finally block to ensure they're properly exported."
+    }
+  ]
+}

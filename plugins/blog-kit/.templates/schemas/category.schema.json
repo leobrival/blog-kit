@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://blog-kit.dev/schemas/category.json",
+  "title": "Category Configuration",
+  "description": "Category-specific configuration with template and validation rules",
+  "type": "object",
+  "required": ["category"],
+  "properties": {
+    "category": {
+      "type": "object",
+      "required": ["id", "name", "language"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Category identifier (tutorials, guides, etc.)",
+          "pattern": "^[a-z-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Category description"
+        },
+        "language": {
+          "type": "string",
+          "description": "ISO 639-1 language code",
+          "pattern": "^[a-z]{2}$"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Category icon (emoji or path)"
+        }
+      }
+    },
+    "template": {
+      "type": "object",
+      "description": "Template configuration",
+      "properties": {
+        "default": {
+          "type": "string",
+          "description": "Default template ID"
+        },
+        "allowed": {
+          "type": "array",
+          "description": "Allowed template IDs",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enforceStructure": {
+          "type": "boolean",
+          "description": "Enforce template structure validation"
+        }
+      }
+    },
+    "constitution": {
+      "type": "object",
+      "description": "Category-specific constitution",
+      "properties": {
+        "tone": {
+          "type": "string",
+          "enum": ["expert", "pédagogique", "convivial", "corporate"],
+          "description": "Default tone for category"
+        },
+        "voiceDo": {
+          "type": "array",
+          "description": "Voice guidelines to follow",
+          "items": {
+            "type": "string"
+          }
+        },
+        "voiceDont": {
+          "type": "array",
+          "description": "Voice guidelines to avoid",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "description": "SEO defaults for category",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["educational", "commercial", "informational", "transactional"],
+          "description": "SEO strategy"
+        },
+        "targetLength": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "geo": {
+      "type": "object",
+      "description": "GEO defaults for category",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["aggressive", "moderate", "minimal"],
+          "description": "GEO optimization level"
+        },
+        "requiredMethods": {
+          "type": "array",
+          "description": "Required Princeton methods",
+          "items": {
+            "type": "string",
+            "enum": ["cite-sources", "quotations", "statistics"]
+          }
+        },
+        "quotations": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "statistics": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "sources": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation rules",
+      "properties": {
+        "strict": {
+          "type": "boolean",
+          "description": "Enable strict validation"
+        },
+        "requiredComponents": {
+          "type": "array",
+          "description": "Required component types",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minCodeExamples": {
+          "type": "integer",
+          "description": "Minimum code examples (for technical categories)",
+          "minimum": 0
+        }
+      }
+    },
+    "urlPattern": {
+      "type": "string",
+      "description": "URL generation pattern (e.g., /{lang}/{category}/{slug})",
+      "examples": ["/{lang}/{category}/{slug}", "/{category}/{slug}", "/{slug}"]
+    }
+  },
+  "additionalProperties": false
+}

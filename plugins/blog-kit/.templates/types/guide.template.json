@@ -1,0 +1,304 @@
+{
+  "$schema": "../schemas/article.schema.json",
+  "templateId": "guide",
+  "version": "1.0.0",
+  "name": "Complete Guide",
+  "description": "Comprehensive guide covering all aspects of a topic",
+  "metadata": {
+    "category": "educational",
+    "difficulty": "advanced",
+    "estimatedLength": "3000-5000 words",
+    "estimatedReadingTime": "12-20 minutes",
+    "targetAudience": "developers seeking comprehensive understanding"
+  },
+  "structure": {
+    "sections": [
+      {
+        "id": "intro",
+        "heading": "Introduction",
+        "required": true,
+        "level": "h2",
+        "description": "Overview of the topic, why it matters, and what the guide covers",
+        "guidelines": [
+          "Explain the topic's importance and use cases",
+          "Outline what the guide will cover",
+          "Set expectations for depth and breadth"
+        ],
+        "targetLength": {
+          "min": 200,
+          "max": 400
+        },
+        "components": {
+          "allowed": ["quotation", "statistic", "callout"],
+          "required": []
+        }
+      },
+      {
+        "id": "fundamentals",
+        "heading": "Fundamentals and Core Concepts",
+        "required": true,
+        "level": "h2",
+        "description": "Core concepts, terminology, and foundational knowledge",
+        "guidelines": [
+          "Define key terms and concepts",
+          "Explain underlying principles",
+          "Provide context and background"
+        ],
+        "subsections": {
+          "min": 2,
+          "max": 5,
+          "level": "h3"
+        },
+        "components": {
+          "allowed": ["quotation", "statistic", "comparison-table", "callout"],
+          "required": []
+        }
+      },
+      {
+        "id": "deep-dive",
+        "heading": "In-Depth Exploration",
+        "required": true,
+        "level": "h2",
+        "description": "Detailed coverage of main topics with examples",
+        "guidelines": [
+          "Cover all major aspects thoroughly",
+          "Include practical examples",
+          "Address common scenarios and edge cases"
+        ],
+        "subsections": {
+          "min": 3,
+          "max": 8,
+          "level": "h3"
+        },
+        "components": {
+          "allowed": ["code-block", "quotation", "statistic", "comparison-table", "callout"],
+          "required": ["quotation"]
+        }
+      },
+      {
+        "id": "best-practices",
+        "heading": "Best Practices and Recommendations",
+        "required": true,
+        "level": "h2",
+        "description": "Industry best practices and expert recommendations",
+        "guidelines": [
+          "Provide actionable best practices",
+          "Explain the reasoning behind recommendations",
+          "Include real-world examples"
+        ],
+        "subsections": {
+          "min": 2,
+          "max": 5,
+          "level": "h3"
+        },
+        "components": {
+          "allowed": ["quotation", "statistic", "callout", "code-block"],
+          "required": ["quotation"]
+        }
+      },
+      {
+        "id": "common-pitfalls",
+        "heading": "Common Pitfalls and How to Avoid Them",
+        "required": false,
+        "level": "h2",
+        "description": "Common mistakes and anti-patterns",
+        "guidelines": [
+          "List 3-5 common pitfalls",
+          "Explain why they're problematic",
+          "Provide solutions and alternatives"
+        ],
+        "components": {
+          "allowed": ["callout", "code-block", "comparison-table"],
+          "required": []
+        }
+      },
+      {
+        "id": "advanced",
+        "heading": "Advanced Topics",
+        "required": false,
+        "level": "h2",
+        "description": "Advanced techniques and considerations",
+        "guidelines": [
+          "Cover advanced use cases",
+          "Discuss performance optimization",
+          "Address scalability concerns"
+        ],
+        "subsections": {
+          "min": 2,
+          "max": 4,
+          "level": "h3"
+        },
+        "components": {
+          "allowed": ["code-block", "quotation", "statistic", "callout"],
+          "required": []
+        }
+      },
+      {
+        "id": "comparison",
+        "heading": "Comparison with Alternatives",
+        "required": false,
+        "level": "h2",
+        "description": "How this compares to alternative approaches or tools",
+        "guidelines": [
+          "Compare with 2-3 main alternatives",
+          "Present objective pros and cons",
+          "Help readers choose the right solution"
+        ],
+        "components": {
+          "allowed": ["comparison-table", "pros-cons", "quotation"],
+          "required": ["comparison-table"]
+        }
+      },
+      {
+        "id": "conclusion",
+        "heading": "Conclusion and Further Resources",
+        "required": true,
+        "level": "h2",
+        "description": "Summary, key takeaways, and additional resources",
+        "guidelines": [
+          "Summarize key points",
+          "Provide 3-5 key takeaways",
+          "Link to additional resources"
+        ],
+        "targetLength": {
+          "min": 200,
+          "max": 400
+        },
+        "components": {
+          "allowed": ["quotation", "callout"],
+          "required": []
+        }
+      },
+      {
+        "id": "faq",
+        "heading": "Frequently Asked Questions",
+        "required": false,
+        "level": "h2",
+        "description": "Comprehensive FAQ section",
+        "guidelines": [
+          "Include 5-10 relevant questions",
+          "Provide detailed answers",
+          "Cover edge cases and advanced topics"
+        ],
+        "components": {
+          "allowed": ["faq-item"],
+          "required": ["faq-item"]
+        }
+      }
+    ]
+  },
+  "validation": {
+    "wordCount": {
+      "min": 3000,
+      "max": 5000,
+      "optimal": 4000
+    },
+    "seo": {
+      "primaryKeyword": {
+        "required": true,
+        "density": {
+          "min": 0.5,
+          "max": 1.5
+        }
+      },
+      "secondaryKeywords": {
+        "min": 5,
+        "max": 7
+      },
+      "searchIntent": "informational",
+      "targetLength": {
+        "min": 3000,
+        "max": 5000
+      },
+      "headings": {
+        "h2Min": 6,
+        "h2Max": 10,
+        "h3Min": 8
+      }
+    },
+    "geo": {
+      "optimizationLevel": "aggressive",
+      "requiredMethods": ["cite-sources", "quotations", "statistics"],
+      "quotations": {
+        "min": 4,
+        "max": 8,
+        "placement": "throughout, especially in best practices and deep-dive sections"
+      },
+      "statistics": {
+        "min": 3,
+        "max": 6,
+        "placement": "intro, fundamentals, and deep-dive sections"
+      },
+      "sources": {
+        "min": 7,
+        "max": 12,
+        "types": ["research papers", "official documentation", "industry reports", "expert blogs"]
+      },
+      "eeeat": {
+        "experience": "Share real-world insights and examples",
+        "expertise": "Demonstrate comprehensive knowledge",
+        "authoritativeness": "Cite multiple authoritative sources",
+        "trustworthiness": "Provide balanced, objective analysis"
+      }
+    },
+    "components": {
+      "quotation": {
+        "min": 4,
+        "max": 8,
+        "required": true
+      },
+      "statistic": {
+        "min": 3,
+        "max": 6,
+        "required": true
+      },
+      "comparisonTable": {
+        "min": 1,
+        "max": 3
+      },
+      "codeBlock": {
+        "min": 0,
+        "max": 10
+      },
+      "callout": {
+        "min": 2,
+        "max": 6
+      }
+    },
+    "structure": {
+      "enforceOrder": true,
+      "requiredSections": ["intro", "fundamentals", "deep-dive", "best-practices", "conclusion"],
+      "optionalSections": ["common-pitfalls", "advanced", "comparison", "faq"]
+    }
+  },
+  "constitution": {
+    "tone": "expert",
+    "voiceDo": [
+      "Provide comprehensive, authoritative coverage",
+      "Balance depth with accessibility",
+      "Include multiple perspectives and approaches",
+      "Back claims with data and expert opinions",
+      "Address both beginners and advanced readers",
+      "Maintain objectivity in comparisons"
+    ],
+    "voiceDont": [
+      "Oversimplify complex topics",
+      "Present opinions as facts without sources",
+      "Ignore alternative approaches",
+      "Use unnecessarily complex jargon",
+      "Leave gaps in coverage"
+    ]
+  },
+  "examples": [
+    {
+      "title": "The Complete Guide to Microservices Architecture",
+      "wordCount": 4200,
+      "url": "example-url"
+    },
+    {
+      "title": "Node.js Performance Optimization: The Ultimate Guide",
+      "wordCount": 3800,
+      "url": "example-url"
+    }
+  ]
+}
