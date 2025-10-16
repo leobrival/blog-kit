@@ -44,3 +44,6 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Claude Code plugins (should be in ~/.claude/plugins/)
+plugins/
