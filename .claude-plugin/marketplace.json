@@ -32,30 +32,30 @@
       "tags": ["content", "seo", "geo", "marketing", "research", "templates"],
       "strict": false,
       "commands": [
-        "./plugin/commands/blog-setup.md",
-        "./plugin/commands/blog-analyse.md",
-        "./plugin/commands/blog-generate.md",
-        "./plugin/commands/blog-research.md",
-        "./plugin/commands/blog-seo.md",
-        "./plugin/commands/blog-geo.md",
-        "./plugin/commands/blog-marketing.md",
-        "./plugin/commands/blog-copywrite.md",
-        "./plugin/commands/blog-optimize.md",
-        "./plugin/commands/blog-optimize-images.md",
-        "./plugin/commands/blog-translate.md"
+        "./commands/blog-setup.md",
+        "./commands/blog-analyse.md",
+        "./commands/blog-generate.md",
+        "./commands/blog-research.md",
+        "./commands/blog-seo.md",
+        "./commands/blog-geo.md",
+        "./commands/blog-marketing.md",
+        "./commands/blog-copywrite.md",
+        "./commands/blog-optimize.md",
+        "./commands/blog-optimize-images.md",
+        "./commands/blog-translate.md"
       ],
       "agents": [
-        "./plugin/agents/research-intelligence.md",
-        "./plugin/agents/seo-specialist.md",
-        "./plugin/agents/geo-specialist.md",
-        "./plugin/agents/marketing-specialist.md",
-        "./plugin/agents/copywriter.md",
-        "./plugin/agents/quality-optimizer.md",
-        "./plugin/agents/translator.md",
-        "./plugin/agents/analyzer.md"
+        "./agents/research-intelligence.md",
+        "./agents/seo-specialist.md",
+        "./agents/geo-specialist.md",
+        "./agents/marketing-specialist.md",
+        "./agents/copywriter.md",
+        "./agents/quality-optimizer.md",
+        "./agents/translator.md",
+        "./agents/analyzer.md"
       ],
       "include": [
-        "./plugin/.templates/"
+        "./.templates/"
       ]
     }
   ]
