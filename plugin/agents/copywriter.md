@@ -40,14 +40,14 @@ You are a spec-driven copywriting specialist who creates content precisely align
 ```bash
 # Validate constitution first
 if [ ! -f .spec/blog.spec.json ]; then
-  echo "⚠️  No constitution found - using generic copywriting approach"
+  echo "️  No constitution found - using generic copywriting approach"
   exit 0
 fi
 
 # Validate JSON
 if command -v python3 >/dev/null 2>&1; then
   if ! python3 -m json.tool .spec/blog.spec.json > /dev/null 2>&1; then
-    echo "❌ Invalid constitution JSON"
+    echo " Invalid constitution JSON"
     exit 1
   fi
 fi
@@ -103,6 +103,34 @@ fi
    - Unsourced claims → Every assertion needs citation
    - Keyword stuffing → Natural language, 1-2% density
    - Vague recommendations → Specific, measurable, actionable
+
+4. **Post Type Detection (NEW)**:
+
+   **Load Post Type from Category Config**:
+   ```bash
+   # Check if category.json exists
+   CATEGORY_DIR=$(dirname "$ARTICLE_PATH")
+   CATEGORY_CONFIG="$CATEGORY_DIR/.category.json"
+
+   if [ -f "$CATEGORY_CONFIG" ]; then
+     POST_TYPE=$(grep '"postType"' "$CATEGORY_CONFIG" | sed 's/.*: *"//;s/".*//')
+   fi
+   ```
+
+   **Fallback to Frontmatter**:
+   ```bash
+   # If not in category config, check article frontmatter
+   if [ -z "$POST_TYPE" ]; then
+     FRONTMATTER=$(sed -n '/^---$/,/^---$/p' "$ARTICLE_PATH" | sed '1d;$d')
+     POST_TYPE=$(echo "$FRONTMATTER" | grep '^postType:' | sed 's/postType: *//;s/"//g')
+   fi
+   ```
+
+   **Post Type Expectations**:
+   - **Actionnable**: Code blocks (5+), step-by-step structure, technical precision
+   - **Aspirationnel**: Quotations (3+), visionary language, storytelling
+   - **Analytique**: Statistics (5+), comparison tables, objective tone
+   - **Anthropologique**: Testimonials (5+), behavioral insights, empathetic tone
 
 ### Phase 2: Spec-Driven Content Creation (20-40 minutes)
 
@@ -302,17 +330,17 @@ for guideline in voice_do:
    # [Load voice_dont from constitution]
 
    if grep -iq "jargon-term-without-explanation" "$ARTICLE"; then
-     echo "⚠️  Jargon without explanation detected"
+     echo "️  Jargon without explanation detected"
    fi
 
    if grep -E "(was|were|been) [a-z]+ed" "$ARTICLE" | wc -l | grep -qv "^0$"; then
-     echo "⚠️  Passive voice detected"
+     echo "️  Passive voice detected"
    fi
 
    # Check for voice_do presence
    # [Validate voice_do guidelines are applied]
 
-   echo "✅ Voice validation complete"
+   echo " Voice validation complete"
    ```
 
 2. **Review Rules Check**:
@@ -321,18 +349,18 @@ for guideline in voice_do:
    ```bash
    # Check executive summary exists
    if ! grep -qi "## .*summary" "$ARTICLE"; then
-     echo "❌ Missing: Executive summary"
+     echo " Missing: Executive summary"
    fi
 
    # Count citations (must have 5+)
    CITATIONS=$(grep -o '\[^[0-9]\+\]' "$ARTICLE" | wc -l)
    if [ "$CITATIONS" -lt 5 ]; then
-     echo "❌ Only $CITATIONS citations (need 5+)"
+     echo " Only $CITATIONS citations (need 5+)"
    fi
 
    # Check actionable insights
    if ! grep -qi "## .*\(recommendation\|insight\|takeaway\)" "$ARTICLE"; then
-     echo "⚠️  Missing actionable insights section"
+     echo "️  Missing actionable insights section"
    fi
    ```
 
@@ -345,7 +373,7 @@ for guideline in voice_do:
    DENSITY=$(echo "scale=2; ($KEYWORD_COUNT / $TOTAL_WORDS) * 100" | bc)
 
    if (( $(echo "$DENSITY > 2" | bc -l) )); then
-     echo "⚠️  Keyword density $DENSITY% (should be <2%)"
+     echo "️  Keyword density $DENSITY% (should be <2%)"
    fi
    ```
 
@@ -370,6 +398,145 @@ for guideline in voice_do:
    echo "Business terms: $BIZ_TERMS"
    ```
 
+4. **Post Type Compliance Validation (NEW)**:
+
+   Generate validation script in `/tmp/validate-post-type-$$.sh`:
+
+   ```bash
+   #!/bin/bash
+   # Post Type validation for article
+
+   ARTICLE="$1"
+
+   # Extract post type from frontmatter
+   FRONTMATTER=$(sed -n '/^---$/,/^---$/p' "$ARTICLE" | sed '1d;$d')
+   POST_TYPE=$(echo "$FRONTMATTER" | grep '^postType:' | sed 's/postType: *//;s/"//g')
+
+   if [ -z "$POST_TYPE" ]; then
+     echo "️  No post type detected (skipping post type validation)"
+     exit 0
+   fi
+
+   echo "Post Type: $POST_TYPE"
+   echo ""
+
+   # Validate by post type
+   case "$POST_TYPE" in
+     "actionnable")
+       # Check code blocks (minimum 5)
+       CODE_BLOCKS=$(grep -c '^```' "$ARTICLE")
+       CODE_BLOCKS=$((CODE_BLOCKS / 2))
+       if [ "$CODE_BLOCKS" -lt 5 ]; then
+         echo "️  Actionnable: Only $CODE_BLOCKS code blocks (recommend 5+)"
+       else
+         echo " Actionnable: $CODE_BLOCKS code blocks (good)"
+       fi
+
+       # Check for step-by-step structure
+       if grep -qE '(Step [0-9]|^[0-9]+\.)' "$ARTICLE"; then
+         echo " Actionnable: Step-by-step structure present"
+       else
+         echo "️  Actionnable: Missing step-by-step structure"
+       fi
+
+       # Check technical precision (callouts)
+       CALLOUTS=$(grep -c '^> ' "$ARTICLE")
+       if [ "$CALLOUTS" -ge 2 ]; then
+         echo " Actionnable: $CALLOUTS callouts (good for tips/warnings)"
+       else
+         echo "️  Actionnable: Only $CALLOUTS callouts (add 2-3 for best practices)"
+       fi
+       ;;
+
+     "aspirationnel")
+       # Check quotations (minimum 3)
+       QUOTES=$(grep -c '^> ' "$ARTICLE")
+       if [ "$QUOTES" -lt 3 ]; then
+         echo "️  Aspirationnel: Only $QUOTES quotations (recommend 3+)"
+       else
+         echo " Aspirationnel: $QUOTES quotations (good)"
+       fi
+
+       # Check for visionary language
+       if grep -qiE '(future|vision|transform|imagine|inspire|revolution)' "$ARTICLE"; then
+         echo " Aspirationnel: Visionary language present"
+       else
+         echo "️  Aspirationnel: Missing visionary language (future, vision, transform)"
+       fi
+
+       # Check storytelling elements
+       if grep -qiE '(story|journey|experience|case study)' "$ARTICLE"; then
+         echo " Aspirationnel: Storytelling elements present"
+       else
+         echo "️  Aspirationnel: Add storytelling elements (case studies, journeys)"
+       fi
+       ;;
+
+     "analytique")
+       # Check statistics (minimum 5)
+       STATS=$(grep -cE '[0-9]+%|[0-9]+x' "$ARTICLE")
+       if [ "$STATS" -lt 5 ]; then
+         echo "️  Analytique: Only $STATS statistics (recommend 5+)"
+       else
+         echo " Analytique: $STATS statistics (good)"
+       fi
+
+       # Check comparison table (required)
+       if grep -q '|.*|.*|' "$ARTICLE"; then
+         echo " Analytique: Comparison table present (required)"
+       else
+         echo " Analytique: Missing comparison table (required)"
+       fi
+
+       # Check for objective tone markers
+       if grep -qiE '(according to|research shows|data indicates|study finds)' "$ARTICLE"; then
+         echo " Analytique: Objective tone markers present"
+       else
+         echo "️  Analytique: Add objective markers (research shows, data indicates)"
+       fi
+       ;;
+
+     "anthropologique")
+       # Check testimonials/quotes (minimum 5)
+       QUOTES=$(grep -c '^> ' "$ARTICLE")
+       if [ "$QUOTES" -lt 5 ]; then
+         echo "️  Anthropologique: Only $QUOTES quotes/testimonials (recommend 5+)"
+       else
+         echo " Anthropologique: $QUOTES testimonials (good)"
+       fi
+
+       # Check behavioral statistics
+       STATS=$(grep -cE '[0-9]+%' "$ARTICLE")
+       if [ "$STATS" -lt 3 ]; then
+         echo "️  Anthropologique: Only $STATS statistics (recommend 3+ behavioral)"
+       else
+         echo " Anthropologique: $STATS behavioral statistics (good)"
+       fi
+
+       # Check for behavioral/cultural language
+       if grep -qiE '(why|behavior|pattern|culture|psychology|team dynamics)' "$ARTICLE"; then
+         echo " Anthropologique: Behavioral/cultural language present"
+       else
+         echo "️  Anthropologique: Add behavioral language (why, patterns, culture)"
+       fi
+
+       # Check empathetic tone
+       if grep -qiE '\b(understand|feel|experience|challenge|struggle)\b' "$ARTICLE"; then
+         echo " Anthropologique: Empathetic tone present"
+       else
+         echo "️  Anthropologique: Add empathetic language (understand, experience)"
+       fi
+       ;;
+
+     *)
+       echo "️  Unknown post type: $POST_TYPE"
+       ;;
+   esac
+
+   echo ""
+   echo " Post type validation complete"
+   ```
+
 ## Output Format
 
 ```markdown
@@ -381,6 +548,7 @@ author: "[blog.name or custom]"
 date: "[YYYY-MM-DD]"
 category: "[Category]"
 tone: "[expert|pédagogique|convivial|corporate]"
+postType: "[actionnable|aspirationnel|analytique|anthropologique]"
 spec_version: "[Constitution version]"
 ---
 
@@ -419,9 +587,9 @@ spec_version: "[Constitution version]"
 
 **Constitution Applied**: `.spec/blog.spec.json` (v1.0.0)
 **Tone**: [expert|pédagogique|convivial|corporate]
-**Voice DO**: All guidelines applied ✅
-**Voice DON'T**: All anti-patterns avoided ✅
-**Review Rules**: All must_have items included ✅
+**Voice DO**: All guidelines applied 
+**Voice DON'T**: All anti-patterns avoided 
+**Review Rules**: All must_have items included 
 ```
 
 ## Save Output
@@ -439,22 +607,22 @@ cp articles/$TOPIC.md articles/$TOPIC.backup-$(date +%Y%m%d-%H%M%S).md
 ## Token Optimization
 
 **Load from constitution** (~200-500 tokens):
-- ✅ `blog` section (name, context, objective, tone, languages)
-- ✅ `brand_rules` (voice_do, voice_dont)
-- ✅ `workflow.review_rules` (must_have, must_avoid)
-- ❌ Generated timestamps, metadata
+-  `blog` section (name, context, objective, tone, languages)
+-  `brand_rules` (voice_do, voice_dont)
+-  `workflow.review_rules` (must_have, must_avoid)
+-  Generated timestamps, metadata
 
 **Load from existing article** (if rewriting, ~500-1000 tokens):
-- ✅ Frontmatter (to preserve metadata)
-- ✅ H2/H3 structure (to maintain organization)
-- ✅ Key points/data to preserve
-- ❌ Full content (rewrite from scratch guided by specs)
+-  Frontmatter (to preserve metadata)
+-  H2/H3 structure (to maintain organization)
+-  Key points/data to preserve
+-  Full content (rewrite from scratch guided by specs)
 
 **Load from SEO brief** (if exists, ~300-500 tokens):
-- ✅ Target keywords
-- ✅ Content structure outline
-- ✅ Meta description
-- ❌ Competitor analysis details
+-  Target keywords
+-  Content structure outline
+-  Meta description
+-  Competitor analysis details
 
 **Total context budget**: 1,000-2,000 tokens (vs 5,000+ without optimization)
 
@@ -463,24 +631,31 @@ cp articles/$TOPIC.md articles/$TOPIC.backup-$(date +%Y%m%d-%H%M%S).md
 Before finalizing:
 
 **Constitution Compliance**:
-- ✅ Tone matches `blog.tone` specification
-- ✅ All `voice_do` guidelines applied
-- ✅ No `voice_dont` anti-patterns present
-- ✅ Serves `blog.objective` effectively
-- ✅ Appropriate for `blog.context` audience
+-  Tone matches `blog.tone` specification
+-  All `voice_do` guidelines applied
+-  No `voice_dont` anti-patterns present
+-  Serves `blog.objective` effectively
+-  Appropriate for `blog.context` audience
 
 **Review Rules**:
-- ✅ All `must_have` items present
-- ✅ No `must_avoid` violations
-- ✅ Citation count meets requirement
-- ✅ Actionable insights provided
+-  All `must_have` items present
+-  No `must_avoid` violations
+-  Citation count meets requirement
+-  Actionable insights provided
 
 **Writing Quality**:
-- ✅ Sentence length appropriate for tone
-- ✅ Active/passive voice ratio correct
-- ✅ Terminology usage matches audience
-- ✅ Examples relevant and helpful
-- ✅ Transitions smooth between sections
+-  Sentence length appropriate for tone
+-  Active/passive voice ratio correct
+-  Terminology usage matches audience
+-  Examples relevant and helpful
+-  Transitions smooth between sections
+
+**Post Type Compliance (NEW)**:
+-  Post type correctly identified in frontmatter
+-  Content style matches post type requirements
+-  Required components present (code/quotes/stats/tables)
+-  Structure aligns with post type expectations
+-  Tone coherent with post type (technical/visionary/objective/empathetic)
 
 ## Error Handling
 

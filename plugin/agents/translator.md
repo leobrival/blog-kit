@@ -1,3 +1,10 @@
+---
+name: translator
+description: Multilingual content translator with i18n structure validation and technical preservation
+tools: Read, Write, Grep, Bash
+model: inherit
+---
+
 # Translator Agent
 
 **Role**: Multilingual content translator with structural validation
@@ -89,10 +96,10 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
    # Check each language exists
    for lang in $LANGUAGES; do
      if [ ! -d "$CONTENT_DIR/$lang" ]; then
-       echo "❌ Missing language directory: $lang" >> /tmp/translation-report.md
+       echo " Missing language directory: $lang" >> /tmp/translation-report.md
        mkdir -p "$CONTENT_DIR/$lang"
      else
-       echo "✅ Language directory exists: $lang" >> /tmp/translation-report.md
+       echo " Language directory exists: $lang" >> /tmp/translation-report.md
      fi
    done
 
@@ -122,9 +129,9 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
        article_path="$CONTENT_DIR/$lang/$slug/article.md"
        if [ -f "$article_path" ]; then
          word_count=$(wc -w < "$article_path")
-         echo "- ✅ **$lang**: $word_count words" >> /tmp/translation-report.md
+         echo "-  **$lang**: $word_count words" >> /tmp/translation-report.md
        else
-         echo "- ❌ **$lang**: MISSING" >> /tmp/translation-report.md
+         echo "-  **$lang**: MISSING" >> /tmp/translation-report.md
        fi
      done
      echo "" >> /tmp/translation-report.md
@@ -197,10 +204,10 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
 ### Success Criteria
 
-✅ Validation script generated in `/tmp/`
-✅ All configured languages have directories
-✅ Coverage percentage calculated
-✅ Missing translations identified
+ Validation script generated in `/tmp/`
+ All configured languages have directories
+ Coverage percentage calculated
+ Missing translations identified
 
 ## Phase 2: Translation Preparation
 
@@ -260,10 +267,10 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
 ### Success Criteria
 
-✅ Source article loaded
-✅ Frontmatter extracted
-✅ Technical terms identified
-✅ Translation context prepared
+ Source article loaded
+ Frontmatter extracted
+ Technical terms identified
+ Translation context prepared
 
 ## Phase 3: Content Translation
 
@@ -328,9 +335,9 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
    ```markdown
    # At top or bottom of article
    ---
-   🇬🇧 [Read in English](/en/$SLUG)
-   🇫🇷 [Lire en français](/fr/$SLUG)
-   🇪🇸 [Leer en español](/es/$SLUG)
+    [Read in English](/en/$SLUG)
+    [Lire en français](/fr/$SLUG)
+    [Leer en español](/es/$SLUG)
    ---
    ```
 
@@ -352,11 +359,11 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
 ### Success Criteria
 
-✅ All content translated
-✅ Technical terms preserved
-✅ Code blocks unchanged
-✅ SEO structure maintained
-✅ Cross-language links added
+ All content translated
+ Technical terms preserved
+ Code blocks unchanged
+ SEO structure maintained
+ Cross-language links added
 
 ## Phase 4: Image Synchronization
 
@@ -396,7 +403,7 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
    # Check all images referenced in article exist
    grep -o 'images/[^)]*' "$CONTENT_DIR/$TARGET_LANG/$SLUG/article.md" | while read img; do
      if [ ! -f "$CONTENT_DIR/$TARGET_LANG/$SLUG/$img" ]; then
-       echo "⚠️  Missing image: $img"
+       echo "️  Missing image: $img"
      fi
    done
    ```
@@ -409,10 +416,10 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
 ### Success Criteria
 
-✅ Images directory created
-✅ Optimized images copied
-✅ Backups synchronized
-✅ All references validated
+ Images directory created
+ Optimized images copied
+ Backups synchronized
+ All references validated
 
 ## Phase 5: Validation & Output
 
@@ -464,8 +471,8 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
    ## Files Created
 
-   - ✅ $CONTENT_DIR/$TARGET_LANG/$SLUG/article.md
-   - ✅ $CONTENT_DIR/$TARGET_LANG/$SLUG/images/ (if needed)
+   -  $CONTENT_DIR/$TARGET_LANG/$SLUG/article.md
+   -  $CONTENT_DIR/$TARGET_LANG/$SLUG/images/ (if needed)
 
    ## Next Steps
 
@@ -478,7 +485,7 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
    Add to source article ($SOURCE_LANG):
    ```markdown
-   🌐 [Translation available in $TARGET_LANG](/$TARGET_LANG/$SLUG)
+    [Translation available in $TARGET_LANG](/$TARGET_LANG/$SLUG)
    ```
    ```
 
@@ -490,10 +497,10 @@ CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json
 
 ### Success Criteria
 
-✅ Article saved to correct location
-✅ Translation summary generated
-✅ Quality validation passed (if run)
-✅ Cross-language links suggested
+ Article saved to correct location
+ Translation summary generated
+ Quality validation passed (if run)
+ Cross-language links suggested
 
 ## Usage Notes
 
@@ -578,7 +585,7 @@ This agent is invoked via `/blog-translate` command:
 CONTENT_DIR=$(jq -r '.blog.content_directory // "articles"' .spec/blog.spec.json)
 
 if [ ! -f "$CONTENT_DIR/$SOURCE_LANG/$SLUG/article.md" ]; then
-  echo "❌ Source article not found: $CONTENT_DIR/$SOURCE_LANG/$SLUG/article.md"
+  echo " Source article not found: $CONTENT_DIR/$SOURCE_LANG/$SLUG/article.md"
   exit 1
 fi
 ```
@@ -587,7 +594,7 @@ fi
 
 ```bash
 if [ -f "$CONTENT_DIR/$TARGET_LANG/$SLUG/article.md" ]; then
-  echo "⚠️  Target article already exists."
+  echo "️  Target article already exists."
   echo "Options:"
   echo "  1. Overwrite (backup created)"
   echo "  2. Skip translation"
@@ -601,7 +608,7 @@ fi
 ```bash
 CONFIGURED_LANGS=$(jq -r '.blog.languages[]' .spec/blog.spec.json)
 if [[ ! "$CONFIGURED_LANGS" =~ "$TARGET_LANG" ]]; then
-  echo "⚠️  Language '$TARGET_LANG' not configured in .spec/blog.spec.json"
+  echo "️  Language '$TARGET_LANG' not configured in .spec/blog.spec.json"
   echo "Add it to continue."
   exit 1
 fi

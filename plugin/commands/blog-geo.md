@@ -55,7 +55,7 @@ Create GEO (Generative Engine Optimization) content brief based on completed res
 
 ## Prerequisites
 
-✅ **Required**: Research report must exist at `.specify/research/[topic]-research.md`
+ **Required**: Research report must exist at `.specify/research/[topic]-research.md`
 
 If research doesn't exist, run `/blog-research` first.
 
@@ -125,14 +125,14 @@ Begin your analysis now.
 
 After completion, verify that `.specify/geo/[topic]-geo-brief.md` exists and contains:
 
-✅ **Authority Assessment**: Credibility score + improvement recommendations
-✅ **AI-Optimized Outline**: Clear H1/H2/H3 structure with question-format headings
-✅ **Quotable Statements**: 5-7 key facts that AI can cite
-✅ **Context Analysis**: Topic coverage assessment + gaps identified
-✅ **Schema Recommendations**: Article, HowTo, FAQPage, etc.
-✅ **Metadata Guidance**: Title, description, tags optimized for AI understanding
-✅ **Citation Strategy**: Unique value propositions + formatting recommendations
-✅ **GEO Checklist**: 20+ criteria for AI discoverability
+ **Authority Assessment**: Credibility score + improvement recommendations
+ **AI-Optimized Outline**: Clear H1/H2/H3 structure with question-format headings
+ **Quotable Statements**: 5-7 key facts that AI can cite
+ **Context Analysis**: Topic coverage assessment + gaps identified
+ **Schema Recommendations**: Article, HowTo, FAQPage, etc.
+ **Metadata Guidance**: Title, description, tags optimized for AI understanding
+ **Citation Strategy**: Unique value propositions + formatting recommendations
+ **GEO Checklist**: 20+ criteria for AI discoverability
 
 ## Review Checklist
 
@@ -170,11 +170,11 @@ After GEO brief is approved:
 
 Use `/blog-geo` when you need to:
 
-- ✅ Optimize content for AI-powered search engines
-- ✅ Maximize likelihood of AI citation
-- ✅ Ensure content is authoritative and comprehensive
-- ✅ Structure content for easy AI parsing
-- ✅ Create AI-discoverable content brief only (without writing article)
+-  Optimize content for AI-powered search engines
+-  Maximize likelihood of AI citation
+-  Ensure content is authoritative and comprehensive
+-  Structure content for easy AI parsing
+-  Create AI-discoverable content brief only (without writing article)
 
 **For full workflow**: Use `/blog-generate` (which can include GEO phase).
 
@@ -291,39 +291,39 @@ If GEO analysis fails:
 
 ### What Works Well for AI Citation
 
-✅ **Clear Definitions**
+ **Clear Definitions**
 > "Distributed tracing is a method of tracking requests across microservices to identify performance bottlenecks and failures."
 
-✅ **Data Points with Context**
+ **Data Points with Context**
 > "According to a 2024 study by Datadog, applications with tracing experience 40% faster incident resolution compared to those relying solely on logs."
 
-✅ **Structured Comparisons**
+ **Structured Comparisons**
 | Feature | Logging | Tracing |
 |---------|---------|---------|
 | Scope | Single service | Cross-service |
 | Use case | Debugging | Performance |
 
-✅ **Question-Format Headings**
+ **Question-Format Headings**
 > ## How Does OpenTelemetry Compare to Proprietary Solutions?
 
-✅ **Actionable Recommendations**
+ **Actionable Recommendations**
 > "Start with 10% sampling in production environments to minimize overhead while maintaining visibility into application behavior."
 
 ### What Doesn't Work
 
-❌ **Vague Claims**
+ **Vague Claims**
 > "Tracing is important for modern applications."
 
-❌ **Keyword Stuffing**
+ **Keyword Stuffing**
 > "Node.js tracing nodejs tracing best practices nodejs application tracing guide..."
 
-❌ **Buried Facts**
+ **Buried Facts**
 > Long paragraphs with key information not highlighted
 
-❌ **Outdated Information**
+ **Outdated Information**
 > Content without publication/update dates
 
-❌ **Unsourced Statistics**
+ **Unsourced Statistics**
 > "Most developers prefer X" (without citation)
 
 ## Success Metrics

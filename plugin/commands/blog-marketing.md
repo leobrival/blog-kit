@@ -17,7 +17,7 @@ Write final blog article based on research and SEO brief using the Marketing Spe
 
 ## Prerequisites
 
-✅ **Required Files**:
+ **Required Files**:
 1. Research report: `.specify/research/[topic]-research.md`
 2. SEO brief: `.specify/seo/[topic]-seo-brief.md`
 
@@ -99,18 +99,18 @@ Begin writing now.
 
 After completion, verify that `articles/[topic].md` exists and contains:
 
-✅ Complete frontmatter (title, description, keywords, author, date, etc.)
-✅ Engaging introduction with hook and promise
-✅ All H2/H3 sections from SEO brief
-✅ Primary keyword in title, intro, headings
-✅ Secondary keywords distributed naturally
-✅ Social proof integrated (5-7 citations)
-✅ 2-3 well-placed CTAs
-✅ FAQ section (if in SEO brief)
-✅ Conclusion with key takeaways
-✅ Sources/references section
-✅ Internal linking suggestions
-✅ Target word count achieved (±10%)
+ Complete frontmatter (title, description, keywords, author, date, etc.)
+ Engaging introduction with hook and promise
+ All H2/H3 sections from SEO brief
+ Primary keyword in title, intro, headings
+ Secondary keywords distributed naturally
+ Social proof integrated (5-7 citations)
+ 2-3 well-placed CTAs
+ FAQ section (if in SEO brief)
+ Conclusion with key takeaways
+ Sources/references section
+ Internal linking suggestions
+ Target word count achieved (±10%)
 
 ## Quality Checklist
 
@@ -139,11 +139,11 @@ After article is generated:
 
 Use `/blog-marketing` when you need to:
 
-- ✅ Rewrite article with different angle
-- ✅ Adjust tone or style
-- ✅ Add/remove sections
-- ✅ Improve specific parts (intro, conclusion, CTAs)
-- ✅ Write only (without research/SEO phases)
+-  Rewrite article with different angle
+-  Adjust tone or style
+-  Add/remove sections
+-  Improve specific parts (intro, conclusion, CTAs)
+-  Write only (without research/SEO phases)
 
 **For full workflow**: Use `/blog-generate` instead.
 

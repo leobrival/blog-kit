@@ -10,29 +10,65 @@ Instructions for Claude Code when working with the Blog-Kit project.
 
 ## Architecture
 
-### Three Specialized Agents
+### Core Agents (100% ACTION-Oriented)
 
-1. **research-intelligence** (`agents/research-intelligence.md`)
+1. **research-intelligence** (`agents/research-intelligence.md`) - ACTION
    - Deep research with 5-7 credible sources
    - Cross-references findings
-   - Outputs: `.specify/research/[topic]-research.md` (~5k tokens)
+   - **Generates article draft** (NEW)
+   - Outputs:
+     - `articles/[topic]-draft.md` (~2k-3k words) ✅ **ACTIONABLE**
+     - `.specify/research/[topic]-research.md` (research report)
 
-2. **seo-specialist** (`agents/seo-specialist.md`)
+2. **seo-specialist** (`agents/seo-specialist.md`) - ACTION
    - Keyword analysis and search intent
    - Content structure design (H2/H3 outline)
-   - Outputs: `.specify/seo/[topic]-seo-brief.md` (~2k tokens)
+   - Detects TOFU/MOFU/BOFU funnel stage
+   - Suggests post type (actionnable/aspirationnel/analytique/anthropologique)
+   - Outputs: `.specify/seo/[topic]-seo-brief.md` (~2k tokens) ✅ **ACTIONABLE**
 
-3. **marketing-specialist** (`agents/marketing-specialist.md`)
+3. **marketing-specialist** (`agents/marketing-specialist.md`) - ACTION
    - Engaging content with CTAs
    - Social proof integration
-   - Outputs: `articles/[topic].md` (final article)
+   - Applies post type + funnel stage frameworks
+   - Outputs: `articles/[topic].md` (final article) ✅ **ACTIONABLE**
+
+4. **quality-optimizer** (`agents/quality-optimizer.md`) - ACTION
+   - Validates article structure and compliance
+   - **Auto-fixes detected issues** (NEW)
+   - Corrects frontmatter, structure, post type compliance
+   - Outputs:
+     - `articles/[topic].md` (auto-corrected version) ✅ **ACTIONABLE**
+     - `.specify/quality/[topic]-fixes.md` (changelog)
+
+5. **analyzer** (`agents/analyzer.md`) - ACTION
+   - Analyzes existing content
+   - Generates constitution + category configs
+   - **Batch updates all articles** with missing metadata (NEW)
+   - Outputs:
+     - `.spec/blog.spec.json` (constitution) ✅
+     - `.category.json` files (per category) ✅
+     - `articles/**/*.md` (all articles updated) ✅ **ACTIONABLE**
+
+6. **persona-specialist** (`agents/persona-specialist.md`) - ACTION (NEW)
+   - Creates behaviorally-validated audience personas
+   - Uses Jobs-to-be-Done, Forces of Progress, Customer Awareness frameworks
+   - Researches audience behaviors from forums, reviews, discussions
+   - Outputs:
+     - `.spec/personas/[id].json` (complete persona) ✅ **ACTIONABLE**
+     - `.spec/personas/registry.json` (persona catalog) ✅
+     - `.specify/personas/[id]-report.md` (targeting guide) ✅ **ACTIONABLE**
 
 ### Workflow Commands
 
+- **`/blog-setup`** - Initial blog configuration
+- **`/blog-analyse`** - Analyze existing content → constitution + batch update
+- **`/blog-personas`** - Create/manage audience personas (NEW)
 - **`/blog-generate "topic"`** - Full workflow (Research → SEO → Marketing)
 - **`/blog-research "topic"`** - Research phase only
 - **`/blog-seo "topic"`** - SEO optimization phase only
 - **`/blog-marketing "topic"`** - Content creation phase only
+- **`/blog-optimize "topic"`** - Quality validation + auto-fix
 
 ### Template System (NEW)
 
@@ -119,25 +155,30 @@ Instructions for Claude Code when working with the Blog-Kit project.
 /blog-generate "Your Topic"
 ```
 
-**Expected Flow**:
-1. Create `research-intelligence` subagent → outputs research report
-2. User checkpoint: Verify research quality
-3. Create `seo-specialist` subagent → outputs SEO brief
+**Expected Flow (100% ACTION)**:
+1. Create `research-intelligence` subagent → **outputs article draft** ✅
+2. User checkpoint: Review draft quality
+3. Create `seo-specialist` subagent → outputs SEO brief + **refines draft** ✅
 4. User checkpoint: Approve keywords and structure
-5. Create `marketing-specialist` subagent → outputs final article
+5. Create `marketing-specialist` subagent → **outputs final article** ✅
 6. User checkpoint: Review and finalize
+7. (Optional) Create `quality-optimizer` subagent → **auto-fixes issues** ✅
+
+**Key Difference**: Every agent now produces actionable content, not just analysis.
 
 **Duration**: 30-45 minutes
 **Token Usage**: ~200k (agents) + <1k (main thread)
+**Output**: Draft + SEO brief + Final article + (optional) Auto-corrected version
 
 ### Individual Phases
 
 For iterating on specific parts:
 
 ```bash
-/blog-research "topic"    # Redo research
-/blog-seo "topic"         # Regenerate SEO brief
-/blog-marketing "topic"   # Rewrite article
+/blog-research "topic"    # Research + generate draft ✅
+/blog-seo "topic"         # Regenerate SEO brief ✅
+/blog-marketing "topic"   # Rewrite article ✅
+/blog-optimize "topic"    # Validate + auto-fix issues ✅
 ```
 
 ## File Structure
@@ -147,26 +188,38 @@ blog-kit/
 ├── .claude-plugin/          # Plugin metadata
 │   ├── plugin.json
 │   └── marketplace.json
-├── .templates/              # JSON template system (NEW)
+├── .templates/              # JSON template system
 │   ├── registry.json       # Master template & component registry
 │   ├── schemas/            # JSON Schema validation (6 files)
 │   ├── types/              # Article templates (tutorial, guide, comparison)
 │   ├── components/         # Content components (8 GEO-optimized)
 │   └── README.md           # Template system documentation
-├── commands/                # Slash commands
+├── .spec/                   # Blog configuration
+│   ├── blog.spec.json      # Blog constitution
+│   └── personas/           # Audience personas (NEW)
+│       ├── schema.json     # Persona validation schema
+│       ├── registry.json   # Persona catalog
+│       └── *.json          # Individual personas
+├── commands/                # Slash commands (12 commands)
 │   ├── blog-generate.md    # Orchestrator
 │   ├── blog-research.md
 │   ├── blog-seo.md
-│   └── blog-marketing.md
-├── agents/                  # Subagent definitions
+│   ├── blog-marketing.md
+│   ├── blog-personas.md    # Persona management (NEW)
+│   └── ...
+├── agents/                  # Subagent definitions (9 agents)
 │   ├── research-intelligence.md
 │   ├── seo-specialist.md
-│   ├── geo-specialist.md   # GEO optimization agent
-│   └── marketing-specialist.md
+│   ├── geo-specialist.md
+│   ├── marketing-specialist.md
+│   ├── persona-specialist.md  # Persona creator (NEW)
+│   └── ...
 ├── .specify/                # Generated artifacts (gitignored)
 │   ├── research/
 │   ├── seo/
-│   └── geo/                # GEO briefs
+│   ├── geo/
+│   ├── quality/
+│   └── personas/           # Persona reports (NEW)
 ├── articles/                # Generated articles (i18n structure)
 │   ├── en/
 │   │   ├── tutorials/
@@ -187,33 +240,41 @@ All generated files use sanitized topic names:
 - Remove special characters
 - Example: "Node.js Tracing" → "nodejs-tracing"
 
+**Article drafts**: `articles/[sanitized-topic]-draft.md` ✅ **NEW** (from research-intelligence)
 **Research reports**: `.specify/research/[sanitized-topic]-research.md`
 **SEO briefs**: `.specify/seo/[sanitized-topic]-seo-brief.md`
 **Final articles**: `articles/[sanitized-topic].md`
+**Auto-fixed articles**: `articles/[sanitized-topic].md` (corrected in-place by quality-optimizer)
 
 ## Agent Communication
 
 **File-Based Handoffs** (not context passing):
 
 ```
-Research Agent
-  ↓ (saves to file)
-.specify/research/[topic]-research.md
-  ↓ (SEO agent reads file)
-SEO Agent
-  ↓ (saves to file)
-.specify/seo/[topic]-seo-brief.md
-  ↓ (Marketing agent reads both files)
-Marketing Agent
-  ↓ (saves to file)
-articles/[topic].md
+Research Agent (ACTION)
+  ↓ (saves draft + report)
+articles/[topic]-draft.md ✅ + .specify/research/[topic]-research.md
+  ↓ (SEO agent reads both)
+SEO Agent (ACTION)
+  ↓ (saves brief)
+.specify/seo/[topic]-seo-brief.md ✅
+  ↓ (Marketing agent reads draft + report + brief)
+Marketing Agent (ACTION)
+  ↓ (saves final article)
+articles/[topic].md ✅
+  ↓ (Quality optimizer reads article)
+Quality Optimizer (ACTION)
+  ↓ (auto-fixes + saves corrected version)
+articles/[topic].md (corrected) ✅
 ```
 
-**Why File-Based**:
+**Why File-Based + Action-Oriented**:
 - Each agent starts with fresh context (no pollution)
 - Main thread never accumulates context
 - Agents can process unlimited data in isolation
 - Explicit input/output contracts
+- **Every agent produces actionable output** (draft, brief, or final content)
+- **No dead-end analysis** - all artifacts are used in the workflow
 
 ## Best Practices
 
@@ -278,30 +339,57 @@ articles/[topic].md
 
 ## Common Tasks
 
-### Generate New Article
+### Setup & Configuration
 
 ```bash
+# Initial setup (new blog)
+/blog-setup
+
+# Analyze existing content (existing blog)
+/blog-analyse
+
+# Create audience personas
+/blog-personas create "Freelance Developer"
+/blog-personas create "Startup Founder"
+```
+
+### Content Generation
+
+```bash
+# Generate new article
 /blog-generate "Best practices for microservices logging"
-```
 
-### Update Existing Research
-
-```bash
+# Update existing research
 /blog-research "microservices-logging"
-```
 
-### Change SEO Angle
-
-```bash
+# Change SEO angle
 /blog-seo "microservices-logging"
-# (After user provides new direction)
+
+# Rewrite article section
+/blog-marketing "microservices-logging"
 ```
 
-### Rewrite Article Section
+### Persona Management
 
 ```bash
-/blog-marketing "microservices-logging"
-# (With specific feedback on what to change)
+# List all personas
+/blog-personas list
+
+# Update persona with new data
+/blog-personas update "developer-freelance"
+
+# Validate persona
+/blog-personas validate "developer-freelance"
+```
+
+### Quality & Optimization
+
+```bash
+# Validate and auto-fix article
+/blog-optimize "article-slug"
+
+# Translate article
+/blog-translate "en/article-slug" "fr"
 ```
 
 ## Troubleshooting

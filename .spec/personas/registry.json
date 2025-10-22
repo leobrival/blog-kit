@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "personas": [
+    {
+      "id": "developer-freelance",
+      "name": "Alex Chen",
+      "file": "example-developer-freelance.json",
+      "awareness_stage": "solution-aware",
+      "primary_value": "saves-time",
+      "target_funnel": ["MOFU", "BOFU"],
+      "confidence": "85%",
+      "validated": true,
+      "created_at": "2025-10-21",
+      "note": "Example persona - demonstrates complete structure"
+    }
+  ],
+  "metadata": {
+    "total_personas": 1,
+    "validated_count": 1,
+    "last_updated": "2025-10-21",
+    "schema_version": "1.0.0"
+  }
+}

@@ -50,7 +50,7 @@ Validate i18n structure consistency and translate articles across languages.
 
 ## Prerequisites
 
-✅ **Required**:
+ **Required**:
 - `.spec/blog.spec.json` with languages configured
 - Source article exists in source language
 - Target language configured in constitution
@@ -179,7 +179,7 @@ Execute ALL phases (1-5) from your instructions:
 - Generate validation scripts in /tmp/
 - Keep image filenames identical (don't translate)
 - Translate image alt text for accessibility
-- Add language navigation links (🇬🇧 🇫🇷 🇪🇸 🇩🇪)
+- Add language navigation links (   )
 
 Display translation summary when complete.
 ```
@@ -194,21 +194,21 @@ After structure validation:
 # Translation Coverage Report
 Generated: 2025-01-12 15:30:00
 
-✅ Language directory exists: en
-✅ Language directory exists: fr
-❌ Missing language directory: es
+ Language directory exists: en
+ Language directory exists: fr
+ Missing language directory: es
 
 ## Article Coverage
 
 ### nodejs-logging
-- ✅ **en**: 2,450 words
-- ✅ **fr**: 2,380 words
-- ❌ **es**: MISSING
+-  **en**: 2,450 words
+-  **fr**: 2,380 words
+-  **es**: MISSING
 
 ### microservices-patterns
-- ✅ **en**: 3,200 words
-- ❌ **fr**: MISSING
-- ❌ **es**: MISSING
+-  **en**: 3,200 words
+-  **fr**: MISSING
+-  **es**: MISSING
 
 ## Summary
 
@@ -247,8 +247,8 @@ After article translation:
 
 ## Files Created
 
-- ✅ articles/fr/nodejs-logging/article.md
-- ✅ articles/fr/nodejs-logging/images/ (3 WebP files)
+-  articles/fr/nodejs-logging/article.md
+-  articles/fr/nodejs-logging/images/ (3 WebP files)
 
 ## Next Steps
 
@@ -261,7 +261,7 @@ After article translation:
 
 Add to source article (en):
 ```markdown
-🇫🇷 [Lire en français](/fr/nodejs-logging)
+ [Lire en français](/fr/nodejs-logging)
 ```
 ```
 
@@ -285,10 +285,10 @@ echo "Generated: $(date)" >> /tmp/translation-report.md
 # Check each language exists
 for lang in $LANGUAGES; do
   if [ ! -d "$ARTICLES_DIR/$lang" ]; then
-    echo "❌ Missing language directory: $lang"
+    echo " Missing language directory: $lang"
     mkdir -p "$ARTICLES_DIR/$lang"
   else
-    echo "✅ Language directory exists: $lang"
+    echo " Language directory exists: $lang"
   fi
 done
 
@@ -314,9 +314,9 @@ for slug in "${ALL_SLUGS[@]}"; do
     article_path="$ARTICLES_DIR/$lang/$slug/article.md"
     if [ -f "$article_path" ]; then
       word_count=$(wc -w < "$article_path")
-      echo "- ✅ **$lang**: $word_count words"
+      echo "-  **$lang**: $word_count words"
     else
-      echo "- ❌ **$lang**: MISSING"
+      echo "-  **$lang**: MISSING"
     fi
   done
 done
@@ -359,7 +359,7 @@ EOF
 /blog-translate
 
 # Output shows:
-# - nodejs-logging: en ✅, fr ❌, es ❌
+# - nodejs-logging: en , fr , es 
 ```
 
 ### 4. Translate to Other Languages
@@ -379,7 +379,7 @@ EOF
 /blog-translate
 
 # Output shows:
-# - nodejs-logging: en ✅, fr ✅, es ✅
+# - nodejs-logging: en , fr , es 
 # - Coverage: 100%
 ```
 
@@ -389,9 +389,9 @@ Manually add language navigation to each article:
 
 ```markdown
 ---
-🇬🇧 [Read in English](/en/nodejs-logging)
-🇫🇷 [Lire en français](/fr/nodejs-logging)
-🇪🇸 [Leer en español](/es/nodejs-logging)
+ [Read in English](/en/nodejs-logging)
+ [Lire en français](/fr/nodejs-logging)
+ [Leer en español](/es/nodejs-logging)
 ---
 ```
 
@@ -532,7 +532,7 @@ Translate only high-priority articles:
 
 ```bash
 # Check what needs translation
-/blog-translate | grep "❌"
+/blog-translate | grep ""
 
 # Translate priority articles only
 /blog-translate "en/top-article" "fr"

@@ -1,0 +1,83 @@
+{
+  "version": "1.0.0",
+  "persona": {
+    "id": "developer-freelance",
+    "name": "Alex Chen",
+    "age": 32,
+    "profession": "Freelance Full-Stack Developer",
+    "background": "5 years experience as full-stack developer, transitioned to freelancing 2 years ago. Works primarily with React, Node.js, and PostgreSQL. Based in Austin, Texas. Manages 3-4 concurrent client projects at any time."
+  },
+  "current_situation": {
+    "state": "Managing 3 concurrent client projects (2 startups, 1 enterprise client), working 50-60 hours per week. Constantly context-switching between projects, struggling to keep all clients updated on progress. Uses mix of tools (Notion for notes, Google Sheets for time tracking, Email for client communication) but feels disorganized.",
+    "feelings": "Overwhelmed by context switching and administrative overhead. Proud of technical work but frustrated by inefficiency. Anxious about missing deadlines or dropping balls. Feels like spending too much time on 'business stuff' instead of coding.",
+    "influences": ["Dev Twitter (follows indie hackers)", "Hacker News (reads daily)", "Tech podcasts (Syntax.fm, ShopTalk)", "YouTube tutorials (Fireship, Theo)", "Reddit r/freelance and r/webdev"],
+    "time_spent": "60% coding, 20% client communication/meetings, 10% admin (invoicing, time tracking), 10% learning new tech"
+  },
+  "goals": {
+    "dreams": "Build sustainable freelance business with selective, high-value clients. Work on interesting technical problems without administrative chaos. Eventually transition some clients to retainer agreements for stable income.",
+    "life_change": "Financial stability without sacrificing technical craft. More deep work time, less reactive firefighting. Ability to say no to bad-fit projects. Recognition as expert in niche (modern web development).",
+    "success_vision": "Working 35-40 hours/week on 2-3 high-quality projects. Premium hourly rate ($150-200/hr). Clients who respect boundaries and value expertise. Time for open-source contributions and side projects. Smooth onboarding and offboarding processes.",
+    "aspiration": "Recognized expert in React/Node.js ecosystem. The 'go-to person' for complex frontend architecture. Invited to speak at conferences. Strong portfolio of case studies."
+  },
+  "blockers": {
+    "main_blocker": "Time management and professional client communication. Unable to track project status efficiently across multiple clients. Reactive rather than proactive with client updates.",
+    "sources": ["No standardized processes", "Poor tool integration", "Lack of project management training", "Reactive mindset (responding to urgency)", "No templates for common communications"],
+    "duration": "2 years (since going freelance)",
+    "consequences": "Occasional missed deadlines, client frustration with lack of updates, burnout from overwork, lost opportunities due to disorganization, reputation risk",
+    "failure_vision": "Back to full-time employment due to failed freelance business. Reputation damaged in local tech community. Financial instability forcing acceptance of any project.",
+    "perception": "Believes the problem is 'just needing the right project management tool' and better discipline. Thinks successful freelancers are naturally more organized. Sees it as personal failing rather than learnable skill.",
+    "tried_solutions": ["Notion (too flexible, became messy)", "Trello (too simple for multi-project)", "Asana (overkill for solo)", "Todoist (good for tasks, not projects)", "Spreadsheets (manual, time-consuming)"],
+    "false_solution": "There's one perfect tool that will solve everything automatically. Just need to find and learn it.",
+    "fears": ["Expensive tools eating into profit margin", "Time lost learning complex systems", "Vendor lock-in with proprietary tools", "Looking unprofessional to clients during transition", "Tool complexity adding more overhead"]
+  },
+  "jobs_to_be_done": {
+    "functional": "Track project status across 3-4 concurrent client projects, generate client update emails automatically, invoice accurately based on tracked time, prioritize tasks across all projects",
+    "emotional": "Feel in control and confident when clients ask for updates. Reduce anxiety about forgetting tasks or missing deadlines. Professional pride in organized communication.",
+    "social": "Appear organized and professional to clients. Be seen as 'easy to work with' compared to other freelancers. Build reputation for reliability.",
+    "context": "When switching between client projects throughout the day, when clients email asking for status, when planning next week's work, when creating invoices at month-end"
+  },
+  "forces_of_progress": {
+    "push": "Lost a client 6 months ago due to poor communication and missed deadline. Current clients occasionally express frustration with lack of proactive updates. Working unsustainable 60+ hour weeks. Feeling burnout.",
+    "pull": "Vision of streamlined workflow where project status is always clear. Seeing successful freelancers on Twitter who seem effortlessly organized. Client testimonials mentioning 'great communication' as key to success. Desire to work less and earn more.",
+    "anxiety": "Time investment to learn new system during busy period. Monthly subscription costs ($20-50/month adds up). Fear of choosing wrong tool again and having to migrate. Complexity making things worse instead of better. Looking disorganized during transition period.",
+    "habit": "Current chaotic system is familiar and doesn't require learning. Can limp along with workarounds. Free tools don't require budget approval from self. Switching costs feel high. 'Good enough' most of the time."
+  },
+  "awareness_stage": {
+    "stage": "solution-aware",
+    "moments": [
+      "Googling 'best project management for freelance developers' at 11pm after stressful client email",
+      "Reading Reddit thread r/freelance asking 'How do you stay organized?'",
+      "Watching YouTube comparison videos: 'Notion vs ClickUp vs Asana for freelancers'",
+      "Reading blog posts: 'How I manage 5 freelance clients without losing my mind'",
+      "Asking in dev Discord: 'What PM tool do solo devs actually use?'"
+    ]
+  },
+  "value_elements": [
+    "saves-time",
+    "reduces-anxiety",
+    "organizes",
+    "simplifies",
+    "quality"
+  ],
+  "behavioral_patterns": {
+    "actions": ["Checks Hacker News every morning", "Watches dev YouTube videos during lunch", "Active in 3 Discord dev communities", "Tweets about technical challenges", "Reads dev blogs via RSS reader", "Tests new tools frequently but abandons quickly"],
+    "past_spending": "$300/year on dev tools (mostly abandoned subscriptions). Tried 5 different PM tools in 2 years. Spent $50 on productivity course that wasn't finished. Current active subscriptions: GitHub Pro ($4/mo), Figma ($12/mo), Grammarly ($12/mo).",
+    "current_solution": "Notion for project notes and documentation, Google Sheets for time tracking, Gmail + labels for client communication, Apple Reminders for quick tasks, Memory for everything else (error-prone)",
+    "decision_makers": "Solo decision maker. Occasionally asks advice from other freelance devs in Discord. Influences: Twitter devs with large followings, YouTube tech reviewers, Hacker News top comments",
+    "similar_situations": "Chose VSCode after trying Sublime, Atom, and WebStorm (3-month evaluation period). Switched from Figma to Sketch back to Figma. Picked React over Vue after watching comparison videos and reading blog posts."
+  },
+  "content_preferences": {
+    "post_types": ["actionnable", "analytique"],
+    "funnel_stages": ["MOFU", "BOFU"],
+    "topics": ["productivity", "freelancing", "project management", "time tracking", "client communication", "developer tools", "workflow automation", "work-life balance"],
+    "tone": "pédagogique",
+    "format": "Step-by-step tutorials with screenshots, tool comparisons with pros/cons tables, case studies from other freelance developers, actionable checklists and templates"
+  },
+  "metadata": {
+    "created_at": "2025-10-21",
+    "updated_at": "2025-10-21",
+    "confidence": "85%",
+    "based_on": "Mix of 8 Reddit threads (r/freelance, r/webdev), 15 product reviews on G2/Capterra for PM tools, 5 YouTube video comments, 3 Discord conversations in freelance dev communities, personal observations from dev Twitter",
+    "validated": true
+  }
+}

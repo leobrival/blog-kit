@@ -17,7 +17,7 @@ Create SEO content brief based on completed research using the SEO Specialist ag
 
 ## Prerequisites
 
-✅ **Required**: Research report must exist at `.specify/research/[topic]-research.md`
+ **Required**: Research report must exist at `.specify/research/[topic]-research.md`
 
 If research doesn't exist, run `/blog-research` first.
 
@@ -81,14 +81,14 @@ Begin your analysis now.
 
 After completion, verify that `.specify/seo/[topic]-seo-brief.md` exists and contains:
 
-✅ Target keywords (primary, secondary, LSI)
-✅ Search intent classification
-✅ 5-7 headline options with recommendation
-✅ Complete content structure (H2/H3 outline)
-✅ Meta description (under 155 characters)
-✅ SEO recommendations (length, density, images, schema)
-✅ Internal linking opportunities
-✅ Competitor insights summary
+ Target keywords (primary, secondary, LSI)
+ Search intent classification
+ 5-7 headline options with recommendation
+ Complete content structure (H2/H3 outline)
+ Meta description (under 155 characters)
+ SEO recommendations (length, density, images, schema)
+ Internal linking opportunities
+ Competitor insights summary
 
 ## Review Checklist
 
@@ -111,10 +111,10 @@ After SEO brief is approved:
 
 Use `/blog-seo` when you need to:
 
-- ✅ Regenerate SEO brief with different angle
-- ✅ Update keywords for different target
-- ✅ Adjust content structure
-- ✅ Create brief only (without writing article)
+-  Regenerate SEO brief with different angle
+-  Update keywords for different target
+-  Adjust content structure
+-  Create brief only (without writing article)
 
 **For full workflow**: Use `/blog-generate` instead.
 

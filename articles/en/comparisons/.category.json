@@ -5,7 +5,8 @@
     "name": "Comparisons",
     "description": "Feature-by-feature comparisons of tools, frameworks, and approaches",
     "language": "en",
-    "icon": "⚖️"
+    "icon": "⚖️",
+    "postType": "analytique"
   },
   "template": {
     "default": "comparison",

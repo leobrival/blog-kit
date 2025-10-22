@@ -205,13 +205,13 @@ Example:
 In English article:
 
 ```markdown
-🇫🇷 [Lire en français](/fr/microservices-logging)
+ [Lire en français](/fr/microservices-logging)
 ```
 
 In French article:
 
 ```markdown
-🇬🇧 [Read in English](/en/microservices-logging)
+ [Read in English](/en/microservices-logging)
 ```
 
 ## Image Optimization Tips
@@ -224,10 +224,10 @@ In French article:
 
 ### After Optimization
 
-- Check `.backup/` contains originals ✅
-- Verify `.webp` files exist ✅
-- Test image loading in article preview ✅
-- Check file sizes reduced (typically 30-70% smaller) ✅
+- Check `.backup/` contains originals 
+- Verify `.webp` files exist 
+- Test image loading in article preview 
+- Check file sizes reduced (typically 30-70% smaller) 
 
 ### Troubleshooting
 
@@ -255,15 +255,15 @@ cp articles/en/my-article/images/.backup/* articles/en/my-article/images/
 
 ### What to Commit
 
-- ✅ `article.md` files
-- ✅ `.backup/` original images (optional, see below)
-- ✅ Optimized `.webp` images
-- ✅ `README.md` (this file)
+-  `article.md` files
+-  `.backup/` original images (optional, see below)
+-  Optimized `.webp` images
+-  `README.md` (this file)
 
 ### What NOT to Commit
 
-- ❌ Temporary files (`.tmp`, `.bak`)
-- ❌ OS files (`.DS_Store`, `Thumbs.db`)
+-  Temporary files (`.tmp`, `.bak`)
+-  OS files (`.DS_Store`, `Thumbs.db`)
 
 ### Large Images
 

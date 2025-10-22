@@ -18,7 +18,7 @@ Optimize article images with automated compression, format conversion (WebP), an
 
 ## Prerequisites
 
-✅ **Required**:
+ **Required**:
 - Article exists at `articles/[language]/[slug]/article.md`
 - Images referenced in article (`.png`, `.jpg`, `.jpeg`, `.gif`, `.bmp`, `.tiff`)
 - ffmpeg installed (for conversion)
@@ -102,21 +102,21 @@ Begin image optimization now.
 
 After completion, verify:
 
-✅ **Backup Directory Created**:
+ **Backup Directory Created**:
 ```bash
 ls articles/en/my-article/images/.backup/
 # screenshot.png (original)
 # diagram.png (original)
 ```
 
-✅ **Optimized Images Created**:
+ **Optimized Images Created**:
 ```bash
 ls articles/en/my-article/images/
 # screenshot.webp (optimized, 80% quality)
 # diagram.webp (optimized, 80% quality)
 ```
 
-✅ **Article References Updated**:
+ **Article References Updated**:
 ```markdown
 # Before:
 ![Screenshot](images/.backup/screenshot.png)
@@ -125,9 +125,9 @@ ls articles/en/my-article/images/
 ![Screenshot](images/screenshot.webp)
 ```
 
-✅ **Size Reduction Report**:
+ **Size Reduction Report**:
 ```
-📊 Optimization Results:
+ Optimization Results:
   - screenshot.png: 2.4MB → 512KB (79% reduction)
   - diagram.png: 1.8MB → 420KB (77% reduction)
 
@@ -184,19 +184,19 @@ Reference in article (use `.backup/` path initially):
 Check backups:
 ```bash
 ls articles/en/my-article/images/.backup/
-# screenshot.png ✅
+# screenshot.png 
 ```
 
 Check optimized:
 ```bash
 ls articles/en/my-article/images/
-# screenshot.webp ✅
+# screenshot.webp 
 ```
 
 Check article updated:
 ```bash
 grep "screenshot" articles/en/my-article/article.md
-# ![Architecture Screenshot](images/screenshot.webp) ✅
+# ![Architecture Screenshot](images/screenshot.webp) 
 ```
 
 ## Multi-Language Support

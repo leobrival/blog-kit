@@ -31,6 +31,11 @@
         "icon": {
           "type": "string",
           "description": "Category icon (emoji or path)"
+        },
+        "postType": {
+          "type": "string",
+          "enum": ["actionnable", "aspirationnel", "analytique", "anthropologique"],
+          "description": "Content classification: actionnable (how-to, practical), aspirationnel (inspirational, visionary), analytique (data-driven, research), anthropologique (behavioral, cultural)"
         }
       }
     },

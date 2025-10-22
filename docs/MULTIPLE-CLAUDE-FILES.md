@@ -129,8 +129,8 @@ Use `/blog-optimize-images` command for automated optimization.
 
 ## Exemples à Éviter
 
-❌ "Let's dive in" → "Plongeons dedans" (littéral)
-✅ "Let's dive in" → "Entrons dans le vif du sujet"
+ "Let's dive in" → "Plongeons dedans" (littéral)
+ "Let's dive in" → "Entrons dans le vif du sujet"
 
 ## Vérifications
 
@@ -203,9 +203,9 @@ Commands that can operate globally MUST warn users:
 /command "lang/slug"
 Token usage: ~10k-15k
 
-### Global (⚠️  High Token Usage)
+### Global (️  High Token Usage)
 /command
-⚠️  WARNING: Operates on ALL articles
+️  WARNING: Operates on ALL articles
 Token usage: 50k-500k+
 ```
 
@@ -255,20 +255,20 @@ Instead of one huge CLAUDE.md, split into manageable, focused files:
 
 ### DO
 
-✅ Create CLAUDE.md in directories where context changes significantly
-✅ Keep each file focused on its scope
-✅ Use clear headings for easy navigation
-✅ Include examples relevant to the directory
-✅ Document directory structure at each level
-✅ Explain special rules for the directory
+ Create CLAUDE.md in directories where context changes significantly
+ Keep each file focused on its scope
+ Use clear headings for easy navigation
+ Include examples relevant to the directory
+ Document directory structure at each level
+ Explain special rules for the directory
 
 ### DON'T
 
-❌ Create CLAUDE.md in every single subdirectory (only where needed)
-❌ Repeat global instructions in every file (let inheritance work)
-❌ Make files too long (split if over 200 lines)
-❌ Use contradictory instructions (child should enhance, not conflict)
-❌ Forget to test that inheritance works as expected
+ Create CLAUDE.md in every single subdirectory (only where needed)
+ Repeat global instructions in every file (let inheritance work)
+ Make files too long (split if over 200 lines)
+ Use contradictory instructions (child should enhance, not conflict)
+ Forget to test that inheritance works as expected
 
 ## Example: Blog Kit Structure
 
@@ -440,11 +440,11 @@ blog-kit/
 ## Conclusion
 
 Multiple CLAUDE.md files enable:
-- ✅ Context-specific guidance
-- ✅ Better organization
-- ✅ Team collaboration
-- ✅ Easier maintenance
-- ✅ Flexible overrides
+-  Context-specific guidance
+-  Better organization
+-  Team collaboration
+-  Easier maintenance
+-  Flexible overrides
 
 Use them strategically - only where context truly differs.
 

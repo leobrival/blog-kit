@@ -21,9 +21,9 @@ Cette commande ajoute le dépôt GitHub au marketplace local de Claude Code.
 ```
 
 Cette commande installe:
-- ✅ **Commands** (`commands/*.md`) - Toutes les commandes slash
-- ✅ **Agents** (`agents/*.md`) - Tous les agents spécialisés
-- ✅ **Templates** (`.templates/`) - Système de templates JSON
+-  **Commands** (`commands/*.md`) - Toutes les commandes slash
+-  **Agents** (`agents/*.md`) - Tous les agents spécialisés
+-  **Templates** (`.templates/`) - Système de templates JSON
 
 ### 3. Vérifier l'Installation
 
@@ -68,13 +68,14 @@ Le plugin devrait apparaître avec le tag `[local]`.
 
 Après installation, vous aurez accès à:
 
-### 📂 Structure Installée
+###  Structure Installée
 
 ```
 ~/.claude/plugins/blog-kit/
-├── commands/                 # 11 commandes slash
+├── commands/                 # 12 commandes slash
 │   ├── blog-setup.md
 │   ├── blog-analyse.md
+│   ├── blog-personas.md          # Persona management ✅ NEW
 │   ├── blog-generate.md
 │   ├── blog-research.md
 │   ├── blog-seo.md
@@ -85,15 +86,16 @@ Après installation, vous aurez accès à:
 │   ├── blog-optimize-images.md
 │   └── blog-translate.md
 │
-├── agents/                   # 8 agents spécialisés
-│   ├── research-intelligence.md
-│   ├── seo-specialist.md
-│   ├── geo-specialist.md
-│   ├── marketing-specialist.md
-│   ├── copywriter.md
-│   ├── quality-optimizer.md
-│   ├── translator.md
-│   └── analyzer.md
+├── agents/                   # 9 agents spécialisés (100% ACTION)
+│   ├── research-intelligence.md    # Generates article draft ✅
+│   ├── seo-specialist.md          # Generates SEO brief ✅
+│   ├── geo-specialist.md          # Generates GEO brief ✅
+│   ├── marketing-specialist.md    # Generates final article ✅
+│   ├── copywriter.md              # Generates spec-compliant article ✅
+│   ├── quality-optimizer.md       # Auto-fixes article issues ✅
+│   ├── translator.md              # Generates translated articles ✅
+│   ├── analyzer.md                # Batch updates articles + configs ✅
+│   └── persona-specialist.md      # Creates audience personas ✅ NEW
 │
 └── .templates/              # Système de templates JSON
     ├── registry.json        # Catalogue des templates
@@ -102,12 +104,13 @@ Après installation, vous aurez accès à:
     └── components/          # Composants (8 fichiers)
 ```
 
-### 🔧 Commandes Disponibles
+###  Commandes Disponibles
 
 Après installation, tapez `/blog-` puis Tab pour voir toutes les commandes:
 
 - `/blog-setup` - Configuration interactive
 - `/blog-analyse` - Analyser le contenu existant
+- `/blog-personas` - Créer/gérer les personas d'audience ✅ NEW
 - `/blog-generate` - Workflow complet (Research → SEO → GEO → Marketing)
 - `/blog-research` - Phase de recherche uniquement
 - `/blog-seo` - Optimisation SEO (moteurs traditionnels)
@@ -134,27 +137,34 @@ Après installation, tapez `/blog-` puis Tab pour voir toutes les commandes:
 /blog-generate "Your article topic"
 ```
 
-### Workflow Complet (30-45 minutes)
+### Workflow Complet (30-45 minutes) - 100% ACTION
 
 ```bash
-# 1. Analyser votre blog existant (optionnel)
+# 1. Analyser votre blog existant (batch update articles ✅)
 /blog-analyse
 
-# 2. Recherche approfondie
+# 2. Recherche approfondie (génère draft ✅)
 /blog-research "nodejs tracing"
+# Output: articles/nodejs-tracing-draft.md
 
-# 3. Optimisation SEO (moteurs traditionnels)
+# 3. Optimisation SEO (génère brief ✅)
 /blog-seo "nodejs tracing"
+# Output: .specify/seo/nodejs-tracing-seo-brief.md
 
-# 4. Optimisation GEO (IA search)
+# 4. Optimisation GEO (génère brief GEO ✅)
 /blog-geo "nodejs tracing"
+# Output: .specify/geo/nodejs-tracing-geo-brief.md
 
-# 5. Création de contenu (utilise tous les briefs)
+# 5. Création de contenu (génère article final ✅)
 /blog-marketing "nodejs tracing"
+# Output: articles/nodejs-tracing.md
 
-# 6. Validation qualité
+# 6. Validation qualité (auto-fixe issues ✅)
 /blog-optimize "nodejs-tracing"
+# Output: articles/nodejs-tracing.md (corrected)
 ```
+
+**Tous les agents produisent du contenu actionnable** - pas seulement de l'analyse!
 
 ## Configuration Requise
 
@@ -162,10 +172,10 @@ Après installation, tapez `/blog-` puis Tab pour voir toutes les commandes:
 
 Le plugin nécessite que ces outils soient disponibles:
 
-- ✅ **WebSearch** - Pour la recherche (agent research-intelligence)
-- ✅ **WebFetch** - Pour récupérer les sources
-- ✅ **Read/Write/Edit** - Pour manipuler les fichiers
-- ✅ **Bash** - Pour les opérations sur fichiers
+-  **WebSearch** - Pour la recherche (agent research-intelligence)
+-  **WebFetch** - Pour récupérer les sources
+-  **Read/Write/Edit** - Pour manipuler les fichiers
+-  **Bash** - Pour les opérations sur fichiers
 
 Ces outils sont normalement activés par défaut dans Claude Code.
 
@@ -216,21 +226,27 @@ Après la première utilisation, votre projet aura cette structure:
 ```
 your-blog/
 ├── .spec/                    # Constitution du blog (généré par /blog-setup)
-│   └── blog.spec.json
+│   ├── blog.spec.json
+│   └── personas/            # Personas d'audience ✅ NEW
+│       ├── schema.json
+│       ├── registry.json
+│       └── *.json
 │
-├── .specify/                 # Artefacts générés
+├── .specify/                 # Artefacts générés (100% ACTIONABLE)
 │   ├── research/            # Rapports de recherche
-│   ├── seo/                 # Briefs SEO
-│   ├── geo/                 # Briefs GEO
-│   └── quality/             # Rapports de validation
+│   ├── seo/                 # Briefs SEO ✅
+│   ├── geo/                 # Briefs GEO ✅
+│   ├── quality/             # Changelogs auto-fix ✅
+│   └── personas/            # Guides de ciblage persona ✅ NEW
 │
 └── articles/                # Articles finaux (structure i18n)
     ├── en/
     │   ├── tutorials/
     │   │   ├── .category.json
     │   │   └── nodejs-tracing/
-    │   │       ├── article.md
+    │   │       ├── article.md        # Final article ✅
     │   │       └── images/
+    │   ├── nodejs-tracing-draft.md   # Research draft ✅
     │   └── comparisons/
     └── fr/
 ```
@@ -253,7 +269,7 @@ your-blog/
 
 Vous devriez voir:
 - **Version**: 0.2.0 ou supérieure
-- **Templates**: ✅ Inclus
+- **Templates**:  Inclus
 
 ## Désinstallation
 
@@ -283,10 +299,10 @@ Si vous voulez désinstaller le plugin:
 **Solution**: Toujours ajouter au marketplace d'abord, puis installer:
 
 ```bash
-# ❌ NE PAS faire ceci
+#  NE PAS faire ceci
 /plugin install https://github.com/leobrival/blog-kit.git
 
-# ✅ FAIRE ceci (en 2 étapes)
+#  FAIRE ceci (en 2 étapes)
 /plugin marketplace add https://github.com/leobrival/blog-kit.git
 /plugin install blog-kit
 ```
@@ -339,9 +355,9 @@ ls ~/.claude/plugins/blog-kit/agents/
 
 Après installation:
 
-1. 📖 Lire le [README.md](./README.md) pour comprendre l'architecture
-2. 🎨 Explorer [.templates/README.md](./.templates/README.md) pour le système de templates
-3. 🚀 Générer votre premier article avec `/blog-generate`
-4. 🎯 Personnaliser avec vos propres templates et catégories
+1.  Lire le [README.md](./README.md) pour comprendre l'architecture
+2.  Explorer [.templates/README.md](./.templates/README.md) pour le système de templates
+3.  Générer votre premier article avec `/blog-generate`
+4.  Personnaliser avec vos propres templates et catégories
 
-Bon blogging! 🎉
+Bon blogging! 

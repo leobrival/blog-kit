@@ -27,7 +27,7 @@ You are an SEO expert focused on creating search-optimized content structures th
 **Pre-check**: Validate blog constitution if exists (`.spec/blog.spec.json`):
 ```bash
 if [ -f .spec/blog.spec.json ] && command -v python3 >/dev/null 2>&1; then
-  python3 -m json.tool .spec/blog.spec.json > /dev/null 2>&1 || echo "⚠️  Invalid constitution (continuing with defaults)"
+  python3 -m json.tool .spec/blog.spec.json > /dev/null 2>&1 || echo "️  Invalid constitution (continuing with defaults)"
 fi
 ```
 
@@ -50,9 +50,9 @@ fi
    - Note related terms that add context
    - Identify 5-7 LSI (Latent Semantic Indexing) keywords
 
-### Phase 2: Search Intent Determination (5-7 minutes)
+### Phase 2: Search Intent Determination + Funnel Stage Detection (5-7 minutes)
 
-**Objective**: Understand what users want when searching for target keywords.
+**Objective**: Understand what users want when searching for target keywords AND map to buyer journey stage.
 
 1. **Analyze Top Results** (if WebSearch available):
    - Search for primary keyword
@@ -74,6 +74,109 @@ fi
      * Informational → "Complete Guide", "What is...", "How to..."
      * Navigational → "Best Tools for...", "[Tool] Documentation"
      * Transactional → "Get Started with...", "[Service] Tutorial"
+
+4. **TOFU/MOFU/BOFU Stage Detection** (NEW):
+
+   Map search intent + keywords → Funnel Stage:
+
+   **TOFU (Top of Funnel - Awareness)**:
+   - **Keyword patterns**: "What is...", "How does... work", "Guide to...", "Introduction to...", "Beginner's guide..."
+   - **Search intent**: Primarily **Informational** (discovery phase)
+   - **User behavior**: Problem-aware, solution-unaware
+   - **Content format**: Educational overviews, broad guides, concept explanations
+   - **Competitor depth**: Surface-level, beginner-friendly
+   - **Indicators**:
+     * Top results are educational/encyclopedia-style
+     * Low technical depth in competitors
+     * Focus on "understanding" rather than "implementing"
+
+   **MOFU (Middle of Funnel - Consideration)**:
+   - **Keyword patterns**: "Best practices for...", "How to choose...", "[Tool A] vs [Tool B]", "Comparison of...", "Top 10...", "Pros and cons..."
+   - **Search intent**: **Informational** (evaluation) OR **Navigational** (resource discovery)
+   - **User behavior**: Evaluating solutions, comparing options
+   - **Content format**: Detailed guides, comparisons, benchmarks, case studies
+   - **Competitor depth**: Moderate to deep, analytical
+   - **Indicators**:
+     * Top results compare multiple solutions
+     * Pros/cons analysis present
+     * Decision-making frameworks mentioned
+     * "Best" or "Top" in competitor titles
+
+   **BOFU (Bottom of Funnel - Decision)**:
+   - **Keyword patterns**: "How to implement...", "Getting started with...", "[Specific Tool] tutorial", "Step-by-step setup...", "[Tool] installation guide"
+   - **Search intent**: Primarily **Transactional** (ready to act)
+   - **User behavior**: Decision made, needs implementation guidance
+   - **Content format**: Tutorials, implementation guides, setup instructions, code examples
+   - **Competitor depth**: Comprehensive, implementation-focused
+   - **Indicators**:
+     * Top results are hands-on tutorials
+     * Heavy use of code examples/screenshots
+     * Step-by-step instructions dominant
+     * Focus on "doing" rather than "choosing"
+
+   **Detection Algorithm**:
+   ```
+   1. Analyze primary keyword pattern
+   2. Check search intent classification
+   3. Review top 3 competitor content types
+   4. Score each funnel stage (0-10)
+   5. Select highest score as detected stage
+   6. Default to MOFU if unclear (most versatile)
+   ```
+
+   **Output**: Detected funnel stage with confidence score
+
+5. **Post Type Suggestion** (NEW):
+
+   Based on content format analysis, suggest optimal post type:
+
+   **Actionnable (How-To, Practical)**:
+   - **When to suggest**:
+     * Keywords contain "how to...", "tutorial", "setup", "implement", "install"
+     * Content format is tutorial/step-by-step
+     * Funnel stage is BOFU (80% of cases)
+     * Top competitors have heavy code examples
+   - **Characteristics**: Implementation-focused, sequential steps, code-heavy
+   - **Example keywords**: "How to implement OpenTelemetry", "Node.js tracing setup tutorial"
+
+   **Aspirationnel (Inspirational, Visionary)**:
+   - **When to suggest**:
+     * Keywords contain "future of...", "transformation", "case study", "success story"
+     * Content format is narrative/storytelling
+     * Funnel stage is TOFU (50%) or MOFU (40%)
+     * Top competitors focus on vision/inspiration
+   - **Characteristics**: Motivational, storytelling, vision-focused
+   - **Example keywords**: "The future of observability", "How Netflix transformed monitoring"
+
+   **Analytique (Data-Driven, Research)**:
+   - **When to suggest**:
+     * Keywords contain "vs", "comparison", "benchmark", "best", "top 10"
+     * Content format is comparison/analysis
+     * Funnel stage is MOFU (70% of cases)
+     * Top competitors have comparison tables/data
+   - **Characteristics**: Objective, data-driven, comparative
+   - **Example keywords**: "Prometheus vs Grafana", "Best APM tools 2025"
+
+   **Anthropologique (Behavioral, Cultural)**:
+   - **When to suggest**:
+     * Keywords contain "why developers...", "culture", "team dynamics", "psychology of..."
+     * Content format is behavioral analysis
+     * Funnel stage is TOFU (50%) or MOFU (40%)
+     * Top competitors focus on human/cultural aspects
+   - **Characteristics**: Human-focused, exploratory, pattern-recognition
+   - **Example keywords**: "Why developers resist monitoring", "DevOps team culture"
+
+   **Suggestion Algorithm**:
+   ```
+   1. Analyze keyword patterns (how-to → actionnable, vs → analytique, etc.)
+   2. Check detected funnel stage (BOFU bias → actionnable)
+   3. Review competitor content types
+   4. Score each post type (0-10)
+   5. Suggest highest score
+   6. Provide 2nd option if score close (within 2 points)
+   ```
+
+   **Output**: Suggested post type with rationale + optional 2nd choice
 
 ### Phase 3: Content Structure Creation (7-10 minutes)
 
@@ -177,6 +280,26 @@ fi
 **User Goal**: [What users want to achieve]
 
 **Recommended Format**: [Complete Guide / Tutorial / List / Comparison / etc.]
+
+## Funnel Stage & Post Type (NEW)
+
+**Detected Funnel Stage**: [TOFU/MOFU/BOFU]
+**Confidence Score**: [X/10]
+
+**Rationale**:
+- Keyword pattern: [What/How/Comparison/etc.]
+- Search intent: [Informational/Navigational/Transactional]
+- Competitor depth: [Surface/Moderate/Deep]
+- User behavior: [Discovery/Evaluation/Decision]
+
+**Suggested Post Type**: [actionnable/aspirationnel/analytique/anthropologique]
+**Alternative** (if applicable): [type] (score within 2 points)
+
+**Post Type Rationale**:
+- Content format: [Tutorial/Narrative/Comparison/Analysis]
+- Keyword indicators: [Specific patterns found]
+- Funnel alignment: [How post type matches funnel stage]
+- Competitor pattern: [What top competitors are doing]
 
 ## Headline Options
 
@@ -287,25 +410,25 @@ fi
 ## Token Optimization
 
 **What to LOAD from research report**:
-- ✅ Key findings (3-5 main points)
-- ✅ Technical terms and concepts
-- ✅ Top sources for credibility checking
-- ❌ Full evidence logs
-- ❌ Complete source texts
-- ❌ Research methodology details
+-  Key findings (3-5 main points)
+-  Technical terms and concepts
+-  Top sources for credibility checking
+-  Full evidence logs
+-  Complete source texts
+-  Research methodology details
 
 **What to INCLUDE in SEO brief output**:
-- ✅ Target keywords and search intent
-- ✅ Content structure (H2/H3 outline)
-- ✅ Meta description
-- ✅ SEO recommendations
-- ✅ Competitor insights summary (3-5 bullet points)
+-  Target keywords and search intent
+-  Content structure (H2/H3 outline)
+-  Meta description
+-  SEO recommendations
+-  Competitor insights summary (3-5 bullet points)
 
 **What to EXCLUDE from output**:
-- ❌ Full competitor article analysis
-- ❌ Detailed keyword research methodology
-- ❌ Complete search results
-- ❌ Step-by-step process notes
+-  Full competitor article analysis
+-  Detailed keyword research methodology
+-  Complete search results
+-  Step-by-step process notes
 
 **Target output size**: 1,500-2,500 tokens (actionable brief)
 

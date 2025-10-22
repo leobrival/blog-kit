@@ -1,0 +1,368 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blog Persona Schema",
+  "description": "Schema for blog persona definition files based on Jobs-to-be-Done, Forces of Progress, and Customer Awareness frameworks",
+  "type": "object",
+  "required": [
+    "version",
+    "persona",
+    "current_situation",
+    "goals",
+    "blockers",
+    "jobs_to_be_done",
+    "forces_of_progress",
+    "awareness_stage",
+    "value_elements",
+    "behavioral_patterns",
+    "content_preferences",
+    "metadata"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the persona schema"
+    },
+    "persona": {
+      "type": "object",
+      "required": ["id", "name", "age", "profession", "background"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Unique identifier (kebab-case)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the persona"
+        },
+        "age": {
+          "type": "integer",
+          "minimum": 18,
+          "maximum": 100,
+          "description": "Age of the persona"
+        },
+        "profession": {
+          "type": "string",
+          "description": "Current profession or role"
+        },
+        "background": {
+          "type": "string",
+          "description": "Detailed background and context"
+        }
+      }
+    },
+    "current_situation": {
+      "type": "object",
+      "required": ["state", "feelings", "influences", "time_spent"],
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "What is their current state?"
+        },
+        "feelings": {
+          "type": "string",
+          "description": "How do they feel about their current situation?"
+        },
+        "influences": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Who influences them? What do they read/watch?"
+        },
+        "time_spent": {
+          "type": "string",
+          "description": "How do they spend their time?"
+        }
+      }
+    },
+    "goals": {
+      "type": "object",
+      "required": ["dreams", "life_change", "success_vision", "aspiration"],
+      "properties": {
+        "dreams": {
+          "type": "string",
+          "description": "What are their dreams and ambitions?"
+        },
+        "life_change": {
+          "type": "string",
+          "description": "How will achieving this goal change their life?"
+        },
+        "success_vision": {
+          "type": "string",
+          "description": "What does success look like?"
+        },
+        "aspiration": {
+          "type": "string",
+          "description": "Who do they want to become?"
+        }
+      }
+    },
+    "blockers": {
+      "type": "object",
+      "required": [
+        "main_blocker",
+        "sources",
+        "duration",
+        "consequences",
+        "failure_vision",
+        "perception",
+        "tried_solutions",
+        "false_solution",
+        "fears"
+      ],
+      "properties": {
+        "main_blocker": {
+          "type": "string",
+          "description": "What is their main blocker?"
+        },
+        "sources": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "What are the sources of this blocker?"
+        },
+        "duration": {
+          "type": "string",
+          "description": "How long have they had this problem?"
+        },
+        "consequences": {
+          "type": "string",
+          "description": "What are the consequences?"
+        },
+        "failure_vision": {
+          "type": "string",
+          "description": "How do they imagine failure?"
+        },
+        "perception": {
+          "type": "string",
+          "description": "How do they perceive this blocker?"
+        },
+        "tried_solutions": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "What have they already tried?"
+        },
+        "false_solution": {
+          "type": "string",
+          "description": "What solution do they think is right (but isn't)?"
+        },
+        "fears": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "What are their fears related to new solutions?"
+        }
+      }
+    },
+    "jobs_to_be_done": {
+      "type": "object",
+      "required": ["functional", "emotional", "social", "context"],
+      "properties": {
+        "functional": {
+          "type": "string",
+          "description": "The functional job they're trying to get done"
+        },
+        "emotional": {
+          "type": "string",
+          "description": "The emotional job that drives their decision"
+        },
+        "social": {
+          "type": "string",
+          "description": "The social job (how they're perceived)"
+        },
+        "context": {
+          "type": "string",
+          "description": "The context in which the job arises"
+        }
+      }
+    },
+    "forces_of_progress": {
+      "type": "object",
+      "required": ["push", "pull", "anxiety", "habit"],
+      "properties": {
+        "push": {
+          "type": "string",
+          "description": "What's pushing them away from current situation?"
+        },
+        "pull": {
+          "type": "string",
+          "description": "What's pulling them toward a new solution?"
+        },
+        "anxiety": {
+          "type": "string",
+          "description": "What are they worried about with the new solution?"
+        },
+        "habit": {
+          "type": "string",
+          "description": "What keeps them stuck in their current way?"
+        }
+      }
+    },
+    "awareness_stage": {
+      "type": "object",
+      "required": ["stage", "moments"],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "enum": [
+            "unaware",
+            "problem-aware",
+            "solution-aware",
+            "product-aware",
+            "most-aware"
+          ],
+          "description": "Eugene Schwartz's 5 stages of customer awareness"
+        },
+        "moments": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "description": "Specific, concrete moments this persona experiences at this stage"
+        }
+      }
+    },
+    "value_elements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "saves-time",
+          "simplifies",
+          "makes-money",
+          "reduces-risk",
+          "organizes",
+          "integrates",
+          "connects",
+          "reduces-effort",
+          "avoids-problems",
+          "reduces-cost",
+          "quality",
+          "variety",
+          "sensory-appeal",
+          "informs",
+          "reduces-anxiety",
+          "rewards",
+          "nostalgia",
+          "design",
+          "badge-value",
+          "wellness",
+          "therapeutic-value",
+          "fun",
+          "attractiveness",
+          "provides-access",
+          "self-actualization",
+          "provides-hope",
+          "motivation",
+          "heirloom",
+          "affiliation",
+          "self-transcendence"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 5,
+      "description": "Top 5 value elements that matter most (from 30 Elements of Value)"
+    },
+    "behavioral_patterns": {
+      "type": "object",
+      "required": [
+        "actions",
+        "past_spending",
+        "current_solution",
+        "decision_makers",
+        "similar_situations"
+      ],
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "What they actually do (behavioral evidence)"
+        },
+        "past_spending": {
+          "type": "string",
+          "description": "How much time/money have they spent on this problem?"
+        },
+        "current_solution": {
+          "type": "string",
+          "description": "What are they doing right now to solve this?"
+        },
+        "decision_makers": {
+          "type": "string",
+          "description": "Who else is involved in their decision?"
+        },
+        "similar_situations": {
+          "type": "string",
+          "description": "What did they do last time they faced similar situation?"
+        }
+      }
+    },
+    "content_preferences": {
+      "type": "object",
+      "required": ["post_types", "funnel_stages", "topics", "tone", "format"],
+      "properties": {
+        "post_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["actionnable", "aspirationnel", "analytique", "anthropologique"]
+          },
+          "description": "Preferred post types"
+        },
+        "funnel_stages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["TOFU", "MOFU", "BOFU"]
+          },
+          "description": "Relevant funnel stages"
+        },
+        "topics": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Topics they care about"
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["expert", "pédagogique", "convivial", "corporate"],
+          "description": "Preferred content tone"
+        },
+        "format": {
+          "type": "string",
+          "description": "Preferred content format (e.g., tutorials, guides, comparisons)"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "created_at",
+        "updated_at",
+        "confidence",
+        "based_on",
+        "validated"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Creation date (YYYY-MM-DD)"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date",
+          "description": "Last update date (YYYY-MM-DD)"
+        },
+        "confidence": {
+          "type": "string",
+          "pattern": "^\\d{1,3}%$",
+          "description": "Confidence level (0-100%)"
+        },
+        "based_on": {
+          "type": "string",
+          "description": "What this persona is based on (e.g., '10 customer interviews')"
+        },
+        "validated": {
+          "type": "boolean",
+          "description": "Has this persona been validated with real behavioral data?"
+        }
+      }
+    }
+  }
+}

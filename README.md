@@ -19,9 +19,10 @@ AI-powered blog article generation with specialized Claude Code agents.
 For complete installation instructions, troubleshooting, and verification steps, see [INSTALL.md](./INSTALL.md).
 
 **What's included**:
-- ✅ 11 slash commands (`/blog-*`)
-- ✅ 8 specialized agents
+- ✅ 12 slash commands (`/blog-*`)
+- ✅ 9 specialized agents
 - ✅ JSON template system (3 templates, 8 components)
+- ✅ Persona system (Jobs-to-be-Done, Forces of Progress)
 - ✅ Complete documentation
 
 ## Quick Start
@@ -93,7 +94,12 @@ Process specific articles efficiently:
 
 ## Features
 
-- **Multi-agent workflow**: Research → SEO/GEO → Marketing
+- **100% Action-Oriented Agents**: Every agent produces actionable content (drafts, briefs, or final articles)
+- **Behavioral Personas**: Jobs-to-be-Done, Forces of Progress, Customer Awareness frameworks for audience targeting
+- **Multi-agent workflow**: Research (→ draft) → SEO/GEO (→ briefs) → Marketing (→ article) → Quality (→ auto-fix)
+- **Automatic Draft Generation**: Research agent now generates article drafts, not just reports
+- **Auto-Fix Quality Issues**: Quality optimizer automatically corrects detected problems
+- **Batch Content Updates**: Analyzer updates all existing articles with missing metadata
 - **JSON-based templates**: ShadCN-inspired template system with strict validation
 - **Template library**: Tutorial, Guide, Comparison templates with GEO components
 - **Hierarchical configuration**: 5-level cascade (global → template → language → category → article)
@@ -105,22 +111,24 @@ Process specific articles efficiently:
 - **Translation validation**: Automated i18n coverage reports and missing translation detection
 - **Image optimization**: Automated WebP conversion (80% quality)
 - **GEO optimization**: AI search optimization (ChatGPT, Perplexity, Google AI Overviews)
+- **Post Types & Funnel Stages**: Content adapts to 4 post types (actionnable/aspirationnel/analytique/anthropologique) and 3 funnel stages (TOFU/MOFU/BOFU)
 
 ## Commands
 
-| Command | Description | Time |
-|---------|-------------|------|
-| `/blog-setup` | Setup wizard | 2 min |
-| `/blog-analyse` | Analyze existing content → generate constitution | 10-15 min |
-| `/blog-generate` | Full workflow | 30-45 min |
-| `/blog-research` | Research only | 15-20 min |
-| `/blog-seo` | SEO optimization (traditional search) | 5-10 min |
-| `/blog-geo` | GEO optimization (AI search: ChatGPT, Perplexity, etc.) | 10-15 min |
-| `/blog-marketing` | Marketing content | 10-15 min |
-| `/blog-copywrite` | Spec-driven copy | 20-40 min |
-| `/blog-optimize` | Quality validation | 10-15 min |
-| `/blog-optimize-images` | Image compression (WebP) | 10-20 min |
-| `/blog-translate` | i18n validation & translation | 2-20 min |
+| Command | Description | Output | Time |
+|---------|-------------|--------|------|
+| `/blog-setup` | Setup wizard | `.spec/blog.spec.json` | 2 min |
+| `/blog-analyse` | Analyze + **batch update articles** ✅ | Constitution + updated articles | 10-15 min |
+| `/blog-personas` | **Create audience personas** ✅ | Persona JSON + targeting guide | 15-30 min |
+| `/blog-generate` | Full workflow (draft → brief → article) | Draft + article ✅ | 30-45 min |
+| `/blog-research` | Research + **generate draft** ✅ | Article draft | 15-20 min |
+| `/blog-seo` | SEO optimization + **generate brief** ✅ | SEO brief | 5-10 min |
+| `/blog-geo` | GEO optimization + **generate brief** ✅ | GEO brief | 10-15 min |
+| `/blog-marketing` | **Generate final article** ✅ | Final article | 10-15 min |
+| `/blog-copywrite` | Spec-driven **article generation** ✅ | Compliant article | 20-40 min |
+| `/blog-optimize` | Validation + **auto-fix** ✅ | Corrected article | 10-15 min |
+| `/blog-optimize-images` | **Image compression** ✅ | WebP images | 10-20 min |
+| `/blog-translate` | i18n validation + **translation** ✅ | Translated article | 2-20 min |
 
 ## What's Included in the Plugin
 
@@ -132,36 +140,45 @@ When you install this plugin, you get:
 
 **Note**: Scripts in `scripts/` are local development utilities and are NOT transferred via the plugin. They're only used for local validation and setup.
 
-## Architecture
+## Architecture (100% ACTION-Oriented)
 
 ```
-.templates/                → JSON-based template system (NEW)
+.templates/                → JSON-based template system
 ├── registry.json         → Master template & component registry
 ├── schemas/              → JSON Schema validation (6 files)
 ├── types/                → Article templates (tutorial, guide, comparison)
 └── components/           → Content components (quotation, statistic, code-block, etc.)
 
-.specify/
-├── research/             → Research reports (generated)
-├── seo/                  → SEO briefs (generated)
-├── geo/                  → GEO briefs (AI search optimization, generated)
-└── quality/              → Validation reports (generated)
+.spec/                    → Blog constitution & personas (auto-generated ✅)
+├── blog.spec.json        → Complete blog configuration
+└── personas/             → Audience personas ✅ NEW
+    ├── schema.json       → Persona validation schema
+    ├── registry.json     → Persona catalog
+    └── *.json            → Individual persona files
 
-articles/                 → Final articles (i18n structure)
+.specify/                 → Generated artifacts (100% ACTIONABLE)
+├── research/             → Research reports (analysis + draft generation ✅)
+├── seo/                  → SEO briefs ✅ (actionable structure)
+├── geo/                  → GEO briefs ✅ (AI search optimization)
+├── quality/              → Auto-fix changelogs ✅ (what was corrected)
+└── personas/             → Persona reports & targeting guides ✅ NEW
+
+articles/                 → Final articles (i18n structure) + DRAFTS ✅
 ├── en/                   → English articles
 │   ├── tutorials/        → Category-specific articles
-│   │   ├── .category.json  → Category configuration
+│   │   ├── .category.json  → Category configuration (auto-updated ✅)
 │   │   └── slug/
-│   │       ├── article.md
+│   │       ├── article.md  → Final article ✅
 │   │       └── images/
+│   ├── nodejs-tracing-draft.md  → Research draft ✅
 │   └── comparisons/
 │       └── .category.json
-└── fr/                   → French articles
+└── fr/                   → French articles (translated ✅)
     └── tutorials/
         └── .category.json
-
-.spec/                    → Blog constitution (optional, /blog-setup)
 ```
+
+**Key Difference**: Every agent produces content you can use immediately (drafts, articles, briefs, corrections, or personas).
 
 ## Template System
 
@@ -213,11 +230,13 @@ Users can create their own templates and categories. See [`.templates/README.md`
 
 ## Philosophy
 
-"Burn tokens in workers, preserve main thread"
+"Burn tokens in workers, preserve main thread" + **"Every agent produces actionable output"**
 
+- **100% Action-Oriented**: All agents generate content (drafts, briefs, articles, corrections)
 - Agents process 50k-150k tokens each (isolated)
 - Main thread uses <1k tokens (orchestration)
 - File-based handoffs (no context accumulation)
+- **No dead-end analysis**: Every artifact is usable in the workflow
 
 ## License
 

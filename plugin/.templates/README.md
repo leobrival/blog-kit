@@ -280,7 +280,7 @@ Create `.category.json` in category directories:
     "id": "tutorials",
     "name": "Tutorials",
     "language": "en",
-    "icon": "📚"
+    "icon": ""
   },
   "template": {
     "default": "tutorial",
@@ -366,14 +366,14 @@ Based on Princeton University research (November 2023):
 
 ## Benefits
 
-✅ **JSON as source of truth** - No markdown ambiguity
-✅ **Strict validation** - Catch errors before generation
-✅ **Hierarchical configuration** - Flexible inheritance
-✅ **GEO optimization** - Princeton methods built-in
-✅ **Component reusability** - DRY content elements
-✅ **Template consistency** - Enforced structure
-✅ **i18n support** - Language and category organization
-✅ **Schema validation** - IDE autocomplete and validation
+ **JSON as source of truth** - No markdown ambiguity
+ **Strict validation** - Catch errors before generation
+ **Hierarchical configuration** - Flexible inheritance
+ **GEO optimization** - Princeton methods built-in
+ **Component reusability** - DRY content elements
+ **Template consistency** - Enforced structure
+ **i18n support** - Language and category organization
+ **Schema validation** - IDE autocomplete and validation
 
 ## Comparison with ShadCN
 

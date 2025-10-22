@@ -5,7 +5,8 @@
     "name": "Tutorials",
     "description": "Step-by-step technical tutorials with hands-on examples",
     "language": "en",
-    "icon": "📚"
+    "icon": "📚",
+    "postType": "actionnable"
   },
   "template": {
     "default": "tutorial",
